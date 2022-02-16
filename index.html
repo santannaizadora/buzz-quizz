@@ -10,8 +10,8 @@
     <link rel="shortcut icon" href="./img/favicon.ico" />
 
     <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/create-quizz-style.css">
+    <link rel="stylesheet" href="./css/style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,7 @@
     </header>
 
     <div class="create-quizz">
-        <div class="create-quizz-info">
+        <div class="create-quizz-info hidden">
             <h2>Comece pelo começo</h2>
             <div class="inputs">
                 <input id="create-title" type="text" placeholder="Título do seu quizz">
@@ -34,7 +34,40 @@
             </div>
             <button>Prosseguir pra criar perguntas</button>
         </div>
-        <div class="create-quizz-questions"></div>
+        <div class="create-quizz-questions">
+            <h2>Crie suas perguntas</h2>
+            <div class="inputs">
+                <h3>Pergunta 1</h3>
+                <div class="group-inputs">
+                    <input id="question-text" type="text" placeholder="Texto da pergunta">
+                    <input id="question-background" type="text" placeholder="Cor de fundo da pergunta">
+                </div>
+
+                <h3>Resposta correta</h3>
+                <div class="group-inputs">
+                    <input id="correct-answer" type="text" placeholder="Resposta correta">
+                    <input id="correct-url-img" type="text" placeholder="URL da imagem">
+                </div>
+
+                <h3>Respostas incorretas</h3>
+                <div class="group-inputs">
+                    <input id="first-wrong-answer" type="text" placeholder="Resposta incorreta 1">
+                    <input id="first-wrong-url-img" type="text" placeholder="URL da imagem 1">
+                </div>
+
+                <div class="group-inputs">
+                    <input id="second-wrong-answer" type="text" placeholder="Resposta incorreta 2">
+                    <input id="second-wrong-url-img" type="text" placeholder="URL da imagem 2">
+                </div>
+
+                <div class="group-inputs">
+                    <input id="third-wrong-answer" type="text" placeholder="Resposta incorreta 3">
+                    <input id="third-wrong-url-img" type="text" placeholder="URL da imagem 3">
+                </div>
+
+            </div>
+            <button>Prosseguir pra criar níveis</button>
+        </div>
         <div class="create-quizz-levels"></div>
         <div class="create-quizz-success"></div>
     </div>

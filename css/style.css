@@ -24,3 +24,7 @@ header p {
     font-size: 37px;
     font-weight: bold;
 }
+
+.hidden {
+    display: none;
+}

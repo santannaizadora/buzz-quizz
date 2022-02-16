@@ -26,14 +26,13 @@
     font-size: 20px;
 }
 
-.create-quizz-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.create-quizz h3 {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 15px;
 }
 
-.create-quizz-info button {
+.create-quizz button {
     margin-top: 29px;
     width: 324px;
     height: 54px;
@@ -51,4 +50,19 @@
     display: flex;
     flex-direction: column;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+.group-inputs {
+    align-self: center;
+    padding: 10px;
+}
+
+.create-quizz-info,
+.create-quizz-questions,
+.create-quizz-levels,
+.create-quizz-success {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
