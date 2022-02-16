@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/create-quizz-style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,8 +23,20 @@
         <p>BuzzQuizz</p>
     </header>
 
-    <div>
-        Teste
+    <div class="create-quizz">
+        <div class="create-quizz-info">
+            <h2>Comece pelo começo</h2>
+            <div class="inputs">
+                <input id="create-title" type="text" placeholder="Título do seu quizz">
+                <input id="create-img-url" type="text" placeholder="URL da imagem do seu quizz">
+                <input id="create-num-questions" type="text" placeholder="Quantidade de perguntas do quizz">
+                <input id="create-num-levels" type="text" placeholder="Quantidade de níveis do quizz">
+            </div>
+            <button>Prosseguir pra criar perguntas</button>
+        </div>
+        <div class="create-quizz-questions"></div>
+        <div class="create-quizz-levels"></div>
+        <div class="create-quizz-success"></div>
     </div>
 </body>
 
