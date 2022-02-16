@@ -35,17 +35,3 @@ const isValidUrl = (url) => {
     var isValid = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
     return (isValid !== null)
 }
-
-const isNumQuestionsValid = (numQuestions) => {
-    if (numQuestions >= 3) {
-        return true
-    }
-    return false
-}
-
-const isNumLevelsValid = (numLevels) => {
-    if (numLevels >= 2) {
-        return true
-    }
-    return false
-}
