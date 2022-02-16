@@ -1,0 +1,96 @@
+
+.quizzTitleT2{
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://http.cat/411.jpg');
+    background-position: 100% 50%;
+    background-size: cover;
+    width: 100%;
+    height: 200px;
+    margin-top: 69px;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.quizzTitleT2 p{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 19px;
+    line-height: 22px;
+    color: #ffff;
+}
+
+.questionTitleT2 {
+    background-color: #434CA0; /*Vai ser dado de entrada para cada pergunta*/
+    width: 90%;
+    height: 89px;
+    margin-top: 42px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 42px auto 0 auto;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 19px;
+    line-height: 22px;
+    color: #ffff;
+}
+
+.blockQuizzT2__1 {
+    display: flex;
+    width: 90%;
+    margin: 12px auto;
+    justify-content: center;
+}
+
+.blockQuizzT2__1 img{
+    height: 113px;
+    margin-bottom: 6px;
+}
+
+.blockQuizzT2__1 p{
+    margin-bottom: 12px;
+}
+
+.column1QuizzT2 {
+    display: flex;
+    flex-direction: column;
+    margin-right: 12px;
+}
+
+.column2QuizzT2 {
+    display: flex;
+    flex-direction: column;
+}
+
+.blockQuizzT2 img:hover{
+    background-color: aqua;
+}
+
+.blockQuizzT2__2 {
+    display: flex;
+    width: 90%;
+    margin: 12px auto;
+    justify-content: center;
+}
+
+.blockQuizzT2__2 img{
+    height: 113px;
+    margin-bottom: 6px;
+}
+
+.blockQuizzT2__2 p{
+    margin-bottom: 12px;
+}
+
+.selected p{
+    color: #009C22;
+}
+
+.notSelected{
+    opacity: 0.3;
+}
