@@ -19,6 +19,7 @@
     font-size: 19px;
     outline: 0;
     align-self: center;
+    padding: 10px;
 }
 
 .create-quizz textarea {
@@ -37,7 +38,7 @@
     margin-bottom: 15px;
 }
 
-.create-quizz button {
+.create-quizz-button {
     margin-top: 29px;
     width: 324px;
     height: 54px;
@@ -67,6 +68,11 @@
     display: flex;
     flex-wrap: wrap;
     word-break: break-all;
+}
+
+.back-home {
+    color: #818181;
+    background-color: #FAFAFA;
 }
 
 .create-quizz-info,

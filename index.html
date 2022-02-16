@@ -32,7 +32,7 @@
                 <input id="create-num-questions" type="text" placeholder="Quantidade de perguntas do quizz">
                 <input id="create-num-levels" type="text" placeholder="Quantidade de níveis do quizz">
             </div>
-            <button>Prosseguir pra criar perguntas</button>
+            <button class="create-quizz-button">Prosseguir pra criar perguntas</button>
         </div>
         <div class="create-quizz-questions hidden">
             <h2>Crie suas perguntas</h2>
@@ -66,9 +66,9 @@
                 </div>
 
             </div>
-            <button>Prosseguir pra criar níveis</button>
+            <button class="create-quizz-button">Prosseguir pra criar níveis</button>
         </div>
-        <div class="create-quizz-levels">
+        <div class="create-quizz-levels hidden">
             <h2>Agora, decida os níveis!</h2>
             <div class="inputs">
                 <h3>Nível 1</h3>
@@ -77,9 +77,14 @@
                 <input id="level-img-url" type="text" placeholder="URL da imagem do nível">
                 <textarea id="level-description" type="text" placeholder="Descrição do nível"></textarea>
             </div>
-            <button>Finalizar Quizz</button>
+            <button class="create-quizz-button">Finalizar Quizz</button>
         </div>
-        <div class="create-quizz-success"></div>
+        <div class="create-quizz-success">
+            <h2>Seu quizz está pronto!</h2>
+            <div class="quizz-img"></div>
+            <button class="create-quizz-button">Acessar Quizz</button>
+            <button class="create-quizz-button back-home">Voltar para home</button>
+        </div>
     </div>
 </body>
 
