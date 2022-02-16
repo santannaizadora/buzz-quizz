@@ -91,6 +91,10 @@
     color: #009C22;
 }
 
+.selected {
+    opacity: none;
+}
+
 .notSelected{
     opacity: 0.3;
 }
