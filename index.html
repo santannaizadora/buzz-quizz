@@ -34,7 +34,7 @@
             </div>
             <button>Prosseguir pra criar perguntas</button>
         </div>
-        <div class="create-quizz-questions">
+        <div class="create-quizz-questions hidden">
             <h2>Crie suas perguntas</h2>
             <div class="inputs">
                 <h3>Pergunta 1</h3>
@@ -68,7 +68,17 @@
             </div>
             <button>Prosseguir pra criar níveis</button>
         </div>
-        <div class="create-quizz-levels"></div>
+        <div class="create-quizz-levels">
+            <h2>Agora, decida os níveis!</h2>
+            <div class="inputs">
+                <h3>Nível 1</h3>
+                <input id="level-title" type="text" placeholder="Título do nível">
+                <input id="rating-level" type="text" placeholder="% acerto mínima">
+                <input id="level-img-url" type="text" placeholder="URL da imagem do nível">
+                <textarea id="level-description" type="text" placeholder="Descrição do nível"></textarea>
+            </div>
+            <button>Finalizar Quizz</button>
+        </div>
         <div class="create-quizz-success"></div>
     </div>
 </body>
