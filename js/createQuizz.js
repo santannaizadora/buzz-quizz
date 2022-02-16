@@ -27,6 +27,8 @@ let quizzObj = {
 let numQuestions = 0
 let numLevels = 0
 
+//VALIDAÇÃO DE CADA INPUT
+
 const isQuizzTitleValid = (title) => {
     if (title.length >= 20 && title.length <= 65) {
         return true
@@ -35,7 +37,7 @@ const isQuizzTitleValid = (title) => {
 }
 
 const isValidUrl = (url) => {
-    var isValid = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    let isValid = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
     return (isValid !== null)
 }
 
@@ -53,12 +55,34 @@ const isNumLevelsValid = (numLevels) => {
     return false
 }
 
+const isQuestionTextValid = (questionText) => {
+    if (questionText.length >= 20) {
+        return true
+    }
+    return false
+}
+
+const isValidHexColor = (hexColor) => {
+    let isValid = hexColor.match(/^#([0-9a-f]{3}){1,2}$/i)
+    return (isValid !== null)
+}
+
+const isAnswerValid = (answer) => {
+    if (answer != '') {
+        return true
+    }
+    return false
+}
+
+//PEGA OS DADOS QUE SERÃO ENVIADOS AO SERVIDOR/ DADOS USADOS PARA RENDERIZAR OS INPUTS DE PERGUNTAS/NÍVEIS
 const getBasicInfos = () => {
     quizzObj.title = document.getElementById('create-title').value
     quizzObj.image = document.getElementById('create-img-url').value
     numQuestions = document.getElementById('create-num-questions').value
     numLevels = document.getElementById('create-num-levels').value
 }
+
+//VALIDA SE TODOS OS INPUTS DAS INFORMAÇÕES BÁSICAS POSSUEM DADOS VÁLIDOS
 
 const validateBasicInfos = () => {
     getBasicInfos()
@@ -67,6 +91,8 @@ const validateBasicInfos = () => {
     }
     return false
 }
+
+//APARECE MENSAGEM DE ERRO PARA OS INPUTS QUE NÃO POSSUEM DADOS VÁLIDOS
 
 const invalidBasicInfos = () => {
     let invalidTitleMessage = document.getElementById('ivalid-quizz-tile')
@@ -112,12 +138,57 @@ const invalidBasicInfos = () => {
     }
 }
 
+//LIBERA (OU NÃO) A PROXIMA PAGINA PARA CRIAR AS PERGUNTAS QUIZZ
+
 const goToQuestions = () => {
     let isAllValid = validateBasicInfos()
     if (isAllValid) {
+        loadQuestionsInputs()
         document.querySelector('.create-quizz-info').classList.add('hidden')
         document.querySelector('.create-quizz-questions').classList.remove('hidden')
     } else {
         invalidBasicInfos()
     }
+}
+
+//CARREGA OS CAMPOS NECESSÁRIOS PARA A QUANTIDADE DE PERGUNTAS
+
+const loadQuestionsInputs = () => {
+    questionsInputs = ''
+    createQuestionsContainer = document.getElementById('questions-inputs')
+    for (let i = 0; i < numQuestions; i++) {
+        questionsInputs += `<div class="inputs">
+        <h3>Pergunta ${i+1}</h3>
+        <div class="group-inputs">
+            <input id="${i+1}-question-text" class="create-quizz-input" type="text" placeholder="Texto da pergunta">
+            <input id="${i+1}-question-background" class="create-quizz-input" type="text" placeholder="Cor de fundo da pergunta">
+        </div>
+
+        <h3>Resposta correta</h3>
+        <div class="group-inputs">
+            <input id="${i+1}-correct-answer" class="create-quizz-input" type="text" placeholder="Resposta correta">
+            <input id="${i+1}-correct-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem">
+        </div>
+
+        <h3>Respostas incorretas</h3>
+        <div class="group-inputs">
+            <input id="${i+1}-first-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 1">
+            <input id="${i+1}-first-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 1">
+        </div>
+
+        <div class="group-inputs">
+            <input id="${i+1}-second-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 2">
+            <input id="${i+1}-second-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 2">
+        </div>
+
+        <div class="group-inputs">
+            <input id="${i+1}-third-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 3">
+            <input id="${i+1}-third-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 3">
+        </div>
+    </div>
+`
+        createQuestionsContainer.innerHTML = questionsInputs
+    }
+
+
 }
