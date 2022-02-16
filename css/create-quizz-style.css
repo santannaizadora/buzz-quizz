@@ -6,8 +6,8 @@
     height: 100%;
 }
 
-.create-quizz input,
-.create-quizz textarea {
+.create-quizz-input,
+.create-quizz-textarea {
     display: block;
     width: 341px;
     height: 46px;
@@ -22,7 +22,7 @@
     padding: 10px;
 }
 
-.create-quizz textarea {
+.create-quizz-textarea {
     font-family: 'Roboto', sans-serif;
 }
 
@@ -83,4 +83,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.invalid-input {
+    background-color: #FFE9E9;
+}
+
+.invalid-error-message {
+    font-size: 16px;
+    color: #EC362D;
 }

@@ -27,42 +27,54 @@
         <div class="create-quizz-info">
             <h2>Comece pelo começo</h2>
             <div class="inputs">
-                <input id="create-title" type="text" placeholder="Título do seu quizz">
-                <input id="create-img-url" type="text" placeholder="URL da imagem do seu quizz">
-                <input id="create-num-questions" type="text" placeholder="Quantidade de perguntas do quizz">
-                <input id="create-num-levels" type="text" placeholder="Quantidade de níveis do quizz">
+                <div class="group-inputs">
+                    <input id="create-title" class="create-quizz-input" type="text" placeholder="Título do seu quizz">
+                    <p id="ivalid-quizz-tile" class="invalid-error-message hidden">O título deve ter entre 20 e 65 caracteres</p>
+                </div>
+                <div class="group-inputs">
+                    <input id="create-img-url" class="create-quizz-input" type="text" placeholder="URL da imagem do seu quizz">
+                    <p id="ivalid-img-url" class="invalid-error-message hidden">O valor informado não é uma URL válida</p>
+                </div>
+                <div class="group-inputs">
+                    <input id="create-num-questions" class="create-quizz-input" type="text" placeholder="Quantidade de perguntas do quizz">
+                    <p id="invalid-num-questions" class="invalid-error-message hidden">O quizz deve ter no mínimo 3 perguntas</p>
+                </div>
+                <div class="group-inputs">
+                    <input id="create-num-levels" class="create-quizz-input" type="text" placeholder="Quantidade de níveis do quizz">
+                    <p id="invalid-num-levels" class="invalid-error-message hidden">O quizz deve ter no mínimo 2 níveis</p>
+                </div>
             </div>
-            <button class="create-quizz-button">Prosseguir pra criar perguntas</button>
+            <button class="create-quizz-button" onclick="goToQuestions()">Prosseguir pra criar perguntas</button>
         </div>
         <div class="create-quizz-questions hidden">
             <h2>Crie suas perguntas</h2>
             <div class="inputs">
                 <h3>Pergunta 1</h3>
                 <div class="group-inputs">
-                    <input id="question-text" type="text" placeholder="Texto da pergunta">
-                    <input id="question-background" type="text" placeholder="Cor de fundo da pergunta">
+                    <input id="question-text" class="create-quizz-input" type="text" placeholder="Texto da pergunta">
+                    <input id="question-background" class="create-quizz-input" type="text" placeholder="Cor de fundo da pergunta">
                 </div>
 
                 <h3>Resposta correta</h3>
                 <div class="group-inputs">
-                    <input id="correct-answer" type="text" placeholder="Resposta correta">
-                    <input id="correct-url-img" type="text" placeholder="URL da imagem">
+                    <input id="correct-answer" class="create-quizz-input" type="text" placeholder="Resposta correta">
+                    <input id="correct-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem">
                 </div>
 
                 <h3>Respostas incorretas</h3>
                 <div class="group-inputs">
-                    <input id="first-wrong-answer" type="text" placeholder="Resposta incorreta 1">
-                    <input id="first-wrong-url-img" type="text" placeholder="URL da imagem 1">
+                    <input id="first-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 1">
+                    <input id="first-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 1">
                 </div>
 
                 <div class="group-inputs">
-                    <input id="second-wrong-answer" type="text" placeholder="Resposta incorreta 2">
-                    <input id="second-wrong-url-img" type="text" placeholder="URL da imagem 2">
+                    <input id="second-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 2">
+                    <input id="second-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 2">
                 </div>
 
                 <div class="group-inputs">
-                    <input id="third-wrong-answer" type="text" placeholder="Resposta incorreta 3">
-                    <input id="third-wrong-url-img" type="text" placeholder="URL da imagem 3">
+                    <input id="third-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 3">
+                    <input id="third-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 3">
                 </div>
 
             </div>
@@ -72,10 +84,10 @@
             <h2>Agora, decida os níveis!</h2>
             <div class="inputs">
                 <h3>Nível 1</h3>
-                <input id="level-title" type="text" placeholder="Título do nível">
-                <input id="rating-level" type="text" placeholder="% acerto mínima">
-                <input id="level-img-url" type="text" placeholder="URL da imagem do nível">
-                <textarea id="level-description" type="text" placeholder="Descrição do nível"></textarea>
+                <input id="level-title" class="create-quizz-input" type="text" placeholder="Título do nível">
+                <input id="rating-level" class="create-quizz-input" type="text" placeholder="% acerto mínima">
+                <input id="level-img-url" class="create-quizz-input" type="text" placeholder="URL da imagem do nível">
+                <textarea id="level-description" class="create-quizz-textarea" type="text" placeholder="Descrição do nível"></textarea>
             </div>
             <button class="create-quizz-button">Finalizar Quizz</button>
         </div>
