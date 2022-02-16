@@ -12,7 +12,7 @@ function selectAnswer(div,num){
 
         containerAnswers[num-1] = false;
 
-        let numAnswer = parseFloat(div.id.replace('answer', '')); 
+        let numAnswer = parseFloat(div.id.replace(`block${num}_answer`, '')); 
         
         let myElement = document.querySelector(`.blockQuizzT2__${num}`);
 
