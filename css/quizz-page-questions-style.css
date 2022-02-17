@@ -2,12 +2,18 @@ header{
     z-index: 2;
 }
 
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .quizzTitleT2{
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://http.cat/411.jpg');
+    /* background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://http.cat/411.jpg'); */
     background-position: 100% 50%;
     background-size: cover;
     width: 100%;
-    height: 200px;
+    height: 142px;
     margin-top: 69px;
     display: flex;
     text-align: center;
@@ -23,41 +29,46 @@ header{
     font-size: 19px;
     line-height: 22px;
     color: #ffff;
+    word-break: break-all;
 }
 
 .questionTitleT2 {
     background-color: #434CA0; /*Vai ser dado de entrada para cada pergunta*/
-    width: 90%;
+    width: 100%;
     height: 89px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 42px auto 0 auto;
+    margin: 42px auto 12px auto;
+    text-align: center;
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
     font-size: 19px;
     line-height: 22px;
     color: #ffff;
+    word-break: break-all;
 }
 
-.blockQuizzT2__1 {
+.containerQuizz {
     display: flex;
-    width: 90%;
-    margin-top: 12px;
+    max-width: 92%;
+    align-items: center;
     justify-content: space-around;
     flex-wrap: wrap;
 }
 
-.blockQuizzT2__1 img{
+.blockQuizzT2 img{
     height: 113px;
     margin-bottom: 6px;
-    margin-left: 12px;
+    max-width: 163px;
+    /* margin-left: 12px; */
 }
 
-.blockQuizzT2__1 p{
+.blockQuizzT2 p{
     margin-bottom: 12px;
+    word-break: break-all;
 }
 
 .column1QuizzT2 {
@@ -71,9 +82,9 @@ header{
     flex-direction: column;
 }
 
-.blockQuizzT2__2 {
+/* .blockQuizzT2__2 {
     display: flex;
-    width: 90%;
+    max-width: 90%;
     margin-top: 12px;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -82,12 +93,12 @@ header{
 .blockQuizzT2__2 img{
     height: 113px;
     margin-bottom: 6px;
-    margin-left: 12px;
+    max-width: 163px;
 }
 
 .blockQuizzT2__2 p{
     margin-bottom: 12px;
-}
+} */
 
 .selected p{
     color: #009C22;
@@ -182,5 +193,6 @@ header{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
+    max-width: 117px;
 }

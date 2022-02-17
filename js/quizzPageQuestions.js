@@ -77,9 +77,12 @@
 let infoAllQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes")
 infoAllQuizz.then(obtainIDQuizz)
 let arrayId = [];
+let booleanContainerAnswers = [];
+let containerAnswers = 0;
 
 function obtainIDQuizz(messageAllQuizz){
     idQuizz = messageAllQuizz.data;
+    console.log(idQuizz)
     for(let i = 0; i < idQuizz.length; i++){
         arrayId[i] = idQuizz[i].id;
     }
@@ -98,7 +101,6 @@ function obtainIDQuizz(messageAllQuizz){
 // Recebendo os dados do get enviados pelo servidor
 function processAxiosAnswer(messageOneQuizz) {
 	dataAnswerAxios = messageOneQuizz.data;
-    /* console.log(dataAnswerAxios) */
     createPost_T2(dataAnswerAxios);
 }
 
@@ -108,30 +110,40 @@ function processAxiosAnswer(messageOneQuizz) {
 
 function createPost_T2(dataAnswerAxios){
 
-    
+    for(let i = 0; i < dataAnswerAxios.questions.length; i++){ 
+        booleanContainerAnswers.push(true);
+    }
 
-    let oneQuizzBlock = document.querySelector("main");
-
-    oneQuizzBlock.innerHTML = "";
+    /* console.log(containerAnswers); */
     
-    oneQuizzBlock.innerHTML += `<div class="quizzTitleT2">
-                                    <p>${dataAnswerAxios.title}</p>
-                                </div>`
+    let oneQuizzTitle = document.querySelector(".quizzTitleT2");
+    let quizzQuestionTitle = document.querySelector(".containerQuizz");
+    oneQuizzTitle.innerHTML = "";
+    quizzQuestionTitle.innerHTML = "";
+    oneQuizzTitle.innerHTML += `<p>${dataAnswerAxios.title}</p>`
+
+    oneQuizzTitle.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('${dataAnswerAxios.image}')`;
+    
         for(let i = 0; i < dataAnswerAxios.questions.length; i++){
             dataAnswerAxios.questions[i];
+            quizzQuestionTitle.innerHTML += `<div class="questionTitleT2">
+                                                <p>${dataAnswerAxios.questions[i].title}</p>
+                                            </div>`
             for(let j = 0; j < dataAnswerAxios.questions[i].answers.length; j++){
 
-                `<div class="questionTitleT2">
-                    <p>${dataAnswerAxios.questions[i].title}</p>
-                </div>
-                <div class="blockQuizzT2__1">
-                    <div class="subBlockAnswer" id="block1_answer1" onclick="selectAnswer(this,'${i}')">
-                        <img src="${dataAnswerAxios.questions[i].answers[j].image}" alt="">
-                        <p>${dataAnswerAxios.questions[i].answers[j].text}</p>
-                    </div>
-                </div>`
+                containerAnswers += dataAnswerAxios.questions[i].answers.length;
+                quizzQuestionTitle.innerHTML += `
+                                                    <div id="blockQuizzT2__${j}" class="blockQuizzT2">
+                                                        <div class="subBlockAnswer" id="block${i}_answer${j}" onclick="selectAnswer(this,'${i}')">
+                                                            <img src="${dataAnswerAxios.questions[i].answers[j].image}" alt="">
+                                                            <p>${dataAnswerAxios.questions[i].answers[j].text}</p>
+                                                        </div>
+                                                    </div>
+                                                `
     }
-`<!-- Quizz result-->
+    
+
+    `<!-- Quizz result-->
     <div class="finalOptions_T2 resultHidden_T2">
     <div class="quizzResult_T2">
         <div class="quizzResultTitle_T2">
@@ -159,28 +171,28 @@ function createPost_T2(dataAnswerAxios){
 }
 
 
-let containerAnswers = [];
-
-for(let i = 0; i < 2; i++){ // tem que ser a quantidade de perguntas
-    containerAnswers.push(true);
-}
-
 // Função selecionar resposta
 function selectAnswer(div,num){
 
-    /* console.log(containerAnswers) */
-    if(containerAnswers[num-1]){
+/*     console.log(containerAnswers);
+    console.log(div)
+    console.log(num)
+    console.log(containerAnswers)  */
 
-        containerAnswers[num-1] = false;
+    if(booleanContainerAnswers[num]){
+
+        booleanContainerAnswers[num] = false;
 
         let numAnswer = parseFloat(div.id.replace(`block${num}_answer`, '')); 
         
-        let myElement = document.querySelector(`.blockQuizzT2__${num}`);
+        let myElement = document.querySelector(`.blockQuizzT2 img`);
+        console.log(myElement)
 
-        for (let i = 0; i < myElement.children.length*2; i++){
+        for (let i = 0; i < Math.ceil(containerAnswers/2); i++){
             /* console.log(i); */
-            if(i != (numAnswer-1)){
-                let otherAnswers = document.getElementById(`block${num}_answer${i+1}`);
+            if(i != (numAnswer)){
+                let otherAnswers = document.getElementById(`block${num}_answer${i}`);
+                console.log(otherAnswers)
                 otherAnswers.classList.add("notSelected");
             }
         
@@ -190,7 +202,7 @@ function selectAnswer(div,num){
     }
 
     // Filtrando as respostas para mostrar o bloco de resultados...
-    if(containerAnswers.filter(Boolean) == false){
+    if(booleanContainerAnswers.filter(Boolean) == false){
         let resultInfo = document.querySelector(".finalOptions_T2");
         resultInfo.classList.remove("resultHidden_T2");
     }
