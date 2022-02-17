@@ -45,13 +45,15 @@ header{
 .blockQuizzT2__1 {
     display: flex;
     width: 90%;
-    margin: 12px auto;
-    justify-content: center;
+    margin-top: 12px;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .blockQuizzT2__1 img{
     height: 113px;
     margin-bottom: 6px;
+    margin-left: 12px;
 }
 
 .blockQuizzT2__1 p{
@@ -72,13 +74,15 @@ header{
 .blockQuizzT2__2 {
     display: flex;
     width: 90%;
-    margin: 12px auto;
-    justify-content: center;
+    margin-top: 12px;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .blockQuizzT2__2 img{
     height: 113px;
     margin-bottom: 6px;
+    margin-left: 12px;
 }
 
 .blockQuizzT2__2 p{
@@ -172,4 +176,11 @@ header{
 
 .resultHidden_T2 {
     display: none;
+}
+
+.subBlockAnswer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
 }
