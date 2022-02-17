@@ -34,6 +34,7 @@ main{
 
 .questionTitleT2 {
     background-color: #434CA0; /*Vai ser dado de entrada para cada pergunta*/
+    background-color: var(--color); /*Vai ser dado de entrada para cada pergunta*/
     width: 100%;
     height: 89px;
     display: flex;
@@ -100,16 +101,25 @@ main{
     margin-bottom: 12px;
 } */
 
-.selected p{
+/* .selected p{
     color: #009C22;
 }
-
+ */
 .selected {
     opacity: none;
 }
 
 .notSelected{
     opacity: 0.3;
+    
+}
+
+.correct{
+    color: #009C22;
+}
+
+.wrong{
+    color: #FF0B0B;
 }
 
 /*Quizz Result configurations CSS*/
