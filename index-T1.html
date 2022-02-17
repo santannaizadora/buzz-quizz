@@ -21,27 +21,8 @@
     <header>
         <p>BuzzQuizz</p>
     </header>
-
-    <main class="first-screen">
-        <section class="box-without-quizzes">
-            <p>Você não criou nenhum quizz ainda :(</p>
-            <button class="button-create-quizz">Criar Quizz</button>
-        </section>
-        <section class="all-quizzes-list">
-            <p>Todos os quizzes</p>
-            <div class="all-quizzes">
-                <article class="individual-quizz">
-                    <h1>Título do quiz</h1>
-                </article>
-                <article class="individual-quizz">
-                    <h1>Título do quiz</h1>
-                </article>
-                <article class="individual-quizz">
-                    <h1>Título do quiz</h1>
-                </article>
-                
-            </div>
-        </section>
+    <main class="container"></main>
+    
 
         <!--caso já tenha criado os itens, deve substituir a section box-without-quizzes por esta aqui-->
         <section class="all-quizzes-list hidden">
@@ -61,10 +42,14 @@
                 </article>
             </div>
         </section>
+        
 
     </main>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="./js/firstScreen.js"></script>
+    
 </body>
 
 </html>
