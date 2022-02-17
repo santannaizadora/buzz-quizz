@@ -87,7 +87,7 @@
                 </div>
 
             </div>
-            <button class="create-quizz-button">Prosseguir pra criar níveis</button>
+            <button class="create-quizz-button" onclick="getQuestionInfos()">Prosseguir pra criar níveis</button>
         </div>
         <div class="create-quizz-levels hidden">
             <h2>Agora, decida os níveis!</h2>
@@ -98,7 +98,7 @@
                 <input id="level-img-url" class="create-quizz-input" type="text" placeholder="URL da imagem do nível">
                 <textarea id="level-description" class="create-quizz-textarea" type="text" placeholder="Descrição do nível"></textarea>
             </div>
-            <button class="create-quizz-button">Finalizar Quizz</button>
+            <button class="create-quizz-button" onclick="cleanQuizzObj()">Finalizar Quizz</button>
         </div>
         <div class="create-quizz-success hidden">
             <h2>Seu quizz está pronto!</h2>

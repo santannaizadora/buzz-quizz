@@ -1,19 +1,7 @@
 let quizzObj = {
     title: '',
     image: '',
-    questions: [
-        /*{
-            title: '',
-			color: '',
-			answers: [
-				{
-					text: '',
-					image: '',
-					isCorrectAnswer: true
-				}
-			]
-		}*/
-    ],
+    questions: [],
     levels: [
         /*{
         	title: '',
@@ -37,7 +25,7 @@ const isQuizzTitleValid = (title) => {
 }
 
 const isValidUrl = (url) => {
-    let isValid = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    let isValid = url.match(/(http[s]*:\/\/)([a-z\-_0-9\/.]+)\.([a-z.]{2,3})\/([a-z0-9\-_\/._~:?#\[\]@!$&'()*+,;=%]*)([a-z0-9]+\.)(jpg|jpeg|png|gif)/i);
     return (isValid !== null)
 }
 
@@ -63,12 +51,19 @@ const isQuestionTextValid = (questionText) => {
 }
 
 const isValidHexColor = (hexColor) => {
-    let isValid = hexColor.match(/^#([0-9a-f]{3}){1,2}$/i)
+    let isValid = hexColor.match(/^#[0-9a-f]{6}$/i)
     return (isValid !== null)
 }
 
 const isAnswerValid = (answer) => {
     if (answer != '') {
+        return true
+    }
+    return false
+}
+
+const isNotEmpty = (data) => {
+    if (data != '') {
         return true
     }
     return false
@@ -215,4 +210,93 @@ const showQuestionInputs = (minDiv, maxDiv) => {
     min.classList.add('hidden', 'min-selected')
     max.classList.add('question-selected')
     max.classList.remove('hidden')
+    max.scrollIntoView()
+}
+
+const getQuestionInfos = () => {
+    let questionObj = {
+        title: '',
+        color: '',
+        answers: []
+    }
+    let correctAnswerObj = {
+        text: '',
+        image: '',
+        isCorrectAnswer: true
+    }
+    let firstWrongAnswerObj = {
+        text: '',
+        image: '',
+        isCorrectAnswer: false
+    }
+    let secondWrongAnswerObj = {
+        text: '',
+        image: '',
+        isCorrectAnswer: false
+    }
+    let thirdWrongAnswerObj = {
+        text: '',
+        image: '',
+        isCorrectAnswer: false
+    }
+
+    for (let i = 0; i < numQuestions; i++) {
+        questionObj.answers = []
+        const index = i + 1;
+
+        let titleQuestion = document.getElementById(`${index}-question-text`).value
+        let colorQuestion = document.getElementById(`${index}-question-background`).value
+        let correctAnswerText = document.getElementById(`${index}-correct-answer`).value
+        let correctAnswerUrl = document.getElementById(`${index}-correct-url-img`).value
+        let firstWrongAnswer = document.getElementById(`${index}-first-wrong-answer`).value
+        let firstWrongUrl = document.getElementById(`${index}-first-wrong-url-img`).value
+        let secondWrongAnswer = document.getElementById(`${index}-second-wrong-answer`).value
+        let secondWrongUrl = document.getElementById(`${index}-second-wrong-url-img`).value
+        let thirdWrongAnswer = document.getElementById(`${index}-third-wrong-answer`).value
+        let thirdWrongUrl = document.getElementById(`${index}-third-wrong-url-img`).value
+
+        questionObj.title = titleQuestion
+        questionObj.color = colorQuestion
+
+        correctAnswerObj.text = correctAnswerText
+        correctAnswerObj.image = correctAnswerUrl
+        questionObj.answers.push(correctAnswerObj)
+
+        firstWrongAnswerObj.text = firstWrongAnswer
+        firstWrongAnswerObj.image = firstWrongUrl
+        questionObj.answers.push(firstWrongAnswerObj)
+
+        secondWrongAnswerObj.text = secondWrongAnswer
+        secondWrongAnswerObj.image = secondWrongUrl
+        questionObj.answers.push(secondWrongAnswerObj)
+
+        thirdWrongAnswerObj.text = thirdWrongAnswer
+        thirdWrongAnswerObj.image = thirdWrongUrl
+        questionObj.answers.push(thirdWrongAnswerObj)
+
+        quizzObj.questions.push(questionObj)
+    }
+    console.log(quizzObj)
+}
+
+const validateQuestionInfos = () => {
+
+}
+
+const cleanQuizzObj = () => {
+    quizzObj = {
+        title: '',
+        image: '',
+        questions: [],
+        levels: [
+            /*{
+                title: '',
+                image: '',
+                text: '',
+                minValue: 0
+            }*/
+        ]
+    }
+
+    console.log(quizzObj)
 }
