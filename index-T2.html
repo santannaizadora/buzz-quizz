@@ -28,18 +28,18 @@
             <p>Título da pergunta 1</p>
         </div>
         <div class="blockQuizzT2__1">
-            <div class="column1QuizzT2">
-            <div id="block1_answer1" onclick="selectAnswer(this,'1')">
-                <img src="https://http.cat/411.jpg" alt="">
-                <p>Texto da resposta 1</p>
-            </div>
+                <div class="column1QuizzT2">
+                    <div id="block1_answer1" onclick="selectAnswer(this,'1')">
+                        <img src="https://http.cat/411.jpg" alt="">
+                        <p>Texto da resposta 1</p>
+                    </div>
 
-            <div id="block1_answer2" onclick="selectAnswer(this,'1')">
-                <img src="https://http.cat/412.jpg" alt="">
-                <p>Texto da resposta 2</p>
-            </div>
-        </div>
-    <div>
+                    <div id="block1_answer2" onclick="selectAnswer(this,'1')">
+                        <img src="https://http.cat/412.jpg" alt="">
+                        <p>Texto da resposta 2</p>
+                    </div>
+                </div>
+        <div>
             <div class="column2QuizzT2">
                 <div id="block1_answer3" onclick="selectAnswer(this,'1')">
                 <img src="https://http.cat/411.jpg" alt="">
@@ -84,7 +84,33 @@
             </div>
         </div>
         </div>
+
+        <!-- Quizz result-->
+        <div class="resultHidden_T2">
+        <div class="quizzResult_T2">
+            <div class="quizzResultTitle_T2">
+                <p>88% de acerto: Você é praticamente um aluno de Hogwarts!</p> <!--ESSA FRASE VAI MUDAR E VIR DA API-->
+            </div>
+            <div class="quizzResultInfo_T2">
+                <img src="https://http.cat/412.jpg" alt="">
+                <p>Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop infinito de comida e clique no botão abaixo para usar o vira-tempo e reiniciar este teste.</p>
+            </div>
+        </div>
+
+        <!-- Restart Buttom -->
+        <div class="restartQuizz_T2">
+            <p>Reiniciar Quizz</p>
+        </div>
+
+        <!-- Home Buttom -->
+        <div class="homeButtom_T2">
+            <p>Voltar pra home</p>
+        </div>
+    </div>
     </main>
+
+    
+
 
         <!-- Scripts-->
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

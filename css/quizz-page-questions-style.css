@@ -1,3 +1,6 @@
+header{
+    z-index: 2;
+}
 
 .quizzTitleT2{
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://http.cat/411.jpg');
@@ -26,7 +29,6 @@
     background-color: #434CA0; /*Vai ser dado de entrada para cada pergunta*/
     width: 90%;
     height: 89px;
-    margin-top: 42px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -67,10 +69,6 @@
     flex-direction: column;
 }
 
-.blockQuizzT2 img:hover{
-    background-color: aqua;
-}
-
 .blockQuizzT2__2 {
     display: flex;
     width: 90%;
@@ -97,4 +95,81 @@
 
 .notSelected{
     opacity: 0.3;
+}
+
+/*Quizz Result configurations CSS*/
+.quizzResultTitle_T2 {
+    background-color: #434CA0; /*Vai ser dado de entrada para cada pergunta*/
+    width: 90%;
+    height: 99px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 42px auto 0 auto;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 19px;
+    line-height: 22px;
+    color: #ffff;
+    text-align: center;
+}
+
+.quizzResultInfo_T2 {
+    /* height: 255px; */
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    margin: 9px auto 0 auto;
+}
+
+.quizzResultInfo_T2 p{
+    margin-top: 9px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 20px;
+}
+
+.restartQuizz_T2 {
+    background: #EC362D;
+    border-radius: 15px;
+    width: 58%;
+    height: 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 34px auto 0 auto;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    color: #ffff;
+    text-align: center;
+    
+}
+
+.homeButtom_T2 {
+    width: 58%;
+    height: 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 8px auto 66px auto;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    color: #818181;;
+    text-align: center;
+}
+
+.resultHidden_T2 {
+    display: none;
 }
