@@ -156,39 +156,63 @@ const goToQuestions = () => {
 const loadQuestionsInputs = () => {
     questionsInputs = ''
     createQuestionsContainer = document.getElementById('questions-inputs')
-    for (let i = 0; i < numQuestions; i++) {
-        questionsInputs += `<div class="inputs">
-        <h3>Pergunta ${i+1}</h3>
-        <div class="group-inputs">
-            <input id="${i+1}-question-text" class="create-quizz-input" type="text" placeholder="Texto da pergunta">
-            <input id="${i+1}-question-background" class="create-quizz-input" type="text" placeholder="Cor de fundo da pergunta">
+    for (let i = 0; i < (numQuestions - 1); i++) {
+        console.log(i + 2)
+        questionsInputs += `
+        <div id="min-${i+2}" class="min-question-inputs" onclick="showQuestionInputs('min-${i+2}','question-${i+2}')">
+            <div>
+                <p>Pergunta ${i+2}</p>
+                <img src="./img/Vector.png" alt="editar">
+            </div>        
         </div>
+        <div id="question-${i+2}" class="inputs inputs-separate hidden show-input">
+            <h3>Pergunta ${i+2}</h3>
+            <div class="group-inputs">
+                <input id="${i+2}-question-text" class="create-quizz-input" type="text" placeholder="Texto da pergunta">
+                <input id="${i+2}-question-background" class="create-quizz-input" type="text" placeholder="Cor de fundo da pergunta">
+            </div>
 
-        <h3>Resposta correta</h3>
-        <div class="group-inputs">
-            <input id="${i+1}-correct-answer" class="create-quizz-input" type="text" placeholder="Resposta correta">
-            <input id="${i+1}-correct-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem">
-        </div>
+            <h3>Resposta correta</h3>
+            <div class="group-inputs">
+                <input id="${i+2}-correct-answer" class="create-quizz-input" type="text" placeholder="Resposta correta">
+                <input id="${i+2}-correct-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem">
+            </div>
 
-        <h3>Respostas incorretas</h3>
-        <div class="group-inputs">
-            <input id="${i+1}-first-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 1">
-            <input id="${i+1}-first-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 1">
-        </div>
+            <h3>Respostas incorretas</h3>
+            <div class="group-inputs">
+                <input id="${i+2}-first-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 1">
+                <input id="${i+2}-first-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 1">
+            </div>
 
-        <div class="group-inputs">
-            <input id="${i+1}-second-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 2">
-            <input id="${i+1}-second-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 2">
-        </div>
+            <div class="group-inputs">
+                <input id="${i+2}-second-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 2">
+                <input id="${i+2}-second-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 2">
+            </div>
 
-        <div class="group-inputs">
-            <input id="${i+1}-third-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 3">
-            <input id="${i+1}-third-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 3">
-        </div>
-    </div>
-`
-        createQuestionsContainer.innerHTML = questionsInputs
+            <div class="group-inputs">
+                <input id="${i+2}-third-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 3">
+                <input id="${i+2}-third-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 3">
+            </div>
+        </div>`
+    }
+    createQuestionsContainer.innerHTML += questionsInputs
+}
+
+//MINIMIZA OS INPUTS DAS QUESTOES QUE NÃO ESTÃO SENDO EDITADAS
+
+const showQuestionInputs = (minDiv, maxDiv) => {
+    let maxSelected = document.querySelector('.question-selected')
+    let minSelected = document.querySelector('.min-selected')
+    let min = document.getElementById(minDiv)
+    let max = document.getElementById(maxDiv)
+
+    if (maxSelected != null && minSelected != null) {
+        maxSelected.classList.add('hidden')
+        maxSelected.classList.remove('question-selected')
+        minSelected.classList.remove('hidden', 'min-selected')
     }
 
-
+    min.classList.add('hidden', 'min-selected')
+    max.classList.add('question-selected')
+    max.classList.remove('hidden')
 }

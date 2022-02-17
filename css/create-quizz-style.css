@@ -49,7 +49,8 @@
     font-size: 18px;
 }
 
-.inputs {
+.inputs,
+.show-inputs {
     background-color: #FFFFFF;
     padding: 20px;
     width: 100%;
@@ -60,14 +61,11 @@
 
 .group-inputs {
     align-self: center;
-    padding: 10px;
+    padding: 5px 0;
 }
 
 #level-description {
     height: 177px;
-    display: flex;
-    flex-wrap: wrap;
-    word-break: break-all;
 }
 
 .back-home {
@@ -92,4 +90,40 @@
 .invalid-error-message {
     font-size: 16px;
     color: #EC362D;
+}
+
+.min-question-inputs {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+    height: 65px;
+    width: 100vw;
+    padding: 4px;
+    background-color: #FFFFFF;
+    margin-bottom: 25px;
+}
+
+.min-question-inputs div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.inputs-separate {
+    margin-bottom: 25px;
+}
+
+.show-input {
+    animation: showQuestionsInputs 3000ms steps(30, end);
+}
+
+@keyframes showQuestionsInputs {
+    from {
+        height: 0
+    }
+    to {
+        height: 100%
+    }
 }

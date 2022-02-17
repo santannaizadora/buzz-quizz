@@ -50,6 +50,42 @@
             <h2>Crie suas perguntas</h2>
             <div id="questions-inputs">
 
+                <div id="min-1" class="min-question-inputs hidden min-selected" onclick="showQuestionInputs('min-1','question-1')">
+                    <div>
+                        <p>Pergunta 1</p>
+                        <img src="./img/Vector.png" alt="editar">
+                    </div>
+                </div>
+                <div id="question-1" class="inputs inputs-separate show-input question-selected">
+                    <h3>Pergunta 1</h3>
+                    <div class="group-inputs">
+                        <input id="1-question-text" class="create-quizz-input" type="text" placeholder="Texto da pergunta">
+                        <input id="1-question-background" class="create-quizz-input" type="text" placeholder="Cor de fundo da pergunta">
+                    </div>
+
+                    <h3>Resposta correta</h3>
+                    <div class="group-inputs">
+                        <input id="1-correct-answer" class="create-quizz-input" type="text" placeholder="Resposta correta">
+                        <input id="1-correct-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem">
+                    </div>
+
+                    <h3>Respostas incorretas</h3>
+                    <div class="group-inputs">
+                        <input id="1-first-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 1">
+                        <input id="1-first-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 1">
+                    </div>
+
+                    <div class="group-inputs">
+                        <input id="1-second-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 2">
+                        <input id="1-second-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 2">
+                    </div>
+
+                    <div class="group-inputs">
+                        <input id="1-third-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 3">
+                        <input id="1-third-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 3">
+                    </div>
+                </div>
+
             </div>
             <button class="create-quizz-button">Prosseguir pra criar níveis</button>
         </div>
