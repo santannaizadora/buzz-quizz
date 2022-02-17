@@ -28,6 +28,12 @@ function selectAnswer(div,num){
         /* myElement.children.next.scrollIntoView({behavior: "smooth"}); */
     }
 
+    // Filtrando as respostas para mostrar o bloco de resultados...
+    if(containerAnswers.filter(Boolean) == false){
+        let resultInfo = document.querySelector(".finalOptions_T2");
+        resultInfo.classList.remove("resultHidden_T2");
+    }
+
     
     // fazer comparador com a resposta que vem do axios-- para saber se é true ou false a resposta
 }
