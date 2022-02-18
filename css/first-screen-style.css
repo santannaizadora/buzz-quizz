@@ -144,6 +144,29 @@ article img{
 .hidden{
     display: none;
 }
+.loading{
+    width: 100%;
+    height: 100vh;   
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.loading img{
+    width: 200px;
+    height: 200px;
+
+}
+.loading h2{
+    font-size: 25px;
+    line-height: 29px;
+    text-align: center;
+    color: #EC362D;
+}
+
+
+
 
 @media (min-width:614px){
     main{

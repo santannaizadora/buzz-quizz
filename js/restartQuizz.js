@@ -1,14 +1,12 @@
 
 // Obtendo info de todos os Quizzes (Não sei o plural de quizz)
-let infoAllQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
-infoAllQuizz.then(obtainIDQuizz);
+let infoAllQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes")
+infoAllQuizz.then(obtainIDQuizz)
 
 let arrayId = [];
 let booleanContainerAnswers = [];
-
 let containerAnswers = [];
 let arrayCorrectWrong = [];
-
 
 let answersContainer = [];
 let contArrayCorrectWrong = 0;
@@ -19,7 +17,6 @@ let cont = 0;
 function obtainIDQuizz(messageAllQuizz) {
 
     idQuizz = messageAllQuizz.data;
-
     /* console.log(idQuizz) */
     for (let i = 0; i < idQuizz.length; i++) {
         arrayId[i] = idQuizz[i].id;
@@ -27,24 +24,25 @@ function obtainIDQuizz(messageAllQuizz) {
     // Obtendo info do Quizz
     /* console.log(arrayId) */
     // Tem que passar essa info do ID com o clique na tela 1
-
     let infoOneQuizz = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${arrayId[10]}`);
     infoOneQuizz.then(processAxiosAnswer)
 }
+
+
+// No lugar do 2506 teria que ser o dataAnswerAxios.data... 
+/* let infoOneQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/2506") */ // ID do quiz deve ser a variável a ser passada para montar o quizz certo
+/* infoOneQuizz.then(processAxiosAnswer) */
 
 // Recebendo os dados do get enviados pelo servidor
 function processAxiosAnswer(messageOneQuizz) {
     dataAnswerAxios = messageOneQuizz.data;
     createPost_T2(dataAnswerAxios);
+    /* funcaoteste(dataAnswerAxios); */
 }
 
-/* minhaArray.sort(comparador); 
-
-function comparador() { 
-	return Math.random() - 0.5; 
-} */
-
 // Fazer um auxiliar para determinar quantas respostas ficaram em cada coluna
+
+//
 
 function createPost_T2(dataAnswerAxios) {
 
@@ -53,7 +51,6 @@ function createPost_T2(dataAnswerAxios) {
     }
 
     /* console.log(containerAnswers); */
-    
     let oneQuizzTitle = document.querySelector(".quizzTitleT2");
     let quizzQuestionTitle = document.querySelector(".containerQuizz");
     
@@ -67,7 +64,6 @@ function createPost_T2(dataAnswerAxios) {
         for(let i = 0; i < dataAnswerAxios.questions.length; i++){
             
             dataAnswerAxios.questions[i];
-
             quizzQuestionTitle.innerHTML += `<div id="questionTitle${i}" class="questionTitleT2">
                                                 <p>${dataAnswerAxios.questions[i].title}</p>
                                             </div>`
@@ -76,7 +72,7 @@ function createPost_T2(dataAnswerAxios) {
         questionTitle.style['backgroundColor'] = `${dataAnswerAxios.questions[i].color}`
 
             for(let j = 0; j < dataAnswerAxios.questions[i].answers.length; j++){
-                
+                /* console.log("Tô dentro desse for") */
                 auxCont = i;
                 containerAnswers[i] = dataAnswerAxios.questions[i].answers.length;
                 quizzQuestionTitle.innerHTML += `
@@ -96,14 +92,23 @@ function createPost_T2(dataAnswerAxios) {
             }        
             
         }
+
+        
         // Final Results
     return [booleanContainerAnswers, containerAnswers, arrayCorrectWrong];
     
 }
 
+/* 
+let answersContainer = [];
+let contArrayCorrectWrong = 0;
+let contUserAnswer = 0;
+let auxarrayCorrectWrong = arrayCorrectWrong; */
+
 // Função selecionar resposta
 
 function selectAnswer(div,num){
+
     if (booleanContainerAnswers[num]) {
 
         booleanContainerAnswers[num] = false;
@@ -111,6 +116,8 @@ function selectAnswer(div,num){
         let numAnswer = parseFloat(div.id.replace(`block${num}_answer`,'')); 
         /* console.log(numAnswer) */
         let myElement = document.querySelector(`.blockQuizzT2 img`);
+        /* console.log(myElement) */
+        
         for(let i = 0; i < containerAnswers.length; i++){
             answersContainer[i] = containerAnswers[i];
         }
@@ -152,14 +159,11 @@ function selectAnswer(div,num){
     // Filtrando as respostas para mostrar o bloco de resultados...
 
     if(booleanContainerAnswers.filter(Boolean) == false){
-
+        /* console.log(booleanContainerAnswers) */
         let resultInfo = document.querySelector(".finalOptions_T2");
         resultInfo.classList.remove("resultHidden_T2");
     }
     
-/*     const elementoQueQueroQueApareca = document.querySelector('.containerQuizz');
-    elementoQueQueroQueApareca.scrollTo(elementoQueQueroQueApareca.children) */
-
     pegandoocontador();
     return [contUserAnswer, cont];  
 }
@@ -176,13 +180,15 @@ function finalAnswer(){
     let percTotalRights = 100/dataAnswerAxios.questions.length;
     let auxLevelHists = 0;
     percRights = percTotalRights * contUserAnswer;
-    
+    /* console.log(percRights); */
     let quizzFinalResult = document.querySelector(".finalOptions_T2");
     quizzFinalResult.innerHTML = "";
-
+    /* dataAnswerAxios.levels.length; */
+    /* dataAnswerAxios.levels[0].title */
+    /* dataAnswerAxios.levels[0].minValue */
     for(let i = 0; i < dataAnswerAxios.levels.length; i++){
         
-        if(dataAnswerAxios.levels[i].minValue <= percRights){
+        if(dataAnswerAxios.levels[i].minValue < percRights){
                 console.log(dataAnswerAxios.levels[i].minValue);
                 console.log(percRights);
                 console.log(i)
@@ -208,40 +214,4 @@ function finalAnswer(){
                                                 <div class="homeButtom_T2" onclick="backHome()">
                                                     <p>Voltar pra home</p>
                                                 </div>`
-
-    return quizzFinalResult;
 }
-
-function backHome(){
-    let back = document.getElementById("mainT2");
-    back.classList.add("resultHidden_T2");
-    // Ai provavelmente terei que remover o hidden do principal
-}
-
-
-function restartButtom(){
-    
-    arrayId = [];
-    booleanContainerAnswers = [];
-    containerAnswers = [];
-    arrayCorrectWrong = [];
-
-    answersContainer = [];
-    contArrayCorrectWrong = 0;
-    contUserAnswer = 0;
-    auxarrayCorrectWrong = arrayCorrectWrong;
-    cont = 0;
-    
-    createPost_T2(dataAnswerAxios);
-    selectAnswer();
-    pegandoocontador();
-    finalAnswer();
-    window.scroll({
-        top: 100,
-        behavior: 'smooth'
-    });
-
-    document.getElementById("resetFinalResult").innerHTML = '';
-    
-}
-
