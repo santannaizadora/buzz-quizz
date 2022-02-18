@@ -65,7 +65,8 @@ main .box-without-quizzes{
     
 }
 
-.all-quizzes-list p{
+.all-quizzes-list p,
+.user-quizzes-T1 p{
     font-style: normal;
     font-weight: bold;
     font-size: 20px;
@@ -132,6 +133,7 @@ article img{
     display: flex;
     justify-content: space-between;
 }
+
 
 .add-quizz-button{
     width: 30px;

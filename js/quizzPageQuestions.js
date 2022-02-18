@@ -79,18 +79,17 @@ infoAllQuizz.then(obtainIDQuizz)
 let arrayId = [];
 let booleanContainerAnswers = [];
 let containerAnswers = 0;
-let arrayCorrectWrong = [];
 
 function obtainIDQuizz(messageAllQuizz){
     idQuizz = messageAllQuizz.data;
-    /* console.log(idQuizz) */
+    console.log(idQuizz)
     for(let i = 0; i < idQuizz.length; i++){
         arrayId[i] = idQuizz[i].id;
     }
     // Obtendo info do Quizz
     /* console.log(arrayId) */
     // Tem que passar essa info do ID com o clique na tela 1
-    let infoOneQuizz = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${arrayId[20]}`);
+    let infoOneQuizz = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${arrayId[0]}`);
     infoOneQuizz.then(processAxiosAnswer)
 }
 
@@ -116,6 +115,7 @@ function createPost_T2(dataAnswerAxios){
     }
 
     /* console.log(containerAnswers); */
+    
     let oneQuizzTitle = document.querySelector(".quizzTitleT2");
     let quizzQuestionTitle = document.querySelector(".containerQuizz");
     oneQuizzTitle.innerHTML = "";
@@ -126,16 +126,11 @@ function createPost_T2(dataAnswerAxios){
     
         for(let i = 0; i < dataAnswerAxios.questions.length; i++){
             dataAnswerAxios.questions[i];
-
-            quizzQuestionTitle.innerHTML += `<div id="questionTitle${i}" class="questionTitleT2">
+            quizzQuestionTitle.innerHTML += `<div class="questionTitleT2">
                                                 <p>${dataAnswerAxios.questions[i].title}</p>
                                             </div>`
-
-            let questionTitle = document.getElementById(`questionTitle${i}`);
-            questionTitle.style['backgroundColor'] = `${dataAnswerAxios.questions[i].color}`
-
             for(let j = 0; j < dataAnswerAxios.questions[i].answers.length; j++){
-                /* console.log("Tô dentro desse for") */
+
                 containerAnswers += dataAnswerAxios.questions[i].answers.length;
                 quizzQuestionTitle.innerHTML += `
                                                     <div id="blockQuizzT2__${j}" class="blockQuizzT2">
@@ -143,8 +138,8 @@ function createPost_T2(dataAnswerAxios){
                                                             <img src="${dataAnswerAxios.questions[i].answers[j].image}" alt="">
                                                             <p>${dataAnswerAxios.questions[i].answers[j].text}</p>
                                                         </div>
-                                                    </div>`;
-
+                                                    </div>
+                                                `;
                     for(let k = 0; k < dataAnswerAxios.questions[i].answers[j].length; k++){
                             console.log("Tô dentro desse for")
                             arrayCorrectWrong[k] = true;
@@ -162,12 +157,10 @@ function createPost_T2(dataAnswerAxios){
                                                 <p>Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop infinito de comida e clique no botão abaixo para usar o vira-tempo e reiniciar este teste.</p>
                                                 </div>
                                             </div>
-
                                         <!-- Restart Buttom -->
                                             <div class="restartQuizz_T2">
                                                 <p>Reiniciar Quizz</p>
                                             </div>
-
                                         <!-- Home Buttom -->
                                             <div class="homeButtom_T2">
                                                 <p>Voltar pra home</p>
@@ -179,12 +172,10 @@ function createPost_T2(dataAnswerAxios){
     return booleanContainerAnswers;
 }
 
-
 // Função selecionar resposta
 function selectAnswer(div,num){
-    console.log(booleanContainerAnswers);
-    
-    /*     console.log(containerAnswers);
+
+/*     console.log(containerAnswers);
     console.log(div)
     console.log(num)
     console.log(containerAnswers)  */
@@ -196,14 +187,14 @@ function selectAnswer(div,num){
         let numAnswer = parseFloat(div.id.replace(`block${num}_answer`, '')); 
         
         let myElement = document.querySelector(`.blockQuizzT2 img`);
-        /* console.log(myElement) */
+        console.log(myElement)
 
         for (let i = 0; i < Math.ceil(containerAnswers/2); i++){
             /* console.log(i); */
             if(i != (numAnswer)){
                 let otherAnswers = document.getElementById(`block${num}_answer${i}`);
-                /* console.log(otherAnswers) */
-                    otherAnswers.classList.add("notSelected");
+                console.log(otherAnswers)
+                otherAnswers.classList.add("notSelected");
             }
         
         }
@@ -211,11 +202,8 @@ function selectAnswer(div,num){
         /* myElement.children.next.scrollIntoView({behavior: "smooth"}); */
     }
 
-    console.log(booleanContainerAnswers)
-
     // Filtrando as respostas para mostrar o bloco de resultados...
     if(booleanContainerAnswers.filter(Boolean) == false){
-        console.log(booleanContainerAnswers)
         let resultInfo = document.querySelector(".finalOptions_T2");
         resultInfo.classList.remove("resultHidden_T2");
     }
