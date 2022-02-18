@@ -49,7 +49,6 @@
         <div class="create-quizz-questions hidden">
             <h2>Crie suas perguntas</h2>
             <div id="questions-inputs">
-
                 <div id="min-1" class="min-question-inputs hidden min-selected" onclick="showQuestionInputs('min-1','question-1')">
                     <div>
                         <p>Pergunta 1</p>
@@ -75,20 +74,28 @@
                         <input id="1-first-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 1">
                     </div>
 
-                    <div class="group-inputs">
+                    <div id="second-1" class="group-inputs hidden">
                         <input id="1-second-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 2">
                         <input id="1-second-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 2">
                     </div>
 
-                    <div class="group-inputs">
+                    <div id="third-1" class="group-inputs hidden">
                         <input id="1-third-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 3">
                         <input id="1-third-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 3">
                     </div>
+                    <div id="add-answer-1" class="min-question-inputs" onclick="addAnswer('second-1','third-1','add-answer-1')">
+                        <div>
+                            <p>Adicionar resposta</p>
+                            <ion-icon name="add-outline"></ion-icon>
+                        </div>
+                    </div>
                 </div>
-
             </div>
-            <button class="create-quizz-button" onclick="getQuestionInfos()">Prosseguir pra criar níveis</button>
+            <div>
+                <button class="create-quizz-button" onclick="getQuestionInfos()">Prosseguir pra criar níveis</button>
+            </div>
         </div>
+
         <div class="create-quizz-levels hidden">
             <h2>Agora, decida os níveis!</h2>
             <div class="inputs">
@@ -98,7 +105,7 @@
                 <input id="level-img-url" class="create-quizz-input" type="text" placeholder="URL da imagem do nível">
                 <textarea id="level-description" class="create-quizz-textarea" type="text" placeholder="Descrição do nível"></textarea>
             </div>
-            <button class="create-quizz-button" onclick="cleanQuizzObj()">Finalizar Quizz</button>
+            <button class="create-quizz-button" onclick="">Finalizar Quizz</button>
         </div>
         <div class="create-quizz-success hidden">
             <h2>Seu quizz está pronto!</h2>
@@ -107,7 +114,8 @@
             <button class="create-quizz-button back-home">Voltar para home</button>
         </div>
     </div>
-
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="./js/createQuizz.js"></script>
 </body>
 

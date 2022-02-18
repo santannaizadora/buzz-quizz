@@ -7,11 +7,11 @@ let booleanContainerAnswers = [];
 let containerAnswers = [];
 let arrayCorrectWrong = [];
 
+function obtainIDQuizz(messageAllQuizz) {
 
-function obtainIDQuizz(messageAllQuizz){
     idQuizz = messageAllQuizz.data;
     /* console.log(idQuizz) */
-    for(let i = 0; i < idQuizz.length; i++){
+    for (let i = 0; i < idQuizz.length; i++) {
         arrayId[i] = idQuizz[i].id;
     }
     // Obtendo info do Quizz
@@ -28,7 +28,7 @@ function obtainIDQuizz(messageAllQuizz){
 
 // Recebendo os dados do get enviados pelo servidor
 function processAxiosAnswer(messageOneQuizz) {
-	dataAnswerAxios = messageOneQuizz.data;
+    dataAnswerAxios = messageOneQuizz.data;
     createPost_T2(dataAnswerAxios);
 }
 
@@ -36,9 +36,9 @@ function processAxiosAnswer(messageOneQuizz) {
 
 //
 
-function createPost_T2(dataAnswerAxios){
+function createPost_T2(dataAnswerAxios) {
 
-    for(let i = 0; i < dataAnswerAxios.questions.length; i++){ 
+    for (let i = 0; i < dataAnswerAxios.questions.length; i++) {
         booleanContainerAnswers.push(true);
     }
 
@@ -60,8 +60,8 @@ function createPost_T2(dataAnswerAxios){
                                                 <p>${dataAnswerAxios.questions[i].title}</p>
                                             </div>`
 
-            let questionTitle = document.getElementById(`questionTitle${i}`);
-            questionTitle.style['backgroundColor'] = `${dataAnswerAxios.questions[i].color}`
+        let questionTitle = document.getElementById(`questionTitle${i}`);
+        questionTitle.style['backgroundColor'] = `${dataAnswerAxios.questions[i].color}`
 
             for(let j = 0; j < dataAnswerAxios.questions[i].answers.length; j++){
                 /* console.log("Tô dentro desse for") */
@@ -74,6 +74,7 @@ function createPost_T2(dataAnswerAxios){
                                                             <p>${dataAnswerAxios.questions[i].answers[j].text}</p>
                                                         </div>
                                                     </div>`;
+
                     
                     
                     if(dataAnswerAxios.questions[i].answers[j].isCorrectAnswer){
@@ -83,7 +84,36 @@ function createPost_T2(dataAnswerAxios){
                     }
             }        
             
-    }
+
+
+
+        }
+
+
+        /*quizzQuestionTitle.innerHTML += ` <div class="finalOptions_T2 resultHidden_T2">
+                                            <div class="quizzResult_T2">
+                                                <div class="quizzResultTitle_T2">
+                                                    <p>88% de acerto: Você é praticamente um aluno de Hogwarts!</p> <!--ESSA FRASE VAI MUDAR E VIR DA API-->
+                                                </div>
+                                                <div class="quizzResultInfo_T2">
+                                                    <img src="https://http.cat/412.jpg" alt="">
+                                                <p>Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop infinito de comida e clique no botão abaixo para usar o vira-tempo e reiniciar este teste.</p>
+                                                </div>
+                                            </div>
+
+                                        <!-- Restart Buttom -->
+                                            <div class="restartQuizz_T2">
+                                                <p>Reiniciar Quizz</p>
+                                            </div>
+
+                                        <!-- Home Buttom -->
+                                            <div class="homeButtom_T2">
+                                                <p>Voltar pra home</p>
+                                            </div>
+                                        </div>`*/
+
+
+
 
     /*
             ` 
@@ -116,6 +146,7 @@ function createPost_T2(dataAnswerAxios){
 let answersContainer = [];
 let cont = 0;
 // Função selecionar resposta
+
 function selectAnswer(div,num){
     
     /* console.log(teste) */
@@ -125,7 +156,7 @@ function selectAnswer(div,num){
     /* console.log(div)
     console.log(num) */
 
-    if(booleanContainerAnswers[num]){
+    if (booleanContainerAnswers[num]) {
 
         booleanContainerAnswers[num] = false;
 
@@ -165,13 +196,14 @@ function selectAnswer(div,num){
     }
 
     // Filtrando as respostas para mostrar o bloco de resultados...
+
     if(booleanContainerAnswers.filter(Boolean) == false){
         /* console.log(booleanContainerAnswers) */
         let resultInfo = document.querySelector(".finalOptions_T2");
         resultInfo.classList.remove("resultHidden_T2");
     }
 
-    
+
     // fazer comparador com a resposta que vem do axios-- para saber se é true ou false a resposta
 
 /*     for(let k = 0; k < answersContainer[i]; k++){
@@ -199,7 +231,3 @@ function selectAnswer(div,num){
     let myElement = document.querySelector(`.blockQuizzT2__${number}`);
     myElement.scrollIntoView(false); // Bottom
 } */
-
-
-
-
