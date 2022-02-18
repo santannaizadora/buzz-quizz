@@ -15,17 +15,7 @@ let quizzObj = {
 let numQuestions = 0
 let numLevels = 0
 
-let titleQuestion = ''
-let colorQuestion = ''
-let correctAnswerText = ''
-let correctAnswerUrl = ''
-let firstWrongAnswer = ''
-let firstWrongUrl = ''
-let secondWrongAnswer = ''
-let secondWrongUrl = ''
-let thirdWrongAnswer = ''
-let thirdWrongUrl = ''
-    //VALIDAÇÃO DE CADA INPUT
+//VALIDAÇÃO DE CADA INPUT
 
 const isQuizzTitleValid = (title) => {
     if (title.length >= 20 && title.length <= 65) {
@@ -124,16 +114,16 @@ const getQuestionInfos = () => {
         const secondWrongInputs = document.getElementById(`second-${index}`)
         const thirdWrongInputs = document.getElementById(`third-${index}`)
 
-        titleQuestion = document.getElementById(`${index}-question-text`).value
-        colorQuestion = document.getElementById(`${index}-question-background`).value
-        correctAnswerText = document.getElementById(`${index}-correct-answer`).value
-        correctAnswerUrl = document.getElementById(`${index}-correct-url-img`).value
-        firstWrongAnswer = document.getElementById(`${index}-first-wrong-answer`).value
-        firstWrongUrl = document.getElementById(`${index}-first-wrong-url-img`).value
-        secondWrongAnswer = document.getElementById(`${index}-second-wrong-answer`).value
-        secondWrongUrl = document.getElementById(`${index}-second-wrong-url-img`).value
-        thirdWrongAnswer = document.getElementById(`${index}-third-wrong-answer`).value
-        thirdWrongUrl = document.getElementById(`${index}-third-wrong-url-img`).value
+        let titleQuestion = document.getElementById(`${index}-question-text`).value
+        let colorQuestion = document.getElementById(`${index}-question-background`).value
+        let correctAnswerText = document.getElementById(`${index}-correct-answer`).value
+        let correctAnswerUrl = document.getElementById(`${index}-correct-url-img`).value
+        let firstWrongAnswer = document.getElementById(`${index}-first-wrong-answer`).value
+        let firstWrongUrl = document.getElementById(`${index}-first-wrong-url-img`).value
+        let secondWrongAnswer = document.getElementById(`${index}-second-wrong-answer`).value
+        let secondWrongUrl = document.getElementById(`${index}-second-wrong-url-img`).value
+        let thirdWrongAnswer = document.getElementById(`${index}-third-wrong-answer`).value
+        let thirdWrongUrl = document.getElementById(`${index}-third-wrong-url-img`).value
 
         questionObj.title = titleQuestion
         questionObj.color = colorQuestion
@@ -173,18 +163,66 @@ const validateBasicInfos = () => {
     return false
 }
 
-//VALIDA SE TODAS OS INPUTS DAS INFORMAÇÕES DAS PERGUNTAS SÃO VÁLIDOS
-const validateQuestionInfos = () => {
-    if (true) {
+const verifyError = (verify) => {
+    return verify === false
+}
 
+//VALIDA SE TODAS OS INPUTS DAS INFORMAÇÕES DAS PERGUNTAS SÃO VÁLIDOS
+let isValidQuestion = () => {
+    let verify = []
+    for (let i = 0; i < numQuestions; i++) {
+        const index = i + 1;
+        let invalidText = document.getElementById(`invalid-question-${index}`)
+        verify.push(invalidText.classList.contains('hidden'))
+        let invalidColor = document.getElementById(`invalid-color-${index}`)
+        verify.push(invalidColor.classList.contains('hidden'))
     }
+    return verify.find(verifyError)
+}
+
+const isValidMandatoryAnswers = () => {
+    let verify = []
+    for (let i = 0; i < numQuestions; i++) {
+        const index = i + 1;
+        let invalidCorrect = document.getElementById(`invalid-correct-${index}`)
+        let invalidCorrectUrl = document.getElementById(`invalid-correct-url-${index}`)
+        let invalidFirstWrong = document.getElementById(`invalid-first-wrong-${index}`)
+        let invalidFirstUrl = document.getElementById(`invalid-first-url-${index}`)
+
+        verify.push(invalidCorrect.classList.contains('hidden'))
+        verify.push(invalidCorrectUrl.classList.contains('hidden'))
+        verify.push(invalidFirstWrong.classList.contains('hidden'))
+        verify.push(invalidFirstUrl.classList.contains('hidden'))
+    }
+    return verify.find(verifyError)
+}
+
+const isValidOptionalAnswers = () => {
+    let verify = []
+    for (let i = 0; i < numQuestions; i++) {
+        const index = i + 1;
+        let secondWrongInputs = document.getElementById(`second-${index}`)
+        let thirdWrongInputs = document.getElementById(`third-${index}`)
+        let invalidSecondWrong = document.getElementById(`invalid-second-wrong-${index}`)
+        let invalidSecondUrl = document.getElementById(`invalid-second-url-${index}`)
+        let invalidThirdWrong = document.getElementById(`invalid-third-wrong-${index}`)
+        let invalidThirdUrl = document.getElementById(`invalid-third-url-${index}`)
+
+        if (!secondWrongInputs.classList.contains('hidden')) {
+            verify.push(invalidSecondWrong.classList.contains('hidden'))
+            verify.push(invalidSecondUrl.classList.contains('hidden'))
+        }
+        if (!thirdWrongInputs.classList.contains('hidden')) {
+            verify.push(invalidThirdWrong.classList.contains('hidden'))
+            verify.push(invalidThirdUrl.classList.contains('hidden'))
+        }
+    }
+    return verify.find(verifyError)
 }
 
 //APARECE MENSAGEM DE ERRO PARA OS INPUTS QUE NÃO POSSUEM DADOS VÁLIDOS
-const invalidQuestionInfos = () => {}
-
-//APARECE MENSAGEM DE ERRO PARA OS INPUTS QUE NÃO POSSUEM DADOS VÁLIDOS
 const invalidBasicInfos = () => {
+
     let invalidTitleMessage = document.getElementById('ivalid-quizz-tile')
     let invalidTitleInput = document.getElementById('create-title')
     if (!isQuizzTitleValid(quizzObj.title)) {
@@ -228,8 +266,147 @@ const invalidBasicInfos = () => {
     }
 }
 
-//LIBERA (OU NÃO) A PROXIMA PAGINA PARA CRIAR AS PERGUNTAS QUIZZ
+const validateQuestion = () => {
+    for (let i = 0; i < numQuestions; i++) {
+        index = i + 1
+        const titleQuestion = document.getElementById(`${index}-question-text`).value
+        const errorTitleQuestion = document.getElementById(`invalid-question-${index}`)
+        const inputTitleQuestion = document.getElementById(`${index}-question-text`)
 
+        if (!isQuestionTextValid(titleQuestion)) {
+            errorTitleQuestion.classList.remove('hidden')
+            inputTitleQuestion.classList.add('invalid-input')
+        } else {
+            errorTitleQuestion.classList.add('hidden')
+            inputTitleQuestion.classList.remove('invalid-input')
+        }
+
+        const colorQuestion = document.getElementById(`${index}-question-background`).value
+        const errorColorQuestion = document.getElementById(`invalid-color-${index}`)
+        const inputColorQuestion = document.getElementById(`${index}-question-background`)
+
+        if (!isValidHexColor(colorQuestion)) {
+            errorColorQuestion.classList.remove('hidden')
+            inputColorQuestion.classList.add('invalid-input')
+        } else {
+            errorColorQuestion.classList.add('hidden')
+            inputColorQuestion.classList.remove('invalid-input')
+        }
+    }
+}
+
+const validateMandatoryAnswers = () => {
+    for (let i = 0; i < numQuestions; i++) {
+        index = i + 1
+        const correctAnswer = document.getElementById(`${index}-correct-answer`).value
+        const errorCorrectAnswer = document.getElementById(`invalid-correct-${index}`)
+        const inputCorrectAnswer = document.getElementById(`${index}-correct-answer`)
+        if (!isNotEmpty(correctAnswer)) {
+            errorCorrectAnswer.classList.remove('hidden')
+            inputCorrectAnswer.classList.add('invalid-input')
+        } else {
+            errorCorrectAnswer.classList.add('hidden')
+            inputCorrectAnswer.classList.remove('invalid-input')
+        }
+
+        const firstWrongAnswer = document.getElementById(`${index}-first-wrong-answer`).value
+        const errorFirstWrongAnswer = document.getElementById(`invalid-first-wrong-${index}`)
+        const inputFirstWrongAnswer = document.getElementById(`${index}-first-wrong-answer`)
+        if (!isNotEmpty(firstWrongAnswer)) {
+
+            errorFirstWrongAnswer.classList.remove('hidden')
+            inputFirstWrongAnswer.classList.add('invalid-input')
+        } else {
+            errorFirstWrongAnswer.classList.add('hidden')
+            inputFirstWrongAnswer.classList.remove('invalid-input')
+        }
+
+        const correctUrl = document.getElementById(`${index}-correct-url-img`).value
+        const errorCorrectUrl = document.getElementById(`invalid-correct-url-${index}`)
+        const inputCorrectUrl = document.getElementById(`${index}-correct-url-img`)
+        if (!isValidUrl(correctUrl)) {
+            errorCorrectUrl.classList.remove('hidden')
+            inputCorrectUrl.classList.add('invalid-input')
+        } else {
+            errorCorrectUrl.classList.add('hidden')
+            inputCorrectUrl.classList.remove('invalid-input')
+        }
+
+        const firstWrongUrl = document.getElementById(`${index}-first-wrong-url-img`).value
+        const errorFirstWrongUrl = document.getElementById(`invalid-first-url-${index}`)
+        const inputFirstWrongUrl = document.getElementById(`${index}-first-wrong-url-img`)
+        if (!isValidUrl(firstWrongUrl)) {
+            errorFirstWrongUrl.classList.remove('hidden')
+            inputFirstWrongUrl.classList.add('invalid-input')
+        } else {
+            errorFirstWrongUrl.classList.add('hidden')
+            inputFirstWrongUrl.classList.remove('invalid-input')
+        }
+    }
+}
+const validateOptionalAnswers = () => {
+    for (let i = 0; i < numQuestions; i++) {
+        index = i + 1
+
+        let secondWrongInputs = document.getElementById(`second-${index}`)
+        let thirdWrongInputs = document.getElementById(`third-${index}`)
+
+        if (!secondWrongInputs.classList.contains('hidden')) {
+            const secondWrongAnswer = document.getElementById(`${index}-second-wrong-answer`).value
+            const errorSecondWrongAnswer = document.getElementById(`invalid-second-wrong-${index}`)
+            const inputSecondWrongAnswer = document.getElementById(`${index}-second-wrong-answer`)
+            if (!isNotEmpty(secondWrongAnswer)) {
+
+                errorSecondWrongAnswer.classList.remove('hidden')
+                inputSecondWrongAnswer.classList.add('invalid-input')
+            } else {
+                errorSecondWrongAnswer.classList.add('hidden')
+                inputSecondWrongAnswer.classList.remove('invalid-input')
+            }
+
+            const secondWrongUrl = document.getElementById(`${index}-second-wrong-url-img`).value
+            const errorSecondWrongUrl = document.getElementById(`invalid-second-url-${index}`)
+            const inputSecondWrongUrl = document.getElementById(`${index}-second-wrong-url-img`)
+            if (!isValidUrl(secondWrongUrl)) {
+                errorSecondWrongUrl.classList.remove('hidden')
+                inputSecondWrongUrl.classList.add('invalid-input')
+            } else {
+                errorSecondWrongUrl.classList.add('hidden')
+                inputSecondWrongUrl.classList.remove('invalid-input')
+            }
+        }
+
+        if (!thirdWrongInputs.classList.contains('hidden')) {
+            const thirdWrongAnswer = document.getElementById(`${index}-third-wrong-answer`).value
+            const errorthirdWrongAnswer = document.getElementById(`invalid-third-wrong-${index}`)
+            const inputthirdWrongAnswer = document.getElementById(`${index}-third-wrong-answer`)
+
+            if (!isNotEmpty(thirdWrongAnswer)) {
+                errorthirdWrongAnswer.classList.remove('hidden')
+                inputthirdWrongAnswer.classList.add('invalid-input')
+            } else {
+                errorthirdWrongAnswer.classList.add('hidden')
+                inputthirdWrongAnswer.classList.remove('invalid-input')
+            }
+
+            const thirdWrongUrl = document.getElementById(`${index}-third-wrong-url-img`).value
+            const errorthirdWrongUrl = document.getElementById(`invalid-third-url-${index}`)
+            const inputthirdWrongUrl = document.getElementById(`${index}-third-wrong-url-img`)
+
+            if (!isValidUrl(thirdWrongUrl)) {
+                errorthirdWrongUrl.classList.remove('hidden')
+                inputthirdWrongUrl.classList.add('invalid-input')
+            } else {
+                errorthirdWrongUrl.classList.add('hidden')
+                inputthirdWrongUrl.classList.remove('invalid-input')
+            }
+
+        }
+    }
+
+}
+
+//LIBERA (OU NÃO) AS PROXIMAS PAGINAS
 const goToQuestions = () => {
     let isAllValid = validateBasicInfos()
     if (isAllValid) {
@@ -241,13 +418,22 @@ const goToQuestions = () => {
     }
 }
 
-//CARREGA OS CAMPOS NECESSÁRIOS PARA A QUANTIDADE DE PERGUNTAS
+const goToLevels = () => {
+    getQuestionInfos()
+    validateQuestion()
+    validateMandatoryAnswers()
+    validateOptionalAnswers()
+    if (isValidQuestion() != false && isValidMandatoryAnswers() != false && isValidOptionalAnswers != false) {
+        document.querySelector('.create-quizz-questions').classList.add('hidden')
+        document.querySelector('.create-quizz-levels').classList.remove('hidden')
+    }
+}
 
+//CARREGA OS CAMPOS NECESSÁRIOS PARA A QUANTIDADE DE PERGUNTAS
 const loadQuestionsInputs = () => {
     questionsInputs = ''
     createQuestionsContainer = document.getElementById('questions-inputs')
     for (let i = 0; i < (numQuestions - 1); i++) {
-        console.log(i + 2)
         questionsInputs += `
         <div id="min-${i+2}" class="min-question-inputs" onclick="showQuestionInputs('min-${i+2}','question-${i+2}')">
             <div>
@@ -259,29 +445,44 @@ const loadQuestionsInputs = () => {
             <h3>Pergunta ${i+2}</h3>
             <div class="group-inputs">
                 <input id="${i+2}-question-text" class="create-quizz-input" type="text" placeholder="Texto da pergunta">
+                <p id="invalid-question-${i+2}" class="invalid-error-message hidden">O texto da pergunta deve ter no mínimo 20 caracteres</p>
+
                 <input id="${i+2}-question-background" class="create-quizz-input" type="text" placeholder="Cor de fundo da pergunta">
+                <p id="invalid-color-${i+2}" class="invalid-error-message hidden">O valor informado deve ser uma cor em hexadecimal</p>
             </div>
 
             <h3>Resposta correta</h3>
             <div class="group-inputs">
                 <input id="${i+2}-correct-answer" class="create-quizz-input" type="text" placeholder="Resposta correta">
+                <p id="invalid-correct-${i+2}" class="invalid-error-message hidden">O campo não pode estar vazio</p>
+
                 <input id="${i+2}-correct-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem">
+                <p id="invalid-correct-url-${i+2}" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
             </div>
 
             <h3>Respostas incorretas</h3>
             <div class="group-inputs">
                 <input id="${i+2}-first-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 1">
+                <p id="invalid-first-wrong-${i+2}" class="invalid-error-message hidden">O campo não pode estar vazio</p>
+
                 <input id="${i+2}-first-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 1">
+                <p id="invalid-first-url-${i+2}" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
             </div>
 
             <div id="second-${i+2}" class="group-inputs hidden">
                 <input id="${i+2}-second-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 2">
+                <p id="invalid-second-wrong-${i+2}" class="invalid-error-message hidden">O campo não pode estar vazio</p>
+
                 <input id="${i+2}-second-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 2">
+                <p id="invalid-second-url-${i+2}" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
             </div>
 
             <div id="third-${i+2}" class="group-inputs hidden">
                 <input id="${i+2}-third-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 3">
+                <p id="invalid-third-wrong-${i+2}" class="invalid-error-message hidden">O campo não pode estar vazio</p>
+
                 <input id="${i+2}-third-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 3">
+                <p id="invalid-third-url-${i+2}" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
             </div>
             <div id="add-answer-${i+2}" class="min-question-inputs" onclick="addAnswer('second-${i+2}', 'third-${i+2}', 'add-answer-${i+2}')">
                 <div>
