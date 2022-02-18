@@ -216,7 +216,7 @@ const showQuestionInputs = (minDiv, maxDiv) => {
     min.classList.add('hidden', 'min-selected')
     max.classList.add('question-selected')
     max.classList.remove('hidden')
-    max.scrollIntoView()
+    max.scrollIntoView({ block: "end", behavior: "smooth" })
 }
 
 const getQuestionInfos = () => {
