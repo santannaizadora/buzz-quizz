@@ -188,7 +188,7 @@ const loadQuestionsInputs = () => {
                 <input id="${i+2}-third-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 3">
                 <input id="${i+2}-third-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 3">
             </div>
-            <div id="add-answer-${i+1}" class="min-question-inputs" onclick="addAnswer('second-${i+2}', 'third-${i+2}', 'add-answer-${i+1}')">
+            <div id="add-answer-${i+2}" class="min-question-inputs" onclick="addAnswer('second-${i+2}', 'third-${i+2}', 'add-answer-${i+2}')">
                 <div>
                     <p>Adicionar resposta</p>
                     <ion-icon name="add-outline"></ion-icon>
@@ -309,9 +309,9 @@ const cleanQuizzObj = () => {
 
 const addAnswer = (secondAnswer, thirdAnswer, button) => {
 
-    let second = document.getElementById(`${secondAnswer}`)
-    let third = document.getElementById(`${thirdAnswer}`)
-    let addButton = document.getElementById(`${button}`)
+    const second = document.getElementById(`${secondAnswer}`)
+    const third = document.getElementById(`${thirdAnswer}`)
+    const addButton = document.getElementById(`${button}`)
 
     if (second.classList.contains('hidden')) {
         second.classList.remove('hidden')
