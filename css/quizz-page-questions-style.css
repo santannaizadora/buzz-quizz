@@ -125,7 +125,7 @@ main{
 /*Quizz Result configurations CSS*/
 .quizzResultTitle_T2 {
     background-color: #434CA0; /*Vai ser dado de entrada para cada pergunta*/
-    width: 90%;
+    width: 95%;
     height: 99px;
     display: flex;
     flex-direction: column;
@@ -156,6 +156,10 @@ main{
     font-weight: bold;
     font-size: 17px;
     line-height: 20px;
+}
+
+.quizzResultInfo_T2 img{
+    max-width: 100%;
 }
 
 .restartQuizz_T2 {
