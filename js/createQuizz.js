@@ -179,14 +179,20 @@ const loadQuestionsInputs = () => {
                 <input id="${i+2}-first-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 1">
             </div>
 
-            <div class="group-inputs">
+            <div id="second-${i+2}" class="group-inputs hidden">
                 <input id="${i+2}-second-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 2">
                 <input id="${i+2}-second-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 2">
             </div>
 
-            <div class="group-inputs">
+            <div id="third-${i+2}" class="group-inputs hidden">
                 <input id="${i+2}-third-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 3">
                 <input id="${i+2}-third-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 3">
+            </div>
+            <div id="add-answer-${i+1}" class="min-question-inputs" onclick="addAnswer('second-${i+2}', 'third-${i+2}', 'add-answer-${i+1}')">
+                <div>
+                    <p>Adicionar resposta</p>
+                    <ion-icon name="add-outline"></ion-icon>
+                </div>        
             </div>
         </div>`
     }
@@ -299,4 +305,19 @@ const cleanQuizzObj = () => {
     }
 
     console.log(quizzObj)
+}
+
+const addAnswer = (secondAnswer, thirdAnswer, button) => {
+
+    let second = document.getElementById(`${secondAnswer}`)
+    let third = document.getElementById(`${thirdAnswer}`)
+    let addButton = document.getElementById(`${button}`)
+
+    if (second.classList.contains('hidden')) {
+        second.classList.remove('hidden')
+    } else if (!second.classList.contains('hidden') && third.classList.contains('hidden')) {
+        third.classList.remove('hidden')
+        addButton.classList.add('hidden')
+    }
+
 }

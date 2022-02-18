@@ -36,6 +36,8 @@
     font-weight: bold;
     font-size: 20px;
     margin-bottom: 15px;
+    width: 341px;
+    align-self: center;
 }
 
 .create-quizz-button {
@@ -52,7 +54,7 @@
 .inputs,
 .show-inputs {
     background-color: #FFFFFF;
-    padding: 20px;
+    padding-top: 20px;
     width: 100%;
     display: flex;
     flex-direction: column;
