@@ -92,6 +92,9 @@
 .invalid-error-message {
     font-size: 16px;
     color: #EC362D;
+    width: 341px;
+    align-self: center;
+    margin-bottom: 10px;
 }
 
 .min-question-inputs {
