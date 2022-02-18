@@ -59,29 +59,44 @@
                     <h3>Pergunta 1</h3>
                     <div class="group-inputs">
                         <input id="1-question-text" class="create-quizz-input" type="text" placeholder="Texto da pergunta">
+                        <p id="invalid-question-1" class="invalid-error-message hidden">O texto da pergunta deve ter no mínimo 20 caracteres</p>
+
                         <input id="1-question-background" class="create-quizz-input" type="text" placeholder="Cor de fundo da pergunta">
+                        <p id="invalid-color-1" class="invalid-error-message hidden">O valor informado deve ser uma cor em hexadecimal</p>
                     </div>
 
                     <h3>Resposta correta</h3>
                     <div class="group-inputs">
                         <input id="1-correct-answer" class="create-quizz-input" type="text" placeholder="Resposta correta">
+                        <p id="invalid-correct-1" class="invalid-error-message hidden">O campo não pode estar vazio</p>
+
                         <input id="1-correct-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem">
+                        <p id="invalid-correct-url-1" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
                     </div>
 
                     <h3>Respostas incorretas</h3>
                     <div class="group-inputs">
                         <input id="1-first-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 1">
+                        <p id="invalid-first-wrong-1" class="invalid-error-message hidden">O campo não pode estar vazio</p>
+
                         <input id="1-first-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 1">
+                        <p id="invalid-first-url-1" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
                     </div>
 
                     <div id="second-1" class="group-inputs hidden">
                         <input id="1-second-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 2">
+                        <p id="invalid-second-wrong-1" class="invalid-error-message hidden">O campo não pode estar vazio</p>
+
                         <input id="1-second-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 2">
+                        <p id="invalid-second-url-1" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
                     </div>
 
                     <div id="third-1" class="group-inputs hidden">
                         <input id="1-third-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 3">
+                        <p id="invalid-third-wrong-1" class="invalid-error-message hidden">O campo não pode estar vazio</p>
+
                         <input id="1-third-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 3">
+                        <p id="invalid-third-url-1" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
                     </div>
                     <div id="add-answer-1" class="min-question-inputs" onclick="addAnswer('second-1','third-1','add-answer-1')">
                         <div>
@@ -92,7 +107,7 @@
                 </div>
             </div>
             <div>
-                <button class="create-quizz-button" onclick="getQuestionInfos()">Prosseguir pra criar níveis</button>
+                <button class="create-quizz-button" onclick="goToLevels()">Prosseguir pra criar níveis</button>
             </div>
         </div>
 
