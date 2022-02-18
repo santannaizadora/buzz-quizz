@@ -1,37 +1,56 @@
-
-// Obtendo info de todos os Quizzes (Não sei o plural de quizz)
-let infoAllQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
-infoAllQuizz.then(obtainIDQuizz);
-
 let arrayId = [];
+let arrayCorrectWrong = [];
 let booleanContainerAnswers = [];
 let containerAnswers = [];
-let arrayCorrectWrong = [];
-
 let answersContainer = [];
 let contArrayCorrectWrong = 0;
 let contUserAnswer = 0;
 let auxarrayCorrectWrong = arrayCorrectWrong;
 let cont = 0;
+let idClicked = 0;
 
-function obtainIDQuizz(messageAllQuizz) {
+let infoAllQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
 
+function createPost_T2(idQuizz){
+
+    idClicked = idQuizz;
+    // Obtendo info de todos os Quizz
+    
+    infoAllQuizz.then(showQuizzes);
+    /* let idQuizzClicked = idQuizz; */ 
+
+    let back = document.getElementById("mainT2");
+    back.classList.remove("resultHidden_T2");
+    
+    let home = document.querySelector(".container");
+    home.classList.add("resultHidden_T2");
+
+    window.scroll({
+        top: 100,
+        behavior: 'smooth'
+    });
+
+}
+
+function showQuizzes(messageAllQuizz) {
+    
     idQuizz = messageAllQuizz.data;
-    /* console.log(idQuizz) */
+    console.log(idQuizz)
     for (let i = 0; i < idQuizz.length; i++) {
         arrayId[i] = idQuizz[i].id;
     }
     // Obtendo info do Quizz
-    /* console.log(arrayId) */
     // Tem que passar essa info do ID com o clique na tela 1
-    let infoOneQuizz = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${arrayId[10]}`);
+    let infoOneQuizz = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idClicked}`);
     infoOneQuizz.then(processAxiosAnswer)
-}
 
-// Recebendo os dados do get enviados pelo servidor
-function processAxiosAnswer(messageOneQuizz) {
-    dataAnswerAxios = messageOneQuizz.data;
-    createPost_T2(dataAnswerAxios);
+    // Recebendo os dados do get enviados pelo servidor
+    function processAxiosAnswer(messageOneQuizz) {
+        dataAnswerAxios = messageOneQuizz.data;
+        console.log(messageOneQuizz)
+        createPostQuizz(dataAnswerAxios);
+    }
+
 }
 
 /* minhaArray.sort(comparador); 
@@ -42,8 +61,8 @@ function comparador() {
 
 // Fazer um auxiliar para determinar quantas respostas ficaram em cada coluna
 
-function createPost_T2(dataAnswerAxios) {
-
+function createPostQuizz(dataAnswerAxios) {
+    console.log(idQuizz)
     for (let i = 0; i < dataAnswerAxios.questions.length; i++) {
         booleanContainerAnswers.push(true);
     }
@@ -97,6 +116,8 @@ function createPost_T2(dataAnswerAxios) {
 
 // Função selecionar resposta
 
+
+
 function selectAnswer(div,num){
 
     if (booleanContainerAnswers[num]) {
@@ -105,9 +126,11 @@ function selectAnswer(div,num){
 
         let numAnswer = parseFloat(div.id.replace(`block${num}_answer`,'')); 
         /* console.log(numAnswer) */
-        let myElement = document.querySelector(`.blockQuizzT2 img`);
-        /* console.log(myElement) */
+        let myElement = document.querySelector(`.allInfoQuizz`);
         
+/*         myElement.childNodes[myElement.children.length - 1].scrollIntoView();
+        console.log(myElement.childNodes[myElement.children.length]) */
+
         for(let i = 0; i < containerAnswers.length; i++){
             answersContainer[i] = containerAnswers[i];
         }
@@ -143,7 +166,6 @@ function selectAnswer(div,num){
             
         }
         
-        /* myElement.children.next.scrollIntoView({behavior: "smooth"}); */
 }
 
     // Filtrando as respostas para mostrar o bloco de resultados...
@@ -210,9 +232,38 @@ function finalAnswer(){
 }
 
 function backHome(){
+
     let back = document.getElementById("mainT2");
     back.classList.add("resultHidden_T2");
-    // Ai provavelmente terei que remover o hidden do principal
+    /* startFirstScreen(); */
+    
+    let home = document.querySelector(".container");
+    home.classList.remove("resultHidden_T2");
+
+    arrayId = [];
+    booleanContainerAnswers = [];
+    containerAnswers = [];
+    arrayCorrectWrong = [];
+
+    answersContainer = [];
+    contArrayCorrectWrong = 0;
+    contUserAnswer = 0;
+    auxarrayCorrectWrong = arrayCorrectWrong;
+    cont = 0;
+
+    let infoAllQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
+    infoAllQuizz.then(showQuizzes);
+    
+    selectAnswer();
+    pegandoocontador();
+    finalAnswer();
+
+    window.scroll({
+        top: 100,
+        behavior: 'smooth'
+    });
+
+    document.getElementById("resetFinalResult").innerHTML = '';
 }
 
 
@@ -228,11 +279,14 @@ function restartButtom(){
     contUserAnswer = 0;
     auxarrayCorrectWrong = arrayCorrectWrong;
     cont = 0;
-    
-    createPost_T2(dataAnswerAxios);
+
+    let infoAllQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
+    infoAllQuizz.then(showQuizzes);
+
     selectAnswer();
     pegandoocontador();
     finalAnswer();
+
     window.scroll({
         top: 100,
         behavior: 'smooth'
@@ -241,4 +295,3 @@ function restartButtom(){
     document.getElementById("resetFinalResult").innerHTML = '';
     
 }
-
