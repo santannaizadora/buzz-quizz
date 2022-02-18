@@ -15,7 +15,17 @@ let quizzObj = {
 let numQuestions = 0
 let numLevels = 0
 
-//VALIDAÇÃO DE CADA INPUT
+let titleQuestion = ''
+let colorQuestion = ''
+let correctAnswerText = ''
+let correctAnswerUrl = ''
+let firstWrongAnswer = ''
+let firstWrongUrl = ''
+let secondWrongAnswer = ''
+let secondWrongUrl = ''
+let thirdWrongAnswer = ''
+let thirdWrongUrl = ''
+    //VALIDAÇÃO DE CADA INPUT
 
 const isQuizzTitleValid = (title) => {
     if (title.length >= 20 && title.length <= 65) {
@@ -77,6 +87,82 @@ const getBasicInfos = () => {
     numLevels = document.getElementById('create-num-levels').value
 }
 
+//PEGA AS INFORMAÇÕES DE CADA PERGUNTA
+const getQuestionInfos = () => {
+    quizzObj.questions = []
+
+
+    let correctAnswerObj = {
+        text: '',
+        image: '',
+        isCorrectAnswer: true
+    }
+    let firstWrongAnswerObj = {
+        text: '',
+        image: '',
+        isCorrectAnswer: false
+    }
+    let secondWrongAnswerObj = {
+        text: '',
+        image: '',
+        isCorrectAnswer: false
+    }
+    let thirdWrongAnswerObj = {
+        text: '',
+        image: '',
+        isCorrectAnswer: false
+    }
+    for (let i = 0; i < numQuestions; i++) {
+        let questionObj = {
+            title: '',
+            color: '',
+            answers: []
+        }
+
+        const index = i + 1;
+
+        const secondWrongInputs = document.getElementById(`second-${index}`)
+        const thirdWrongInputs = document.getElementById(`third-${index}`)
+
+        titleQuestion = document.getElementById(`${index}-question-text`).value
+        colorQuestion = document.getElementById(`${index}-question-background`).value
+        correctAnswerText = document.getElementById(`${index}-correct-answer`).value
+        correctAnswerUrl = document.getElementById(`${index}-correct-url-img`).value
+        firstWrongAnswer = document.getElementById(`${index}-first-wrong-answer`).value
+        firstWrongUrl = document.getElementById(`${index}-first-wrong-url-img`).value
+        secondWrongAnswer = document.getElementById(`${index}-second-wrong-answer`).value
+        secondWrongUrl = document.getElementById(`${index}-second-wrong-url-img`).value
+        thirdWrongAnswer = document.getElementById(`${index}-third-wrong-answer`).value
+        thirdWrongUrl = document.getElementById(`${index}-third-wrong-url-img`).value
+
+        questionObj.title = titleQuestion
+        questionObj.color = colorQuestion
+
+        correctAnswerObj.text = correctAnswerText
+        correctAnswerObj.image = correctAnswerUrl
+        questionObj.answers.push(correctAnswerObj)
+
+        firstWrongAnswerObj.text = firstWrongAnswer
+        firstWrongAnswerObj.image = firstWrongUrl
+        questionObj.answers.push(firstWrongAnswerObj)
+
+        if (!secondWrongInputs.classList.contains('hidden')) {
+            secondWrongAnswerObj.text = secondWrongAnswer
+            secondWrongAnswerObj.image = secondWrongUrl
+            questionObj.answers.push(secondWrongAnswerObj)
+        }
+
+        if (!thirdWrongInputs.classList.contains('hidden')) {
+            thirdWrongAnswerObj.text = thirdWrongAnswer
+            thirdWrongAnswerObj.image = thirdWrongUrl
+            questionObj.answers.push(thirdWrongAnswerObj)
+        }
+
+        quizzObj.questions.push(questionObj)
+    }
+    console.log(quizzObj)
+}
+
 //VALIDA SE TODOS OS INPUTS DAS INFORMAÇÕES BÁSICAS POSSUEM DADOS VÁLIDOS
 
 const validateBasicInfos = () => {
@@ -87,8 +173,17 @@ const validateBasicInfos = () => {
     return false
 }
 
-//APARECE MENSAGEM DE ERRO PARA OS INPUTS QUE NÃO POSSUEM DADOS VÁLIDOS
+//VALIDA SE TODAS OS INPUTS DAS INFORMAÇÕES DAS PERGUNTAS SÃO VÁLIDOS
+const validateQuestionInfos = () => {
+    if (true) {
 
+    }
+}
+
+//APARECE MENSAGEM DE ERRO PARA OS INPUTS QUE NÃO POSSUEM DADOS VÁLIDOS
+const invalidQuestionInfos = () => {}
+
+//APARECE MENSAGEM DE ERRO PARA OS INPUTS QUE NÃO POSSUEM DADOS VÁLIDOS
 const invalidBasicInfos = () => {
     let invalidTitleMessage = document.getElementById('ivalid-quizz-tile')
     let invalidTitleInput = document.getElementById('create-title')
@@ -200,106 +295,39 @@ const loadQuestionsInputs = () => {
 }
 
 //MINIMIZA OS INPUTS DAS QUESTOES QUE NÃO ESTÃO SENDO EDITADAS
-
 const showQuestionInputs = (minDiv, maxDiv) => {
     let maxSelected = document.querySelector('.question-selected')
     let minSelected = document.querySelector('.min-selected')
     let min = document.getElementById(minDiv)
     let max = document.getElementById(maxDiv)
-
     if (maxSelected != null && minSelected != null) {
         maxSelected.classList.add('hidden')
         maxSelected.classList.remove('question-selected')
         minSelected.classList.remove('hidden', 'min-selected')
     }
-
     min.classList.add('hidden', 'min-selected')
     max.classList.add('question-selected')
     max.classList.remove('hidden')
     max.scrollIntoView({ block: "end", behavior: "smooth" })
 }
 
-const getQuestionInfos = () => {
-    quizzObj.questions = []
+//ADICIONA OS INPUTS PARA AS RESPOSTAS NÃO OBRIGATÓRIAS
+const addAnswer = (secondAnswer, thirdAnswer, button) => {
+    const second = document.getElementById(`${secondAnswer}`)
+    const third = document.getElementById(`${thirdAnswer}`)
+    const addButton = document.getElementById(`${button}`)
 
-
-    let correctAnswerObj = {
-        text: '',
-        image: '',
-        isCorrectAnswer: true
+    if (second.classList.contains('hidden')) {
+        second.classList.remove('hidden')
+        second.scrollIntoView({ block: "start", behavior: "smooth" })
+    } else if (!second.classList.contains('hidden') && third.classList.contains('hidden')) {
+        third.classList.remove('hidden')
+        third.scrollIntoView({ block: "start", behavior: "smooth" })
+        addButton.classList.add('hidden')
     }
-    let firstWrongAnswerObj = {
-        text: '',
-        image: '',
-        isCorrectAnswer: false
-    }
-    let secondWrongAnswerObj = {
-        text: '',
-        image: '',
-        isCorrectAnswer: false
-    }
-    let thirdWrongAnswerObj = {
-        text: '',
-        image: '',
-        isCorrectAnswer: false
-    }
-    for (let i = 0; i < numQuestions; i++) {
-        let questionObj = {
-            title: '',
-            color: '',
-            answers: []
-        }
-
-        const index = i + 1;
-
-        const secondWrongInputs = document.getElementById(`second-${index}`)
-        const thirdWrongInputs = document.getElementById(`third-${index}`)
-
-        let titleQuestion = document.getElementById(`${index}-question-text`).value
-        let colorQuestion = document.getElementById(`${index}-question-background`).value
-        let correctAnswerText = document.getElementById(`${index}-correct-answer`).value
-        let correctAnswerUrl = document.getElementById(`${index}-correct-url-img`).value
-        let firstWrongAnswer = document.getElementById(`${index}-first-wrong-answer`).value
-        let firstWrongUrl = document.getElementById(`${index}-first-wrong-url-img`).value
-        let secondWrongAnswer = document.getElementById(`${index}-second-wrong-answer`).value
-        let secondWrongUrl = document.getElementById(`${index}-second-wrong-url-img`).value
-        let thirdWrongAnswer = document.getElementById(`${index}-third-wrong-answer`).value
-        let thirdWrongUrl = document.getElementById(`${index}-third-wrong-url-img`).value
-
-        questionObj.title = titleQuestion
-        questionObj.color = colorQuestion
-
-        correctAnswerObj.text = correctAnswerText
-        correctAnswerObj.image = correctAnswerUrl
-        questionObj.answers.push(correctAnswerObj)
-
-        firstWrongAnswerObj.text = firstWrongAnswer
-        firstWrongAnswerObj.image = firstWrongUrl
-        questionObj.answers.push(firstWrongAnswerObj)
-
-        if (!secondWrongInputs.classList.contains('hidden')) {
-            secondWrongAnswerObj.text = secondWrongAnswer
-            secondWrongAnswerObj.image = secondWrongUrl
-            questionObj.answers.push(secondWrongAnswerObj)
-        }
-
-        if (!thirdWrongInputs.classList.contains('hidden')) {
-            thirdWrongAnswerObj.text = thirdWrongAnswer
-            thirdWrongAnswerObj.image = thirdWrongUrl
-            questionObj.answers.push(thirdWrongAnswerObj)
-        }
-
-        quizzObj.questions.push(questionObj)
-    }
-    console.log(quizzObj)
-}
-
-const validateQuestionInfos = () => {
-
 }
 
 //LIMPA AS INFORMAÇÕES SALVAS DO QUIZZ CRIADO
-
 const cleanCreateQuizzInfos = () => {
     quizzObj = {
         title: '',
@@ -320,19 +348,4 @@ const cleanCreateQuizzInfos = () => {
         input.value = ''
     })
     console.log(quizzObj)
-}
-
-//ADICIONA OS INPUTS PARA AS RESPOSTAS NÃO OBRIGATÓRIAS
-
-const addAnswer = (secondAnswer, thirdAnswer, button) => {
-    const second = document.getElementById(`${secondAnswer}`)
-    const third = document.getElementById(`${thirdAnswer}`)
-    const addButton = document.getElementById(`${button}`)
-
-    if (second.classList.contains('hidden')) {
-        second.classList.remove('hidden')
-    } else if (!second.classList.contains('hidden') && third.classList.contains('hidden')) {
-        third.classList.remove('hidden')
-        addButton.classList.add('hidden')
-    }
 }
