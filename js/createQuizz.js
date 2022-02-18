@@ -220,11 +220,9 @@ const showQuestionInputs = (minDiv, maxDiv) => {
 }
 
 const getQuestionInfos = () => {
-    let questionObj = {
-        title: '',
-        color: '',
-        answers: []
-    }
+    quizzObj.questions = []
+
+
     let correctAnswerObj = {
         text: '',
         image: '',
@@ -245,10 +243,17 @@ const getQuestionInfos = () => {
         image: '',
         isCorrectAnswer: false
     }
-
     for (let i = 0; i < numQuestions; i++) {
-        questionObj.answers = []
+        let questionObj = {
+            title: '',
+            color: '',
+            answers: []
+        }
+
         const index = i + 1;
+
+        const secondWrongInputs = document.getElementById(`second-${index}`)
+        const thirdWrongInputs = document.getElementById(`third-${index}`)
 
         let titleQuestion = document.getElementById(`${index}-question-text`).value
         let colorQuestion = document.getElementById(`${index}-question-background`).value
@@ -272,13 +277,17 @@ const getQuestionInfos = () => {
         firstWrongAnswerObj.image = firstWrongUrl
         questionObj.answers.push(firstWrongAnswerObj)
 
-        secondWrongAnswerObj.text = secondWrongAnswer
-        secondWrongAnswerObj.image = secondWrongUrl
-        questionObj.answers.push(secondWrongAnswerObj)
+        if (!secondWrongInputs.classList.contains('hidden')) {
+            secondWrongAnswerObj.text = secondWrongAnswer
+            secondWrongAnswerObj.image = secondWrongUrl
+            questionObj.answers.push(secondWrongAnswerObj)
+        }
 
-        thirdWrongAnswerObj.text = thirdWrongAnswer
-        thirdWrongAnswerObj.image = thirdWrongUrl
-        questionObj.answers.push(thirdWrongAnswerObj)
+        if (!thirdWrongInputs.classList.contains('hidden')) {
+            thirdWrongAnswerObj.text = thirdWrongAnswer
+            thirdWrongAnswerObj.image = thirdWrongUrl
+            questionObj.answers.push(thirdWrongAnswerObj)
+        }
 
         quizzObj.questions.push(questionObj)
     }
@@ -289,7 +298,9 @@ const validateQuestionInfos = () => {
 
 }
 
-const cleanQuizzObj = () => {
+//LIMPA AS INFORMAÇÕES SALVAS DO QUIZZ CRIADO
+
+const cleanCreateQuizzInfos = () => {
     quizzObj = {
         title: '',
         image: '',
@@ -304,11 +315,16 @@ const cleanQuizzObj = () => {
         ]
     }
 
+    let inputs = document.querySelectorAll('.create-quizz input')
+    inputs.forEach(input => {
+        input.value = ''
+    })
     console.log(quizzObj)
 }
 
-const addAnswer = (secondAnswer, thirdAnswer, button) => {
+//ADICIONA OS INPUTS PARA AS RESPOSTAS NÃO OBRIGATÓRIAS
 
+const addAnswer = (secondAnswer, thirdAnswer, button) => {
     const second = document.getElementById(`${secondAnswer}`)
     const third = document.getElementById(`${thirdAnswer}`)
     const addButton = document.getElementById(`${button}`)
@@ -319,5 +335,4 @@ const addAnswer = (secondAnswer, thirdAnswer, button) => {
         third.classList.remove('hidden')
         addButton.classList.add('hidden')
     }
-
 }
