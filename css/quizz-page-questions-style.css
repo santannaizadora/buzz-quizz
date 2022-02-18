@@ -70,6 +70,11 @@ main{
 .blockQuizzT2 p{
     margin-bottom: 12px;
     word-break: break-all;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 15px;
 }
 
 .column1QuizzT2 {
@@ -124,8 +129,8 @@ main{
 
 /*Quizz Result configurations CSS*/
 .quizzResultTitle_T2 {
-    background-color: #434CA0; /*Vai ser dado de entrada para cada pergunta*/
-    width: 95%;
+    background-color: #EC362D; /*Vai ser dado de entrada para cada pergunta*/
+    width: 90%;
     height: 99px;
     display: flex;
     flex-direction: column;

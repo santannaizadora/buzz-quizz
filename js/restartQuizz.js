@@ -1,7 +1,7 @@
 
 // Obtendo info de todos os Quizzes (Não sei o plural de quizz)
-let infoAllQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
-infoAllQuizz.then(obtainIDQuizz);
+let infoAllQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes")
+infoAllQuizz.then(obtainIDQuizz)
 
 let arrayId = [];
 let booleanContainerAnswers = [];
@@ -28,19 +28,21 @@ function obtainIDQuizz(messageAllQuizz) {
     infoOneQuizz.then(processAxiosAnswer)
 }
 
+
+// No lugar do 2506 teria que ser o dataAnswerAxios.data... 
+/* let infoOneQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/2506") */ // ID do quiz deve ser a variável a ser passada para montar o quizz certo
+/* infoOneQuizz.then(processAxiosAnswer) */
+
 // Recebendo os dados do get enviados pelo servidor
 function processAxiosAnswer(messageOneQuizz) {
     dataAnswerAxios = messageOneQuizz.data;
     createPost_T2(dataAnswerAxios);
+    /* funcaoteste(dataAnswerAxios); */
 }
 
-/* minhaArray.sort(comparador); 
-
-function comparador() { 
-	return Math.random() - 0.5; 
-} */
-
 // Fazer um auxiliar para determinar quantas respostas ficaram em cada coluna
+
+//
 
 function createPost_T2(dataAnswerAxios) {
 
@@ -70,7 +72,7 @@ function createPost_T2(dataAnswerAxios) {
         questionTitle.style['backgroundColor'] = `${dataAnswerAxios.questions[i].color}`
 
             for(let j = 0; j < dataAnswerAxios.questions[i].answers.length; j++){
-                
+                /* console.log("Tô dentro desse for") */
                 auxCont = i;
                 containerAnswers[i] = dataAnswerAxios.questions[i].answers.length;
                 quizzQuestionTitle.innerHTML += `
@@ -90,10 +92,18 @@ function createPost_T2(dataAnswerAxios) {
             }        
             
         }
+
+        
         // Final Results
     return [booleanContainerAnswers, containerAnswers, arrayCorrectWrong];
     
 }
+
+/* 
+let answersContainer = [];
+let contArrayCorrectWrong = 0;
+let contUserAnswer = 0;
+let auxarrayCorrectWrong = arrayCorrectWrong; */
 
 // Função selecionar resposta
 
@@ -154,9 +164,6 @@ function selectAnswer(div,num){
         resultInfo.classList.remove("resultHidden_T2");
     }
     
-/*     const elementoQueQueroQueApareca = document.querySelector('.containerQuizz');
-    elementoQueQueroQueApareca.scrollTo(elementoQueQueroQueApareca.children) */
-
     pegandoocontador();
     return [contUserAnswer, cont];  
 }
@@ -173,13 +180,15 @@ function finalAnswer(){
     let percTotalRights = 100/dataAnswerAxios.questions.length;
     let auxLevelHists = 0;
     percRights = percTotalRights * contUserAnswer;
-    
+    /* console.log(percRights); */
     let quizzFinalResult = document.querySelector(".finalOptions_T2");
     quizzFinalResult.innerHTML = "";
-
+    /* dataAnswerAxios.levels.length; */
+    /* dataAnswerAxios.levels[0].title */
+    /* dataAnswerAxios.levels[0].minValue */
     for(let i = 0; i < dataAnswerAxios.levels.length; i++){
         
-        if(dataAnswerAxios.levels[i].minValue <= percRights){
+        if(dataAnswerAxios.levels[i].minValue < percRights){
                 console.log(dataAnswerAxios.levels[i].minValue);
                 console.log(percRights);
                 console.log(i)
@@ -205,40 +214,4 @@ function finalAnswer(){
                                                 <div class="homeButtom_T2" onclick="backHome()">
                                                     <p>Voltar pra home</p>
                                                 </div>`
-
-    return quizzFinalResult;
 }
-
-function backHome(){
-    let back = document.getElementById("mainT2");
-    back.classList.add("resultHidden_T2");
-    // Ai provavelmente terei que remover o hidden do principal
-}
-
-
-function restartButtom(){
-    
-    arrayId = [];
-    booleanContainerAnswers = [];
-    containerAnswers = [];
-    arrayCorrectWrong = [];
-
-    answersContainer = [];
-    contArrayCorrectWrong = 0;
-    contUserAnswer = 0;
-    auxarrayCorrectWrong = arrayCorrectWrong;
-    cont = 0;
-    
-    createPost_T2(dataAnswerAxios);
-    selectAnswer();
-    pegandoocontador();
-    finalAnswer();
-    window.scroll({
-        top: 100,
-        behavior: 'smooth'
-    });
-
-    document.getElementById("resetFinalResult").innerHTML = '';
-    
-}
-
