@@ -69,6 +69,35 @@ const isNotEmpty = (data) => {
     return false
 }
 
+const isLevelTitleValid = (title) => {
+    if (title.length >= 10) {
+        return true
+    }
+    return false
+}
+
+const isPercentageValid = (percentage) => {
+    if (percentage >= 0 && percentage <= 100) {
+        return true
+    }
+    return false
+}
+
+const isLevelDescriptionValid = (description) => {
+    if (description.length >= 30) {
+        return true
+    }
+    return false
+}
+
+const findZero = (level) => {
+    return level === 0
+}
+
+const thereIsZeroPercent = () => {
+    return quizzObj.levels.minValue.find(findZero)
+}
+
 //PEGA OS DADOS QUE SERÃO ENVIADOS AO SERVIDOR/ DADOS USADOS PARA RENDERIZAR OS INPUTS DE PERGUNTAS/NÍVEIS
 const getBasicInfos = () => {
     quizzObj.title = document.getElementById('create-title').value
@@ -430,7 +459,11 @@ const goToLevels = () => {
     }
 }
 
-//CARREGA OS CAMPOS NECESSÁRIOS PARA A QUANTIDADE DE PERGUNTAS
+const finishCreateQuizz = () => {
+
+}
+
+//CARREGA OS CAMPOS NECESSÁRIOS DE ACORDO COM O VALOR INFORMADO PELO USUÁRIO
 const loadQuestionsInputs = () => {
     let questionsInputs = ''
     let createQuestionsContainer = document.getElementById('questions-inputs')
@@ -521,7 +554,7 @@ const loadLevelsInputs = () => {
     createLevelsContainer.innerHTML += levelsInputs
 }
 
-//MINIMIZA OS INPUTS DAS QUESTOES QUE NÃO ESTÃO SENDO EDITADAS
+//MINIMIZA OS INPUTS DAS INFORMAÇÕES QUE NÃO ESTÃO SENDO EDITADAS
 const showQuestionInputs = (minDiv, maxDiv) => {
     let maxSelected = document.querySelector('.question-selected')
     let minSelected = document.querySelector('.min-selected')
