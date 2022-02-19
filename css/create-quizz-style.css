@@ -97,19 +97,26 @@
     margin-bottom: 10px;
 }
 
-.min-question-inputs {
+#questions-inputs,
+#levels-inputs {
+    width: 100%;
+}
+
+.min-question-inputs,
+.min-level-inputs {
     display: flex;
     justify-content: center;
     font-weight: bold;
     font-size: 20px;
     height: 65px;
-    width: 100vw;
+    width: 100%;
     padding: 4px;
     background-color: #FFFFFF;
     margin-bottom: 25px;
 }
 
-.min-question-inputs div {
+.min-question-inputs div,
+.min-level-inputs div {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -118,17 +125,4 @@
 
 .inputs-separate {
     margin-bottom: 25px;
-}
-
-.show-input {
-    animation: showQuestionsInputs 3000ms steps(30, end);
-}
-
-@keyframes showQuestionsInputs {
-    from {
-        height: 0
-    }
-    to {
-        height: 100%
-    }
 }

@@ -55,7 +55,7 @@
                         <img src="./img/Vector.png" alt="editar">
                     </div>
                 </div>
-                <div id="question-1" class="inputs inputs-separate show-input question-selected">
+                <div id="question-1" class="inputs inputs-separate question-selected">
                     <h3>Pergunta 1</h3>
                     <div class="group-inputs">
                         <input id="1-question-text" class="create-quizz-input" type="text" placeholder="Texto da pergunta">
@@ -113,12 +113,20 @@
 
         <div class="create-quizz-levels hidden">
             <h2>Agora, decida os níveis!</h2>
-            <div class="inputs">
-                <h3>Nível 1</h3>
-                <input id="level-title" class="create-quizz-input" type="text" placeholder="Título do nível">
-                <input id="rating-level" class="create-quizz-input" type="text" placeholder="% acerto mínima">
-                <input id="level-img-url" class="create-quizz-input" type="text" placeholder="URL da imagem do nível">
-                <textarea id="level-description" class="create-quizz-textarea" type="text" placeholder="Descrição do nível"></textarea>
+            <div id="levels-inputs">
+                <div id="min-level-1" class="min-level-inputs hidden min-level-selected" onclick="showQuestionInputs('min-1','question-1')">
+                    <div>
+                        <p>Nível 1</p>
+                        <img src="./img/Vector.png" alt="editar">
+                    </div>
+                </div>
+                <div id="level-1" class="inputs level-selected">
+                    <h3>Nível 1</h3>
+                    <input id="level-title" class="create-quizz-input" type="text" placeholder="Título do nível">
+                    <input id="rating-level" class="create-quizz-input" type="text" placeholder="% acerto mínima">
+                    <input id="level-img-url" class="create-quizz-input" type="text" placeholder="URL da imagem do nível">
+                    <textarea id="level-description" class="create-quizz-textarea" type="text" placeholder="Descrição do nível"></textarea>
+                </div>
             </div>
             <button class="create-quizz-button" onclick="">Finalizar Quizz</button>
         </div>

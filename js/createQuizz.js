@@ -420,10 +420,11 @@ const goToQuestions = () => {
 
 const goToLevels = () => {
     getQuestionInfos()
-    validateQuestion()
-    validateMandatoryAnswers()
-    validateOptionalAnswers()
+        //validateQuestion()
+        //validateMandatoryAnswers()
+        //validateOptionalAnswers()
     if (isValidQuestion() != false && isValidMandatoryAnswers() != false && isValidOptionalAnswers != false) {
+        loadLevelsInputs()
         document.querySelector('.create-quizz-questions').classList.add('hidden')
         document.querySelector('.create-quizz-levels').classList.remove('hidden')
     }
@@ -431,60 +432,61 @@ const goToLevels = () => {
 
 //CARREGA OS CAMPOS NECESSÁRIOS PARA A QUANTIDADE DE PERGUNTAS
 const loadQuestionsInputs = () => {
-    questionsInputs = ''
-    createQuestionsContainer = document.getElementById('questions-inputs')
+    let questionsInputs = ''
+    let createQuestionsContainer = document.getElementById('questions-inputs')
     for (let i = 0; i < (numQuestions - 1); i++) {
+        let index = i + 2
         questionsInputs += `
-        <div id="min-${i+2}" class="min-question-inputs" onclick="showQuestionInputs('min-${i+2}','question-${i+2}')">
+        <div id="min-${index}" class="min-question-inputs" onclick="showQuestionInputs('min-${index}','question-${index}')">
             <div>
-                <p>Pergunta ${i+2}</p>
+                <p>Pergunta ${index}</p>
                 <img src="./img/Vector.png" alt="editar">
             </div>        
         </div>
-        <div id="question-${i+2}" class="inputs inputs-separate hidden show-input">
-            <h3>Pergunta ${i+2}</h3>
+        <div id="question-${index}" class="inputs inputs-separate hidden">
+            <h3>Pergunta ${index}</h3>
             <div class="group-inputs">
-                <input id="${i+2}-question-text" class="create-quizz-input" type="text" placeholder="Texto da pergunta">
-                <p id="invalid-question-${i+2}" class="invalid-error-message hidden">O texto da pergunta deve ter no mínimo 20 caracteres</p>
+                <input id="${index}-question-text" class="create-quizz-input" type="text" placeholder="Texto da pergunta">
+                <p id="invalid-question-${index}" class="invalid-error-message hidden">O texto da pergunta deve ter no mínimo 20 caracteres</p>
 
-                <input id="${i+2}-question-background" class="create-quizz-input" type="text" placeholder="Cor de fundo da pergunta">
-                <p id="invalid-color-${i+2}" class="invalid-error-message hidden">O valor informado deve ser uma cor em hexadecimal</p>
+                <input id="${index}-question-background" class="create-quizz-input" type="text" placeholder="Cor de fundo da pergunta">
+                <p id="invalid-color-${index}" class="invalid-error-message hidden">O valor informado deve ser uma cor em hexadecimal</p>
             </div>
 
             <h3>Resposta correta</h3>
             <div class="group-inputs">
-                <input id="${i+2}-correct-answer" class="create-quizz-input" type="text" placeholder="Resposta correta">
-                <p id="invalid-correct-${i+2}" class="invalid-error-message hidden">O campo não pode estar vazio</p>
+                <input id="${index}-correct-answer" class="create-quizz-input" type="text" placeholder="Resposta correta">
+                <p id="invalid-correct-${index}" class="invalid-error-message hidden">O campo não pode estar vazio</p>
 
-                <input id="${i+2}-correct-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem">
-                <p id="invalid-correct-url-${i+2}" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
+                <input id="${index}-correct-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem">
+                <p id="invalid-correct-url-${index}" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
             </div>
 
             <h3>Respostas incorretas</h3>
             <div class="group-inputs">
-                <input id="${i+2}-first-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 1">
-                <p id="invalid-first-wrong-${i+2}" class="invalid-error-message hidden">O campo não pode estar vazio</p>
+                <input id="${index}-first-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 1">
+                <p id="invalid-first-wrong-${index}" class="invalid-error-message hidden">O campo não pode estar vazio</p>
 
-                <input id="${i+2}-first-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 1">
-                <p id="invalid-first-url-${i+2}" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
+                <input id="${index}-first-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 1">
+                <p id="invalid-first-url-${index}" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
             </div>
 
-            <div id="second-${i+2}" class="group-inputs hidden">
-                <input id="${i+2}-second-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 2">
-                <p id="invalid-second-wrong-${i+2}" class="invalid-error-message hidden">O campo não pode estar vazio</p>
+            <div id="second-${index}" class="group-inputs hidden">
+                <input id="${index}-second-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 2">
+                <p id="invalid-second-wrong-${index}" class="invalid-error-message hidden">O campo não pode estar vazio</p>
 
-                <input id="${i+2}-second-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 2">
-                <p id="invalid-second-url-${i+2}" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
+                <input id="${index}-second-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 2">
+                <p id="invalid-second-url-${index}" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
             </div>
 
-            <div id="third-${i+2}" class="group-inputs hidden">
-                <input id="${i+2}-third-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 3">
-                <p id="invalid-third-wrong-${i+2}" class="invalid-error-message hidden">O campo não pode estar vazio</p>
+            <div id="third-${index}" class="group-inputs hidden">
+                <input id="${index}-third-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 3">
+                <p id="invalid-third-wrong-${index}" class="invalid-error-message hidden">O campo não pode estar vazio</p>
 
-                <input id="${i+2}-third-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 3">
-                <p id="invalid-third-url-${i+2}" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
+                <input id="${index}-third-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 3">
+                <p id="invalid-third-url-${index}" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
             </div>
-            <div id="add-answer-${i+2}" class="min-question-inputs" onclick="addAnswer('second-${i+2}', 'third-${i+2}', 'add-answer-${i+2}')">
+            <div id="add-answer-${index}" class="min-question-inputs" onclick="addAnswer('second-${index}', 'third-${index}', 'add-answer-${index}')">
                 <div>
                     <p>Adicionar resposta</p>
                     <ion-icon name="add-outline"></ion-icon>
@@ -493,6 +495,30 @@ const loadQuestionsInputs = () => {
         </div>`
     }
     createQuestionsContainer.innerHTML += questionsInputs
+}
+
+const loadLevelsInputs = () => {
+    let levelsInputs = ''
+    let createLevelsContainer = document.getElementById('levels-inputs')
+    for (let i = 0; i < (numLevels - 1); i++) {
+        const index = i + 2
+        levelsInputs += `
+        <div id="min-level-${index}" class="min-level-inputs min-level-selected" onclick="showLevelInputs('min-level-${index}','level-${index}')">
+                <div>
+                    <p>Nível ${index}</p>
+                    <img src="./img/Vector.png" alt="editar">
+                </div>
+            </div>
+            <div id="level-${index}" class="inputs hidden ">
+                <h3>Nível ${index}</h3>
+                <input id="level-title" class="create-quizz-input" type="text" placeholder="Título do nível">
+                <input id="rating-level" class="create-quizz-input" type="text" placeholder="% acerto mínima">
+                <input id="level-img-url" class="create-quizz-input" type="text" placeholder="URL da imagem do nível">
+                <textarea id="level-description" class="create-quizz-textarea" type="text" placeholder="Descrição do nível"></textarea>
+            </div>
+        `
+    }
+    createLevelsContainer.innerHTML += levelsInputs
 }
 
 //MINIMIZA OS INPUTS DAS QUESTOES QUE NÃO ESTÃO SENDO EDITADAS
@@ -508,6 +534,22 @@ const showQuestionInputs = (minDiv, maxDiv) => {
     }
     min.classList.add('hidden', 'min-selected')
     max.classList.add('question-selected')
+    max.classList.remove('hidden')
+    max.scrollIntoView({ block: "end", behavior: "smooth" })
+}
+
+const showLevelInputs = (minDiv, maxDiv) => {
+    let maxSelected = document.querySelector('.level-selected')
+    let minSelected = document.querySelector('.min-level-selected')
+    let min = document.getElementById(minDiv)
+    let max = document.getElementById(maxDiv)
+    if (maxSelected != null && minSelected != null) {
+        maxSelected.classList.add('hidden')
+        maxSelected.classList.remove('level-selected')
+        minSelected.classList.remove('hidden', 'min-level-selected')
+    }
+    min.classList.add('hidden', 'min-level-selected')
+    max.classList.add('level-selected')
     max.classList.remove('hidden')
     max.scrollIntoView({ block: "end", behavior: "smooth" })
 }
@@ -534,14 +576,7 @@ const cleanCreateQuizzInfos = () => {
         title: '',
         image: '',
         questions: [],
-        levels: [
-            /*{
-                title: '',
-                image: '',
-                text: '',
-                minValue: 0
-            }*/
-        ]
+        levels: []
     }
 
     let inputs = document.querySelectorAll('.create-quizz input')
