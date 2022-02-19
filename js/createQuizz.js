@@ -562,7 +562,65 @@ const finishCreateQuizz = () => {
 
 //CARREGA OS CAMPOS NECESSÁRIOS DE ACORDO COM O VALOR INFORMADO PELO USUÁRIO
 const loadQuestionsInputs = () => {
-    let questionsInputs = ''
+    let questionsInputs = `
+    <div id="min-1" class="min-question-inputs hidden min-selected" onclick="showQuestionInputs('min-1','question-1')">
+    <div>
+        <p>Pergunta 1</p>
+        <img src="./img/Vector.png" alt="editar">
+    </div>
+</div>
+<div id="question-1" class="inputs inputs-separate question-selected">
+    <h3>Pergunta 1</h3>
+    <div class="group-inputs">
+        <input id="1-question-text" class="create-quizz-input" type="text" placeholder="Texto da pergunta">
+        <p id="invalid-question-1" class="invalid-error-message hidden">O texto da pergunta deve ter no mínimo 20 caracteres</p>
+
+        <input id="1-question-background" class="create-quizz-input" type="text" placeholder="Cor de fundo da pergunta">
+        <p id="invalid-color-1" class="invalid-error-message hidden">O valor informado deve ser uma cor em hexadecimal</p>
+    </div>
+
+    <h3>Resposta correta</h3>
+    <div class="group-inputs">
+        <input id="1-correct-answer" class="create-quizz-input" type="text" placeholder="Resposta correta">
+        <p id="invalid-correct-1" class="invalid-error-message hidden">O campo não pode estar vazio</p>
+
+        <input id="1-correct-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem">
+        <p id="invalid-correct-url-1" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
+    </div>
+
+    <h3>Respostas incorretas</h3>
+    <div class="group-inputs">
+        <input id="1-first-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 1">
+        <p id="invalid-first-wrong-1" class="invalid-error-message hidden">O campo não pode estar vazio</p>
+
+        <input id="1-first-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 1">
+        <p id="invalid-first-url-1" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
+    </div>
+
+    <div id="second-1" class="group-inputs hidden">
+        <input id="1-second-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 2">
+        <p id="invalid-second-wrong-1" class="invalid-error-message hidden">O campo não pode estar vazio</p>
+
+        <input id="1-second-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 2">
+        <p id="invalid-second-url-1" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
+    </div>
+
+    <div id="third-1" class="group-inputs hidden">
+        <input id="1-third-wrong-answer" class="create-quizz-input" type="text" placeholder="Resposta incorreta 3">
+        <p id="invalid-third-wrong-1" class="invalid-error-message hidden">O campo não pode estar vazio</p>
+
+        <input id="1-third-wrong-url-img" class="create-quizz-input" type="text" placeholder="URL da imagem 3">
+        <p id="invalid-third-url-1" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
+    </div>
+    <div id="add-answer-1" class="min-question-inputs" onclick="addAnswer('second-1','third-1','add-answer-1')">
+        <div>
+            <p>Adicionar resposta</p>
+            <ion-icon name="add-outline"></ion-icon>
+        </div>
+    </div>
+</div>
+</div>
+    `
     let createQuestionsContainer = document.getElementById('questions-inputs')
     for (let i = 0; i < (numQuestions - 1); i++) {
         let index = i + 2
@@ -624,11 +682,38 @@ const loadQuestionsInputs = () => {
             </div>
         </div>`
     }
-    createQuestionsContainer.innerHTML += questionsInputs
+    createQuestionsContainer.innerHTML = questionsInputs
 }
 
 const loadLevelsInputs = () => {
-    let levelsInputs = ''
+    let levelsInputs = `
+    <div id="min-level-1" class="min-level-inputs hidden min-level-selected" onclick="showLevelInputs('min-level-1','level-1')">
+                    <div>
+                        <p>Nível 1</p>
+                        <img src="./img/Vector.png" alt="editar">
+                    </div>
+                </div>
+                <div id="level-1" class="inputs level-selected">
+                    <h3>Nível 1</h3>
+                    <div class="group-inputs">
+                        <input id="level-title-1" class="create-quizz-input" type="text" placeholder="Título do nível">
+                        <p id="invalid-level-title-1" class="invalid-error-message hidden">O título do nível deve ter no mínimo 20 caracteres</p>
+                    </div>                   
+                    <div class="group-inputs">
+                        <input id="rating-level-1" class="create-quizz-input" type="text" placeholder="% acerto mínima">
+                        <p id="invalid-level-rating-1" class="invalid-error-message hidden">O valor informado deve ser entre 0 e 100</p>
+                    </div>
+                    <div class="group-inputs">
+                        <input id="level-img-url-1" class="create-quizz-input" type="text" placeholder="URL da imagem do nível">
+                        <p id="invalid-level-image-1" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
+                    </div>
+                    
+                    <div class="group-inputs">
+                        <textarea id="level-description-1" class="create-quizz-textarea" type="text" placeholder="Descrição do nível"></textarea>
+                        <p id="invalid-level-description-1" class="invalid-error-message hidden">A descrição deve ter no mínimo 30 caracteres</p>
+                    </div>
+                </div>
+    `
     let createLevelsContainer = document.getElementById('levels-inputs')
     for (let i = 0; i < (numLevels - 1); i++) {
         const index = i + 2
@@ -661,7 +746,7 @@ const loadLevelsInputs = () => {
             </div>
         `
     }
-    createLevelsContainer.innerHTML += levelsInputs
+    createLevelsContainer.innerHTML = levelsInputs
 }
 
 //MINIMIZA OS INPUTS DAS INFORMAÇÕES QUE NÃO ESTÃO SENDO EDITADAS
