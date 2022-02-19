@@ -8,10 +8,14 @@ let contUserAnswer = 0;
 let auxarrayCorrectWrong = arrayCorrectWrong;
 let cont = 0;
 let idClicked = 0;
+let auxScrollingQuestions = 0;
 
 let infoAllQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
 
 function createPost_T2(idQuizz){
+
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 
     idClicked = idQuizz;
     // Obtendo info de todos os Quizz
@@ -24,18 +28,19 @@ function createPost_T2(idQuizz){
     
     let home = document.querySelector(".container");
     home.classList.add("resultHidden_T2");
-
-    window.scroll({
-        top: 100,
-        behavior: 'smooth'
-    });
-
 }
 
 function showQuizzes(messageAllQuizz) {
+
+    arrayCorrectWrong = [];
+    auxarrayCorrectWrong = arrayCorrectWrong;
+    auxScrollingQuestions = 0;
+
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     
     idQuizz = messageAllQuizz.data;
-    console.log(idQuizz)
+    /* console.log(idQuizz) */
     for (let i = 0; i < idQuizz.length; i++) {
         arrayId[i] = idQuizz[i].id;
     }
@@ -47,7 +52,7 @@ function showQuizzes(messageAllQuizz) {
     // Recebendo os dados do get enviados pelo servidor
     function processAxiosAnswer(messageOneQuizz) {
         dataAnswerAxios = messageOneQuizz.data;
-        console.log(messageOneQuizz)
+        /* console.log(messageOneQuizz) */
         createPostQuizz(dataAnswerAxios);
     }
 
@@ -61,18 +66,23 @@ function comparador() {
 
 // Fazer um auxiliar para determinar quantas respostas ficaram em cada coluna
 
+
+
+
 function createPostQuizz(dataAnswerAxios) {
-    console.log(idQuizz)
+
     for (let i = 0; i < dataAnswerAxios.questions.length; i++) {
         booleanContainerAnswers.push(true);
     }
 
     /* console.log(containerAnswers); */
     let oneQuizzTitle = document.querySelector(".quizzTitleT2");
-    let quizzQuestionTitle = document.querySelector(".containerQuizz");
-    
+    let quizzContainerAll = document.querySelector(".containerQuizz");
+    let quizzQuestions = "";
+
     oneQuizzTitle.innerHTML = "";
-    quizzQuestionTitle.innerHTML = "";
+    quizzContainerAll.innerHTML = "";
+    
     
     oneQuizzTitle.innerHTML += `<p>${dataAnswerAxios.title}</p>`
 
@@ -81,55 +91,65 @@ function createPostQuizz(dataAnswerAxios) {
         for(let i = 0; i < dataAnswerAxios.questions.length; i++){
             
             dataAnswerAxios.questions[i];
-            quizzQuestionTitle.innerHTML += `<div id="questionTitle${i}" class="questionTitleT2">
-                                                <p>${dataAnswerAxios.questions[i].title}</p>
-                                            </div>`
 
-        let questionTitle = document.getElementById(`questionTitle${i}`);
-        questionTitle.style['backgroundColor'] = `${dataAnswerAxios.questions[i].color}`
+            dataAnswerAxios.questions[i].answers.sort(randQuestions);
 
             for(let j = 0; j < dataAnswerAxios.questions[i].answers.length; j++){
                 
                 auxCont = i;
                 containerAnswers[i] = dataAnswerAxios.questions[i].answers.length;
-                quizzQuestionTitle.innerHTML += `
-                                                    <div id="blockQuizzT2__${j}" class="blockQuizzT2">
+                quizzQuestions += `<div id="blockQuizzT2__${j}" class="blockQuizzT2">
                                                         <div class="subBlockAnswer" id="block${i}_answer${j}" onclick="selectAnswer(this,'${i}')">
                                                             <img src="${dataAnswerAxios.questions[i].answers[j].image}" alt="">
                                                             <p>${dataAnswerAxios.questions[i].answers[j].text}</p>
                                                         </div>
                                                     </div>`;
-
-                    if(dataAnswerAxios.questions[i].answers[j].isCorrectAnswer){
-                        arrayCorrectWrong.push(true);
-                    } else {
-                            arrayCorrectWrong.push(false);
-                    }        
-                    
-            }        
+            }
             
+            quizzContainerAll.innerHTML += `<div class="containAllQuizz" id=q${i}>
+                                                <div id="questionTitle${i}" class="questionTitleT2">
+                                                    <p>${dataAnswerAxios.questions[i].title}</p>
+                                                </div>
+                                                    ${quizzQuestions}
+                                            </div>`
+
+        let questionTitle = document.getElementById(`questionTitle${i}`);
+        questionTitle.style['backgroundColor'] = `${dataAnswerAxios.questions[i].color}`
+        
+        quizzQuestions = ""; 
+        
+    }
+
+        for(let i = 0; i < dataAnswerAxios.questions.length; i++){
+            for(let j = 0; j < dataAnswerAxios.questions[i].answers.length; j++){
+                if(dataAnswerAxios.questions[i].answers[j].isCorrectAnswer){
+                    arrayCorrectWrong.push(true);
+                } else {
+                        arrayCorrectWrong.push(false);
+                }
+            }
         }
+
         // Final Results
     return [booleanContainerAnswers, containerAnswers, arrayCorrectWrong];
-    
+}
+
+// Esta função pode ficar separada do código acima, onde você preferir
+function randQuestions() { 
+	return Math.random() - 0.5; 
 }
 
 // Função selecionar resposta
 
-
-
 function selectAnswer(div,num){
 
+    
     if (booleanContainerAnswers[num]) {
 
         booleanContainerAnswers[num] = false;
 
         let numAnswer = parseFloat(div.id.replace(`block${num}_answer`,'')); 
-        /* console.log(numAnswer) */
-        let myElement = document.querySelector(`.allInfoQuizz`);
-        
-/*         myElement.childNodes[myElement.children.length - 1].scrollIntoView();
-        console.log(myElement.childNodes[myElement.children.length]) */
+
 
         for(let i = 0; i < containerAnswers.length; i++){
             answersContainer[i] = containerAnswers[i];
@@ -138,32 +158,31 @@ function selectAnswer(div,num){
             for(let j = 0; j < answersContainer[num]; j++){
                 
                 if(j!= (numAnswer)){
-/*                     console.log(j);
-                    console.log(num); */
+
                     let otherAnswers = document.getElementById(`block${num}_answer${j}`);
                     otherAnswers.classList.add("notSelected");
-                    /* console.log(otherAnswers) */
+
                 }
 
                 if(arrayCorrectWrong[contArrayCorrectWrong]){
+
                     let correctWrongColor = document.getElementById(`block${num}_answer${j}`);
                     correctWrongColor.classList.add("correct");
                     contArrayCorrectWrong++;
-                    cont++                    
+                    cont++;    
+                    
                 } else{
                     let correctWrongColor = document.getElementById(`block${num}_answer${j}`);
                     correctWrongColor.classList.add("wrong");
                     contArrayCorrectWrong++;
                 }
     }
-
+        
         if(auxarrayCorrectWrong[numAnswer]){
             auxarrayCorrectWrong = auxarrayCorrectWrong.slice(answersContainer[num],auxarrayCorrectWrong.length);
             contUserAnswer++;
-            
         } else {
             auxarrayCorrectWrong = auxarrayCorrectWrong.slice(answersContainer[num],auxarrayCorrectWrong.length);
-            
         }
         
 }
@@ -171,47 +190,67 @@ function selectAnswer(div,num){
     // Filtrando as respostas para mostrar o bloco de resultados...
 
     if(booleanContainerAnswers.filter(Boolean) == false){
-        /* console.log(booleanContainerAnswers) */
         let resultInfo = document.querySelector(".finalOptions_T2");
         resultInfo.classList.remove("resultHidden_T2");
     }
-    
-/*     const elementoQueQueroQueApareca = document.querySelector('.containerQuizz');
-    elementoQueQueroQueApareca.scrollTo(elementoQueQueroQueApareca.children) */
+
+    setTimeout(() =>{
+        if(document.getElementById(`q${parseInt(num)+1}`) != null){
+            document.getElementById(`q${parseInt(num)+1}`).scrollIntoView()  }
+    }, 2000);
 
     pegandoocontador();
     return [contUserAnswer, cont];  
+}
+
+
+let myElement = document.getElementById('resetFinalResult');
+function scrollToFinalAnswer(){
+    
+    myElement.scrollIntoView();
 }
 
 function pegandoocontador(){
 
     if(cont == dataAnswerAxios.questions.length){
         finalAnswer();
+        setTimeout(scrollToFinalAnswer, 2000);
     }
 }
 
 
 function finalAnswer(){
-    let percTotalRights = 100/dataAnswerAxios.questions.length;
+    
+    let percTotalRights = 0;
+    percTotalRights = 100/dataAnswerAxios.questions.length;
     let auxLevelHists = 0;
     percRights = percTotalRights * contUserAnswer;
-    
+    let auxCont = 0;
+
     let quizzFinalResult = document.querySelector(".finalOptions_T2");
     quizzFinalResult.innerHTML = "";
 
     for(let i = 0; i < dataAnswerAxios.levels.length; i++){
-        
-        if(dataAnswerAxios.levels[i].minValue <= percRights){
-                console.log(dataAnswerAxios.levels[i].minValue);
-                console.log(percRights);
-                console.log(i)
+        auxCont++;
+        if(auxCont < dataAnswerAxios.levels.length){
+            if(dataAnswerAxios.levels[i].minValue > dataAnswerAxios.levels[auxCont].minValue){
                 auxLevelHists = i;
+            }
         }
+            if(i>0 && dataAnswerAxios.levels[i-1].minValue > dataAnswerAxios.levels[i].minValue && dataAnswerAxios.levels[i-1].minValue <= Math.floor(percRights)){
+                        auxLevelHists = i-1;
+                        console.log(auxLevelHists)
+                    } else{
+                        auxLevelHists = i;
+                }
+        
+        
     }
+    
 
     quizzFinalResult.innerHTML += ` <div class="quizzResult_T2">
                                                 <div class="quizzResultTitle_T2">
-                                                    <p>${dataAnswerAxios.levels[auxLevelHists].title}</p> <!--ESSA FRASE VAI MUDAR E VIR DA API-->
+                                                    <p>${Math.floor(percRights)}% de acerto: ${dataAnswerAxios.levels[auxLevelHists].title}</p> 
                                                 </div>
                                                 <div class="quizzResultInfo_T2">
                                                     <img src="${dataAnswerAxios.levels[auxLevelHists].image}" alt="">
@@ -235,8 +274,7 @@ function backHome(){
 
     let back = document.getElementById("mainT2");
     back.classList.add("resultHidden_T2");
-    /* startFirstScreen(); */
-    
+        
     let home = document.querySelector(".container");
     home.classList.remove("resultHidden_T2");
 
@@ -250,6 +288,7 @@ function backHome(){
     contUserAnswer = 0;
     auxarrayCorrectWrong = arrayCorrectWrong;
     cont = 0;
+    auxScrollingQuestions = 0;
 
     let infoAllQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     infoAllQuizz.then(showQuizzes);
@@ -258,12 +297,14 @@ function backHome(){
     pegandoocontador();
     finalAnswer();
 
-    window.scroll({
-        top: 100,
-        behavior: 'smooth'
-    });
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 
-    document.getElementById("resetFinalResult").innerHTML = '';
+    document.getElementById("resetFinalResult").innerHTML = "";
+    document.querySelector(".quizzTitleT2").innerHTML = "";
+    document.querySelector(".containerQuizz").innerHTML = "";
+
+    window.clearTimeout(scrollToFinalAnswer);
 }
 
 
@@ -279,6 +320,7 @@ function restartButtom(){
     contUserAnswer = 0;
     auxarrayCorrectWrong = arrayCorrectWrong;
     cont = 0;
+    auxScrollingQuestions = 0;
 
     let infoAllQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     infoAllQuizz.then(showQuizzes);
@@ -286,12 +328,14 @@ function restartButtom(){
     selectAnswer();
     pegandoocontador();
     finalAnswer();
+    
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 
-    window.scroll({
-        top: 100,
-        behavior: 'smooth'
-    });
+    document.getElementById("resetFinalResult").innerHTML = "";
+    document.querySelector(".quizzTitleT2").innerHTML = "";
+    document.querySelector(".containerQuizz").innerHTML = "";
 
-    document.getElementById("resetFinalResult").innerHTML = '';
+    window.clearTimeout(scrollToFinalAnswer);
     
 }
