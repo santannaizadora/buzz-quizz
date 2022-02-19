@@ -127,7 +127,7 @@ function selectAnswer(div,num){
         let numAnswer = parseFloat(div.id.replace(`block${num}_answer`,'')); 
         /* console.log(numAnswer) */
         let myElement = document.querySelector(`.allInfoQuizz`);
-        
+        console.log("a gente tá vendo isso", myElement.parentNode.children[1].children[0].children);
 /*         myElement.childNodes[myElement.children.length - 1].scrollIntoView();
         console.log(myElement.childNodes[myElement.children.length]) */
 

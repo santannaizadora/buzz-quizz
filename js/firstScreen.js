@@ -1,13 +1,20 @@
+//originaaaaaaaal
+
+if(localStorage.getItem("userQuizzes") === null){
+    let userQuizzesArray = [];
+    let arraySerializada =JSON.stringify(userQuizzesArray);
+    localStorage.setItem("userQuizzes", arraySerializada);
+}
+
 startFirstScreen();
 
 //iniciando tela 1
 function startFirstScreen(){
+    let pegandoChave = localStorage.getItem("userQuizzes");
+    let chaveDesserializada = JSON.parse(pegandoChave);
     document.querySelector(".container").innerHTML = `
         <main class="first-screen">
-            <section class="box-without-quizzes">
-                <p>Você não criou nenhum quizz ainda :(</p>
-                <button class="button-create-quizz" onclick="">Criar Quizz</button>
-            </section>
+            <section class="quizzUser"></section>
             <section class="all-quizzes-list">
                 <p>Todos os quizzes</p>
                 <div class="all-quizzes">
@@ -16,7 +23,14 @@ function startFirstScreen(){
         </main>
     `;
     fetchServerQuizzes();
+
+    if (chaveDesserializada.length === 0 || localStorage.getItem("userQuizzes") === null){
+        startFirstScreenWithoutUserQuizzes();
+    } else {
+        startUserQuizzes(chaveDesserializada);
+    }
 }
+
 
 //Buscando quizzes do servidor
 function fetchServerQuizzes(){
@@ -24,10 +38,11 @@ function fetchServerQuizzes(){
     promise.then(showQuizzes);
     
 }
+
 // mostrando os quizzes do servidor
 function showQuizzes(response){
     const serverQuizzes = response.data; 
-    console.log(response.data); //vendo a array de quizzes que ele retorna
+    //console.log(response.data); //vendo a array de quizzes que ele retorna
     let quizzesList = document.querySelector(".all-quizzes");
     quizzesList.innerHTML = "";
 
@@ -50,44 +65,40 @@ function loading(){
     </div>
     `;
 }
-// //inserir as telas 2 e 3 dinamicamente
-// //verificar com as meninas
 
+function startUserQuizzes(){
+    document.querySelector(".quizzUser").innerHTML = `
+        <div class="user-quizzes-T1">
+            <p>Seus quizzes</p>
+            <ion-icon class="add-quizz-button" name="add-circle-sharp"  onclick=""></ion-icon>
+        </div>
+        <div class="all-user-quizzes"></div>
+    `;
 
-// //inserir a tela 1 com os quizzes do usuario
-// // caso já tenha criado os itens, deve substituir a section box-without-quizzes por esta aqui-->
-// function startUserQuizzes() {
-//     document.querySelector(".box-without-quizzes").innerHTML = `
-//         <div class="user-quizzes-T1">
-//             <p>Seus quizzes</p>
-//             <ion-icon class="add-quizz-button" name="add-circle-sharp"></ion-icon>
-//         </div>
-//         <div class="all-quizzes"></div>
-//     `;
-//     fetchUserQuizzes();
-// }    
+    showUserQuizzes();
+}  
 
-// function fetchUserQuizzes(){
-    // const listaSerializada = localStorage.getItem("lista"); // Pegando de volta a string armazenada na chave "lista"
-//}
+function showUserQuizzes(arrayUserQuizzes){
+    for (let i = 0; i<arrayUserQuizzes.length; i++){
+        document.querySelector(".all-user-quizzes").innerHTML += `
+            <article class="individual-quizz element${arrayUserQuizzes[i].id}" onclick="createPost_T2(${serverQuizzes[i].id})">
+                <img src="${arrayUserQuizzes[i].image}" alt="${arrayUserQuizzes[i].title}">
+                <div class="shadow"></div> 
+                <h1>${arrayUserQuizzes[i].title}</h1>
+            </article>
+        `;
+    }
+}
 
-// function showUserQuizzes(){
-//     let arrayUserQuizzes = [];
-//     for (let i = 0; i<arrayUserQuizzes.length; i++){
-//         let userQuizzId = document.getElementById(arrayUserQuizzes);
-//         let serverQuizzId = document.getElementById(serverQuizzes[i]);
-//         if (userQuizzId !== serverQuizzId){
-//             document.querySelector(".all-user-quizzes").innerHTML += `
-//             <article class="individual-quizz element${arrayUserQuizzes[i].id}" onclick="createPost_T2(${serverQuizzes[i].id})">
-//                 <img src="${arrayUserQuizzes[i].image}" alt="${arrayUserQuizzes[i].title}">
-//                 <div class="shadow"></div> 
-//                 <h1>${arrayUserQuizzes[i].title}</h1>
-//             </article>
-//             `;
-//         }
-//     }
-// }
-
+function startFirstScreenWithoutUserQuizzes(){
+    document.querySelector(".quizzUser").innerHTML = `
+        <section class="box-without-quizzes">
+            <p>Você não criou nenhum quizz ainda :(</p>
+            <button class="button-create-quizz" onclick="enviarDadosQuizz();">Criar Quizz</button>
+        </section> 
+    `;
+    fetchServerQuizzes();
+}
 
 
 
