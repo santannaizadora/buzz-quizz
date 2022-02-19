@@ -114,7 +114,7 @@
         <div class="create-quizz-levels hidden">
             <h2>Agora, decida os níveis!</h2>
             <div id="levels-inputs">
-                <div id="min-level-1" class="min-level-inputs hidden min-level-selected" onclick="showQuestionInputs('min-1','question-1')">
+                <div id="min-level-1" class="min-level-inputs hidden min-level-selected" onclick="showLevelInputs('min-level-1','level-1')">
                     <div>
                         <p>Nível 1</p>
                         <img src="./img/Vector.png" alt="editar">
@@ -122,13 +122,26 @@
                 </div>
                 <div id="level-1" class="inputs level-selected">
                     <h3>Nível 1</h3>
-                    <input id="level-title" class="create-quizz-input" type="text" placeholder="Título do nível">
-                    <input id="rating-level" class="create-quizz-input" type="text" placeholder="% acerto mínima">
-                    <input id="level-img-url" class="create-quizz-input" type="text" placeholder="URL da imagem do nível">
-                    <textarea id="level-description" class="create-quizz-textarea" type="text" placeholder="Descrição do nível"></textarea>
+                    <div class="group-inputs">
+                        <input id="level-title-1" class="create-quizz-input" type="text" placeholder="Título do nível">
+                        <p id="invalid-level-title-1" class="invalid-error-message hidden">O título do nível deve ter no mínimo 20 caracteres</p>
+                    </div>                   
+                    <div class="group-inputs">
+                        <input id="rating-level-1" class="create-quizz-input" type="text" placeholder="% acerto mínima">
+                        <p id="invalid-level-rating-1" class="invalid-error-message hidden">O valor informado deve ser entre 0 e 100</p>
+                    </div>
+                    <div class="group-inputs">
+                        <input id="level-img-url-1" class="create-quizz-input" type="text" placeholder="URL da imagem do nível">
+                        <p id="invalid-level-image-1" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
+                    </div>
+                    
+                    <div class="group-inputs">
+                        <textarea id="level-description-1" class="create-quizz-textarea" type="text" placeholder="Descrição do nível"></textarea>
+                        <p id="invalid-level-description-1" class="invalid-error-message hidden">A descrição deve ter no mínimo 30 caracteres</p>
+                    </div>
                 </div>
             </div>
-            <button class="create-quizz-button" onclick="">Finalizar Quizz</button>
+            <button class="create-quizz-button" onclick="finishCreateQuizz()">Finalizar Quizz</button>
         </div>
         <div class="create-quizz-success hidden">
             <h2>Seu quizz está pronto!</h2>
@@ -137,6 +150,7 @@
             <button class="create-quizz-button back-home">Voltar para home</button>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="./js/createQuizz.js"></script>

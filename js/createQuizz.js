@@ -2,18 +2,13 @@ let quizzObj = {
     title: '',
     image: '',
     questions: [],
-    levels: [
-        /*{
-        	title: '',
-        	image: '',
-        	text: '',
-        	minValue: 0
-        }*/
-    ]
+    levels: []
 }
 
 let numQuestions = 0
 let numLevels = 0
+
+let postResponse = ''
 
 //VALIDAÇÃO DE CADA INPUT
 
@@ -90,12 +85,17 @@ const isLevelDescriptionValid = (description) => {
     return false
 }
 
-const findZero = (level) => {
-    return level === 0
+const findZero = (value) => {
+    return value == 0
 }
 
 const thereIsZeroPercent = () => {
-    return quizzObj.levels.minValue.find(findZero)
+    values = []
+    quizzObj.levels.forEach(level => {
+        values.push(level.minValue)
+    })
+
+    return values.find(findZero)
 }
 
 //PEGA OS DADOS QUE SERÃO ENVIADOS AO SERVIDOR/ DADOS USADOS PARA RENDERIZAR OS INPUTS DE PERGUNTAS/NÍVEIS
@@ -182,6 +182,21 @@ const getQuestionInfos = () => {
     console.log(quizzObj)
 }
 
+const getLevelInfos = () => {
+    quizzObj.levels = []
+
+    for (let i = 0; i < numLevels; i++) {
+        const index = i + 1
+        let levelObj = {
+            title: `${document.getElementById(`level-title-${index}`).value}`,
+            image: `${document.getElementById(`level-img-url-${index}`).value}`,
+            text: `${document.getElementById(`level-description-${index}`).value}`,
+            minValue: parseFloat(document.getElementById(`rating-level-${index}`).value)
+        }
+        quizzObj.levels.push(levelObj)
+    }
+}
+
 //VALIDA SE TODOS OS INPUTS DAS INFORMAÇÕES BÁSICAS POSSUEM DADOS VÁLIDOS
 
 const validateBasicInfos = () => {
@@ -245,6 +260,24 @@ const isValidOptionalAnswers = () => {
             verify.push(invalidThirdWrong.classList.contains('hidden'))
             verify.push(invalidThirdUrl.classList.contains('hidden'))
         }
+    }
+    return verify.find(verifyError)
+}
+
+//VALIDA SE OS INPUTS DE LEVEL SÃO VÁLIDOS
+const IsValidLevel = () => {
+    let verify = []
+    for (let i = 0; i < numLevels; i++) {
+        const index = i + 1;
+        const invalidLevelTitle = document.getElementById(`invalid-level-title-${index}`)
+        const invalidLevelRating = document.getElementById(`invalid-level-rating-${index}`)
+        const invalidLevelImage = document.getElementById(`invalid-level-image-${index}`)
+        const invalidLevelDescription = document.getElementById(`invalid-level-description-${index}`)
+
+        verify.push(invalidLevelTitle.classList.contains('hidden'))
+        verify.push(invalidLevelRating.classList.contains('hidden'))
+        verify.push(invalidLevelImage.classList.contains('hidden'))
+        verify.push(invalidLevelDescription.classList.contains('hidden'))
     }
     return verify.find(verifyError)
 }
@@ -435,6 +468,57 @@ const validateOptionalAnswers = () => {
 
 }
 
+const validateLevel = () => {
+    for (let i = 0; i < numLevels; i++) {
+        const index = i + 1;
+
+        const levelTitle = document.getElementById(`level-title-${index}`).value
+        const levelTitleInput = document.getElementById(`level-title-${index}`)
+        const levelTitleError = document.getElementById(`invalid-level-title-${index}`)
+
+        if(!isLevelTitleValid(levelTitle)){
+            levelTitleInput.classList.add('invalid-input')
+            levelTitleError.classList.remove('hidden')
+        }else {
+            levelTitleInput.classList.remove('invalid-input')
+            levelTitleError.classList.add('hidden')
+        }
+
+        const levelRating = parseFloat(document.getElementById(`rating-level-${index}`).value)
+        const levelRatingInput = document.getElementById(`rating-level-${index}`)
+        const levelRatingError = document.getElementById(`invalid-level-rating-${index}`)
+        if(!isPercentageValid(levelRating)){
+            levelRatingInput.classList.add('invalid-input')
+            levelRatingError.classList.remove('hidden')
+        }else {
+            levelRatingInput.classList.remove('invalid-input')
+            levelRatingError.classList.add('hidden')
+        }
+
+        const levelImage = document.getElementById(`level-img-url-${index}`).value
+        const levelImageInput = document.getElementById(`level-img-url-${index}`)
+        const levelImageError = document.getElementById(`invalid-level-image-${index}`)
+        if(!isValidUrl(levelImage)){
+            levelImageInput.classList.add('invalid-input')
+            levelImageError.classList.remove('hidden')
+        }else {
+            levelImageInput.classList.remove('invalid-input')
+            levelImageError.classList.add('hidden')
+        }
+
+        const levelDescription = document.getElementById(`level-description-${index}`).value
+        const levelDescriptionInput = document.getElementById(`level-description-${index}`)
+        const levelDescriptionError = document.getElementById(`invalid-level-description-${index}`)
+        if(!isLevelDescriptionValid(levelDescription)){
+            levelDescriptionInput.classList.add('invalid-input')
+            levelDescriptionError.classList.remove('hidden')
+        }else {
+            levelDescriptionInput.classList.remove('invalid-input')
+            levelDescriptionError.classList.add('hidden')
+        }
+    }
+}
+
 //LIBERA (OU NÃO) AS PROXIMAS PAGINAS
 const goToQuestions = () => {
     let isAllValid = validateBasicInfos()
@@ -449,9 +533,9 @@ const goToQuestions = () => {
 
 const goToLevels = () => {
     getQuestionInfos()
-        //validateQuestion()
-        //validateMandatoryAnswers()
-        //validateOptionalAnswers()
+    validateQuestion()
+    validateMandatoryAnswers()
+    validateOptionalAnswers()
     if (isValidQuestion() != false && isValidMandatoryAnswers() != false && isValidOptionalAnswers != false) {
         loadLevelsInputs()
         document.querySelector('.create-quizz-questions').classList.add('hidden')
@@ -460,7 +544,20 @@ const goToLevels = () => {
 }
 
 const finishCreateQuizz = () => {
+    getLevelInfos()
+    validateLevel()
+    if(thereIsZeroPercent() != 0){
+        alert("Pelo menos um nível deve ter acerto mínimo igual a 0%")
+    }
 
+    if(IsValidLevel() != false && thereIsZeroPercent() == 0){
+        postResponse = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizzObj)
+        document.querySelector('.create-quizz-levels').classList.add('hidden')
+        document.querySelector('.create-quizz-success').classList.remove('hidden')
+        cleanCreateQuizzInfos()
+    }
+
+    console.log(quizzObj)
 }
 
 //CARREGA OS CAMPOS NECESSÁRIOS DE ACORDO COM O VALOR INFORMADO PELO USUÁRIO
@@ -542,12 +639,25 @@ const loadLevelsInputs = () => {
                     <img src="./img/Vector.png" alt="editar">
                 </div>
             </div>
-            <div id="level-${index}" class="inputs hidden ">
+            <div id="level-${index}" class="inputs hidden">
                 <h3>Nível ${index}</h3>
-                <input id="level-title" class="create-quizz-input" type="text" placeholder="Título do nível">
-                <input id="rating-level" class="create-quizz-input" type="text" placeholder="% acerto mínima">
-                <input id="level-img-url" class="create-quizz-input" type="text" placeholder="URL da imagem do nível">
-                <textarea id="level-description" class="create-quizz-textarea" type="text" placeholder="Descrição do nível"></textarea>
+                <div class="group-inputs">
+                        <input id="level-title-${index}" class="create-quizz-input" type="text" placeholder="Título do nível">
+                        <p id="invalid-level-title-${index}" class="invalid-error-message hidden">O título do nível deve ter no mínimo 20 caracteres</p>
+                    </div>                   
+                    <div class="group-inputs">
+                        <input id="rating-level-${index}" class="create-quizz-input" type="text" placeholder="% acerto mínima">
+                        <p id="invalid-level-rating-${index}" class="invalid-error-message hidden">O valor informado deve ser entre 0 e 100</p>
+                    </div>
+                    <div class="group-inputs">
+                        <input id="level-img-url-${index}" class="create-quizz-input" type="text" placeholder="URL da imagem do nível">
+                        <p id="invalid-level-image-${index}" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
+                    </div>
+                    
+                    <div class="group-inputs">
+                        <textarea id="level-description-${index}" class="create-quizz-textarea" type="text" placeholder="Descrição do nível"></textarea>
+                        <p id="invalid-level-description-${index}" class="invalid-error-message hidden">A descrição deve ter no mínimo 30 caracteres</p>
+                    </div>
             </div>
         `
     }
@@ -577,10 +687,11 @@ const showLevelInputs = (minDiv, maxDiv) => {
     let min = document.getElementById(minDiv)
     let max = document.getElementById(maxDiv)
     if (maxSelected != null && minSelected != null) {
+        console.log('tem min/max selected')
+        minSelected.classList.remove('hidden', 'min-level-selected')
         maxSelected.classList.add('hidden')
         maxSelected.classList.remove('level-selected')
-        minSelected.classList.remove('hidden', 'min-level-selected')
-    }
+    } 
     min.classList.add('hidden', 'min-level-selected')
     max.classList.add('level-selected')
     max.classList.remove('hidden')
