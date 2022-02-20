@@ -1,17 +1,16 @@
-//originaaaaaaaal
+let deserializedKey = undefined;
 
 if(localStorage.getItem("userQuizzes") === null){
     let userQuizzesArray = [];
-    let arraySerializada =JSON.stringify(userQuizzesArray);
-    localStorage.setItem("userQuizzes", arraySerializada);
+    let serializedUserQuizzesArray =JSON.stringify(userQuizzesArray);
+    localStorage.setItem("userQuizzes", serializedUserQuizzesArray);
 }
 
 startFirstScreen();
 
-//iniciando tela 1
 function startFirstScreen(){
-    let pegandoChave = localStorage.getItem("userQuizzes");
-    let chaveDesserializada = JSON.parse(pegandoChave);
+    let gettingKeyLocalStorage = localStorage.getItem("userQuizzes");
+    deserializedKey = JSON.parse(gettingKeyLocalStorage);
     document.querySelector(".container").innerHTML = `
         <main class="first-screen">
             <section class="quizzUser"></section>
@@ -24,36 +23,40 @@ function startFirstScreen(){
     `;
     fetchServerQuizzes();
 
-    if (chaveDesserializada.length === 0 || localStorage.getItem("userQuizzes") === null){
+    if (deserializedKey.length === 0 || localStorage.getItem("userQuizzes") === null){
         startFirstScreenWithoutUserQuizzes();
     } else {
-        startUserQuizzes(chaveDesserializada);
+        startUserQuizzes(deserializedKey);
     }
 }
 
-//Buscando quizzes do servidor
 function fetchServerQuizzes(){
     let promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     promise.then(showQuizzes);
     
 }
 
-// mostrando os quizzes do servidor
 function showQuizzes(response){
     const serverQuizzes = response.data; 
+
     //console.log(response.data); //vendo a array de quizzes que ele retorna
     let quizzesList = document.querySelector(".all-quizzes");
     quizzesList.innerHTML = "";
 
     for(let i = 0; i < serverQuizzes.length; i++){
-        quizzesList.innerHTML += `
-        <article class="individual-quizz element${serverQuizzes[i].id}" onclick="createPost_T2(${serverQuizzes[i].id})">
-            <img src="${serverQuizzes[i].image}" alt="${serverQuizzes[i].title}">
-            <div class="shadow"></div> 
-            <h1>${serverQuizzes[i].title}</h1>
-        </article>
-        `;
-    }    
+        for (let j=0; j < deserializedKey.length; j++){
+            if (serverQuizzes[i].id !== deserializedKey[j].id){
+                quizzesList.innerHTML += `
+                <article class="individual-quizz element${serverQuizzes[i].id}" onclick="createPost_T2(${serverQuizzes[i].id})">
+                    <img src="${serverQuizzes[i].image}" alt="${serverQuizzes[i].title}">
+                    <div class="shadow"></div> 
+                    <h1>${serverQuizzes[i].title}</h1>
+                </article>
+                `;
+            }
+
+        }
+    }   
 }
 
 function startFirstScreenWithoutUserQuizzes(){
@@ -74,21 +77,21 @@ function loading(){
     `;
 }
 
-function startUserQuizzes(){
+function startUserQuizzes(arrayUserQuizzes){
     document.querySelector(".quizzUser").innerHTML = `
         <div class="user-quizzes-T1">
             <p>Seus quizzes</p>
-            <ion-icon class="add-quizz-button" name="add-circle-sharp"  onclick=""></ion-icon>
+            <ion-icon class="add-quizz-button" name="add-circle-sharp"  onclick="enviarDadosQuizz()"></ion-icon>
         </div>
         <div class="all-user-quizzes"></div>
     `;
-    showUserQuizzes();
+    showUserQuizzes(arrayUserQuizzes);
 }  
 
 function showUserQuizzes(arrayUserQuizzes){
     for (let i = 0; i<arrayUserQuizzes.length; i++){
         document.querySelector(".all-user-quizzes").innerHTML += `
-            <article class="individual-quizz element${arrayUserQuizzes[i].id}" onclick="createPost_T2(${serverQuizzes[i].id})">
+            <article class="individual-quizz element${arrayUserQuizzes[i].id}" onclick="createPost_T2(${arrayUserQuizzes[i].id})">
                 <img src="${arrayUserQuizzes[i].image}" alt="${arrayUserQuizzes[i].title}">
                 <div class="shadow"></div> 
                 <h1>${arrayUserQuizzes[i].title}</h1>
@@ -97,22 +100,7 @@ function showUserQuizzes(arrayUserQuizzes){
     }
 }
 
-
-
 function enviarDadosQuizz(){
     document.querySelector('.create-quizz-info').classList.remove('hidden')
     document.querySelector('.first-screen').classList.add('hidden')
 }
-
-
-
-//PARA ARMAZENAR OS QUIZZES DO USUARIO
-// const exemplo = ["João", "Maria", "José"];  // Array que você quer salvar
-// const exemploSerializado = JSON.stringify(exemplo); // Array convertida pra uma string
-
-// localStorage.setItem("lista", exemploSerializado); // Armazenando a string na chave "lista" do Local Storage
-
-// const listaSerializada = localStorage.getItem("lista"); // Pegando de volta a string armazenada na chave "lista"
-
-// const lista = JSON.parse(listaSerializada); // Transformando a string de volta na array original
-
