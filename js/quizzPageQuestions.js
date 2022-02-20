@@ -98,19 +98,21 @@ function createPostQuizz(dataAnswerAxios) {
                 
                 auxCont = i;
                 containerAnswers[i] = dataAnswerAxios.questions[i].answers.length;
-                quizzQuestions += `<div id="blockQuizzT2__${j}" class="blockQuizzT2">
+                quizzQuestions += `
                                                         <div class="subBlockAnswer" id="block${i}_answer${j}" onclick="selectAnswer(this,'${i}')">
                                                             <img src="${dataAnswerAxios.questions[i].answers[j].image}" alt="">
                                                             <p>${dataAnswerAxios.questions[i].answers[j].text}</p>
                                                         </div>
-                                                    </div>`;
+                                                    `;
             }
             
             quizzContainerAll.innerHTML += `<div class="containAllQuizz" id=q${i}>
                                                 <div id="questionTitle${i}" class="questionTitleT2">
                                                     <p>${dataAnswerAxios.questions[i].title}</p>
                                                 </div>
-                                                    ${quizzQuestions}
+                                                    <div id="blockQuizzT2__${i}" class="blockQuizzT2">
+                                                        ${quizzQuestions}
+                                                    </div>
                                             </div>`
 
         let questionTitle = document.getElementById(`questionTitle${i}`);
@@ -195,7 +197,7 @@ function selectAnswer(div,num){
 
     setTimeout(() =>{
         if(document.getElementById(`q${parseInt(num)+1}`) != null){
-            document.getElementById(`q${parseInt(num)+1}`).scrollIntoView()  }
+            document.getElementById(`q${parseInt(num)+1}`).scrollIntoView(false)  }
     }, 2000);
 
     pegandoocontador();
@@ -224,24 +226,32 @@ function finalAnswer(){
     percTotalRights = 100/dataAnswerAxios.questions.length;
     let auxLevelHists = 0;
     percRights = percTotalRights * contUserAnswer;
-    let auxCont = 0;
+    let auxCont = 1;
+    let levelsComp = null;
 
     let quizzFinalResult = document.querySelector(".finalOptions_T2");
     quizzFinalResult.innerHTML = "";
 
     for(let i = 0; i < dataAnswerAxios.levels.length; i++){
-        auxCont++;
-        if(auxCont < dataAnswerAxios.levels.length){
-            if(dataAnswerAxios.levels[i].minValue > dataAnswerAxios.levels[auxCont].minValue){
+    
+        if(i == 0){
+            levelsComp = dataAnswerAxios.levels[i] > dataAnswerAxios.levels[auxCont];
+            console.log(levelsComp)
+        }
+
+        if(levelsComp){
+            for(let i = (dataAnswerAxios.levels.length - 1); i = 0; i--){
+                if(dataAnswerAxios.levels[i].minValue <= Math.floor(percRights)){
                 auxLevelHists = i;
+                }
+            }
+        } else {
+            for(let i = 0; i < dataAnswerAxios.levels.length; i++){
+                if(dataAnswerAxios.levels[i].minValue <= Math.floor(percRights)){
+                    auxLevelHists = i;
+                }
             }
         }
-            if(i>0 && dataAnswerAxios.levels[i-1].minValue > dataAnswerAxios.levels[i].minValue && dataAnswerAxios.levels[i-1].minValue <= Math.floor(percRights)){
-                        auxLevelHists = i-1;
-                        console.log(auxLevelHists)
-                    } else{
-                        auxLevelHists = i;
-                }
         
         
     }

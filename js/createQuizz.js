@@ -4,14 +4,11 @@ let quizzObj = {
     questions: [],
     levels: []
 }
-
 let numQuestions = 0
 let numLevels = 0
-
 let postResponse = ''
 
-//VALIDAÇÃO DE CADA INPUT
-
+//FUNÇÕES DE VALIDAÇÃO DOS INPUTS
 const isQuizzTitleValid = (title) => {
     if (title.length >= 20 && title.length <= 65) {
         return true
@@ -98,7 +95,7 @@ const thereIsZeroPercent = () => {
     return values.find(findZero)
 }
 
-//PEGA OS DADOS QUE SERÃO ENVIADOS AO SERVIDOR/ DADOS USADOS PARA RENDERIZAR OS INPUTS DE PERGUNTAS/NÍVEIS
+//FUNÇÕES PARA PEGAR AS INFORMAÇÕES DOS INPUTS
 const getBasicInfos = () => {
     quizzObj.title = document.getElementById('create-title').value
     quizzObj.image = document.getElementById('create-img-url').value
@@ -106,10 +103,8 @@ const getBasicInfos = () => {
     numLevels = document.getElementById('create-num-levels').value
 }
 
-//PEGA AS INFORMAÇÕES DE CADA PERGUNTA
 const getQuestionInfos = () => {
     quizzObj.questions = []
-
 
     let correctAnswerObj = {
         text: '',
@@ -179,7 +174,6 @@ const getQuestionInfos = () => {
 
         quizzObj.questions.push(questionObj)
     }
-    console.log(quizzObj)
 }
 
 const getLevelInfos = () => {
@@ -197,8 +191,7 @@ const getLevelInfos = () => {
     }
 }
 
-//VALIDA SE TODOS OS INPUTS DAS INFORMAÇÕES BÁSICAS POSSUEM DADOS VÁLIDOS
-
+//FUNÇÕES QUE VALIDAM SE TODOS OS INPUTS POSSUEM DADOS VÁLIDOS
 const validateBasicInfos = () => {
     getBasicInfos()
     if (isQuizzTitleValid(quizzObj.title) && isValidUrl(quizzObj.image) && isNumQuestionsValid(numQuestions) && isNumLevelsValid(numLevels)) {
@@ -211,7 +204,6 @@ const verifyError = (verify) => {
     return verify === false
 }
 
-//VALIDA SE TODAS OS INPUTS DAS INFORMAÇÕES DAS PERGUNTAS SÃO VÁLIDOS
 let isValidQuestion = () => {
     let verify = []
     for (let i = 0; i < numQuestions; i++) {
@@ -264,7 +256,6 @@ const isValidOptionalAnswers = () => {
     return verify.find(verifyError)
 }
 
-//VALIDA SE OS INPUTS DE LEVEL SÃO VÁLIDOS
 const IsValidLevel = () => {
     let verify = []
     for (let i = 0; i < numLevels; i++) {
@@ -282,7 +273,7 @@ const IsValidLevel = () => {
     return verify.find(verifyError)
 }
 
-//APARECE MENSAGEM DE ERRO PARA OS INPUTS QUE NÃO POSSUEM DADOS VÁLIDOS
+//FUNÇÕES PARA APARECER MENSAGEM DE ERRO PARA OS INPUTS QUE NÃO POSSUEM DADOS VÁLIDOS
 const invalidBasicInfos = () => {
 
     let invalidTitleMessage = document.getElementById('ivalid-quizz-tile')
@@ -406,6 +397,7 @@ const validateMandatoryAnswers = () => {
         }
     }
 }
+
 const validateOptionalAnswers = () => {
     for (let i = 0; i < numQuestions; i++) {
         index = i + 1
@@ -543,6 +535,14 @@ const goToLevels = () => {
     }
 }
 
+const goToQuizz = () => {
+
+}
+
+const goToHome = () => {
+
+}
+
 const finishCreateQuizz = () => {
     getLevelInfos()
     validateLevel()
@@ -551,16 +551,22 @@ const finishCreateQuizz = () => {
     }
 
     if(IsValidLevel() != false && thereIsZeroPercent() == 0){
-        postResponse = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizzObj)
+        axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizzObj).then(saveLocalStorage)
         document.querySelector('.create-quizz-levels').classList.add('hidden')
         document.querySelector('.create-quizz-success').classList.remove('hidden')
         cleanCreateQuizzInfos()
     }
-
-    console.log(quizzObj)
 }
 
-//CARREGA OS CAMPOS NECESSÁRIOS DE ACORDO COM O VALOR INFORMADO PELO USUÁRIO
+//ARMAZENA NO LOCAL STORAGE
+const saveLocalStorage = (response) => {
+    let data = []
+    data.push(response.data)
+    let serializedData = JSON.stringify(data)
+    localStorage.setItem("userQuizzes", serializedData)
+}
+
+//FUNÇÕES QUE CARREGAM OS CAMPOS NECESSÁRIOS DE ACORDO COM O VALOR INFORMADO PELO USUÁRIO
 const loadQuestionsInputs = () => {
     let questionsInputs = `
     <div id="min-1" class="min-question-inputs hidden min-selected" onclick="showQuestionInputs('min-1','question-1')">
@@ -569,7 +575,7 @@ const loadQuestionsInputs = () => {
         <img src="./img/Vector.png" alt="editar">
     </div>
 </div>
-<div id="question-1" class="inputs inputs-separate question-selected">
+<div id="question-1" class="inputs question-selected">
     <h3>Pergunta 1</h3>
     <div class="group-inputs">
         <input id="1-question-text" class="create-quizz-input" type="text" placeholder="Texto da pergunta">
@@ -631,7 +637,7 @@ const loadQuestionsInputs = () => {
                 <img src="./img/Vector.png" alt="editar">
             </div>        
         </div>
-        <div id="question-${index}" class="inputs inputs-separate hidden">
+        <div id="question-${index}" class="inputs hidden">
             <h3>Pergunta ${index}</h3>
             <div class="group-inputs">
                 <input id="${index}-question-text" class="create-quizz-input" type="text" placeholder="Texto da pergunta">
@@ -748,6 +754,10 @@ const loadLevelsInputs = () => {
     createLevelsContainer.innerHTML = levelsInputs
 }
 
+const loadImageQuizz = () => {
+    document.querySelector('.quizz-img')
+}
+
 //MINIMIZA OS INPUTS DAS INFORMAÇÕES QUE NÃO ESTÃO SENDO EDITADAS
 const showQuestionInputs = (minDiv, maxDiv) => {
     let maxSelected = document.querySelector('.question-selected')
@@ -771,7 +781,6 @@ const showLevelInputs = (minDiv, maxDiv) => {
     let min = document.getElementById(minDiv)
     let max = document.getElementById(maxDiv)
     if (maxSelected != null && minSelected != null) {
-        console.log('tem min/max selected')
         minSelected.classList.remove('hidden', 'min-level-selected')
         maxSelected.classList.add('hidden')
         maxSelected.classList.remove('level-selected')
@@ -811,5 +820,4 @@ const cleanCreateQuizzInfos = () => {
     inputs.forEach(input => {
         input.value = ''
     })
-    console.log(quizzObj)
 }
