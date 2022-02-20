@@ -4,10 +4,8 @@ let quizzObj = {
     questions: [],
     levels: []
 }
-
 let numQuestions = 0
 let numLevels = 0
-
 let postResponse = ''
 
 //FUNÇÕES DE VALIDAÇÃO DOS INPUTS
@@ -527,9 +525,9 @@ const goToQuestions = () => {
 
 const goToLevels = () => {
     getQuestionInfos()
-    //validateQuestion()
-    //validateMandatoryAnswers()
-    //validateOptionalAnswers()
+    validateQuestion()
+    validateMandatoryAnswers()
+    validateOptionalAnswers()
     if (isValidQuestion() != false && isValidMandatoryAnswers() != false && isValidOptionalAnswers != false) {
         loadLevelsInputs()
         document.querySelector('.create-quizz-questions').classList.add('hidden')
@@ -537,19 +535,35 @@ const goToLevels = () => {
     }
 }
 
+const goToQuizz = () => {
+
+}
+
+const goToHome = () => {
+
+}
+
 const finishCreateQuizz = () => {
     getLevelInfos()
-    //validateLevel()
+    validateLevel()
     if(thereIsZeroPercent() != 0){
         alert("Pelo menos um nível deve ter acerto mínimo igual a 0%")
     }
 
     if(IsValidLevel() != false && thereIsZeroPercent() == 0){
-        //postResponse = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizzObj)
+        axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizzObj).then(saveLocalStorage)
         document.querySelector('.create-quizz-levels').classList.add('hidden')
         document.querySelector('.create-quizz-success').classList.remove('hidden')
         cleanCreateQuizzInfos()
     }
+}
+
+//ARMAZENA NO LOCAL STORAGE
+const saveLocalStorage = (response) => {
+    let data = []
+    data.push(response.data)
+    let serializedData = JSON.stringify(data)
+    localStorage.setItem("userQuizzes", serializedData)
 }
 
 //FUNÇÕES QUE CARREGAM OS CAMPOS NECESSÁRIOS DE ACORDO COM O VALOR INFORMADO PELO USUÁRIO
@@ -738,6 +752,10 @@ const loadLevelsInputs = () => {
         `
     }
     createLevelsContainer.innerHTML = levelsInputs
+}
+
+const loadImageQuizz = () => {
+    document.querySelector('.quizz-img')
 }
 
 //MINIMIZA OS INPUTS DAS INFORMAÇÕES QUE NÃO ESTÃO SENDO EDITADAS
