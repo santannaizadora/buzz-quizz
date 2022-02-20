@@ -544,11 +544,10 @@ const finishCreateQuizz = () => {
 
     if(IsValidLevel() != false && thereIsZeroPercent() == 0){
         postResponse = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizzObj)
-        postResponse.then(saveLocalStorage)
+        postResponse.then(saveLocalStorage, loadFinishQuizz)
         loadFinishQuizz()
         document.querySelector('.create-quizz-levels').classList.add('hidden')
         document.querySelector('.create-quizz-success').classList.remove('hidden')
-        cleanCreateQuizzInfos()
     }
 }
 
@@ -753,13 +752,19 @@ const loadLevelsInputs = () => {
 const loadFinishQuizz = () => {
     document.querySelector('.create-quizz-success').innerHTML = `
         <h2>Seu quizz está pronto!</h2>
-        <div class="quizz-img"></div>
+        <div class="quizz-img" onclick="showSecondScreen()"></div>
         <button class="create-quizz-button" onclick="showSecondScreen()">Acessar Quizz</button>
         <button class="create-quizz-button back-home" onclick="showFirstScreen()">Voltar para home</button>` 
+    loadImageQuizz()
 }
 
 const loadImageQuizz = () => {
-    document.querySelector('.quizz-img')
+    document.querySelector('.quizz-img').innerHTML = ` 
+    <article class="individual-quizz" onclick="showSecondScreen()" data-identifier="quizz-card">
+        <img src="${quizzObj.image}" alt="${quizzObj.title}">
+        <div class="shadow"></div> 
+        <h1>${quizzObj.title}</h1>
+    </article>`
 }
 
 //MINIMIZA OS INPUTS DAS INFORMAÇÕES QUE NÃO ESTÃO SENDO EDITADAS
@@ -797,11 +802,13 @@ const showLevelInputs = (minDiv, maxDiv) => {
 
 const showFirstScreen = () => {
     window.location.reload()
+    cleanCreateQuizzInfos()
 }
 
 const showSecondScreen = () => {
     document.querySelector('.create-quizz-success').classList.add('hidden')
     createPost_T2(`${postResponse.id}`)
+    cleanCreateQuizzInfos()
 }
 
 //ADICIONA OS INPUTS PARA AS RESPOSTAS NÃO OBRIGATÓRIAS
