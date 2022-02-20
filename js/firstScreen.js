@@ -31,7 +31,6 @@ function startFirstScreen(){
     }
 }
 
-
 //Buscando quizzes do servidor
 function fetchServerQuizzes(){
     let promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
@@ -57,12 +56,21 @@ function showQuizzes(response){
     }    
 }
 
+function startFirstScreenWithoutUserQuizzes(){
+    document.querySelector(".quizzUser").innerHTML = `
+        <section class="box-without-quizzes">
+            <p>Você não criou nenhum quizz ainda :(</p>
+            <button class="button-create-quizz" onclick="enviarDadosQuizz();">Criar Quizz</button>
+        </section> 
+    `;
+}
+
 function loading(){
     document.querySelector(".container").innerHTML = `
-    <div class="loading">
-        <img src="./img/loading.gif" alt="loading gif">
-        <h2>Carregando</h2>
-    </div>
+        <div class="loading">
+            <img src="./img/loading.gif" alt="loading gif">
+            <h2>Carregando</h2>
+        </div>
     `;
 }
 
@@ -74,7 +82,6 @@ function startUserQuizzes(){
         </div>
         <div class="all-user-quizzes"></div>
     `;
-
     showUserQuizzes();
 }  
 
@@ -90,15 +97,7 @@ function showUserQuizzes(arrayUserQuizzes){
     }
 }
 
-function startFirstScreenWithoutUserQuizzes(){
-    document.querySelector(".quizzUser").innerHTML = `
-        <section class="box-without-quizzes">
-            <p>Você não criou nenhum quizz ainda :(</p>
-            <button class="button-create-quizz" onclick="enviarDadosQuizz();">Criar Quizz</button>
-        </section> 
-    `;
-    fetchServerQuizzes();
-}
+
 
 
 
