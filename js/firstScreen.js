@@ -38,10 +38,10 @@ function fetchServerQuizzes(){
 
 function showQuizzes(response){
     const serverQuizzes = response.data; 
-
-    //console.log(response.data); //vendo a array de quizzes que ele retorna
     let quizzesList = document.querySelector(".all-quizzes");
-    quizzesList.innerHTML = "";
+    let filterQuizz = [];
+    quizzesList.innerHTML = "";   
+
     if(deserializedKey.length === 0){
         for(let i = 0; i < serverQuizzes.length; i++){
                     quizzesList.innerHTML += `
@@ -52,22 +52,29 @@ function showQuizzes(response){
                     </article>
                     `;
         }
-    } else {
+    } else { 
         for(let i = 0; i < serverQuizzes.length; i++){
+            
             for (let j=0; j < deserializedKey.length; j++){
-                if ((serverQuizzes[i].id !== deserializedKey[j].id)){
-                    quizzesList.innerHTML += `
-                    <article class="individual-quizz element${serverQuizzes[i].id}" onclick="createPost_T2(${serverQuizzes[i].id})" data-identifier="quizz-card">
-                        <img src="${serverQuizzes[i].image}" alt="${serverQuizzes[i].title}">
-                        <div class="shadow"></div> 
-                        <h1>${serverQuizzes[i].title}</h1>
-                    </article>
-                    `;
+    
+                if ((serverQuizzes[i].id !== deserializedKey[j].id) && (filterQuizz.some((e) => {e === deserializedKey[j]}) === false)){
+                   filterQuizz.push(serverQuizzes[i]);
                 }
             }
         }
+        for(let i = 0; i < filterQuizz.length; i++){
+            quizzesList.innerHTML += `
+            <article class="individual-quizz element${serverQuizzes[i].id}" onclick="createPost_T2(${serverQuizzes[i].id})" data-identifier="quizz-card">
+                <img src="${serverQuizzes[i].image}" alt="${serverQuizzes[i].title}">
+                <div class="shadow"></div> 
+                <h1>${serverQuizzes[i].title}</h1>
+            </article>
+            `;
+        }
     }
+    
 }
+
 
 function startFirstScreenWithoutUserQuizzes(){
     document.querySelector(".quizzUser").innerHTML = `
