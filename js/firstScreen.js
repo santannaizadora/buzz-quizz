@@ -100,6 +100,11 @@ function startFirstScreenWithoutUserQuizzes(){
     fetchServerQuizzes();
 }
 
+function enviarDadosQuizz(){
+    document.querySelector('.create-quizz-info').classList.remove('hidden')
+    document.querySelector('.first-screen').classList.add('hidden')
+}
+
 
 
 //PARA ARMAZENAR OS QUIZZES DO USUARIO
