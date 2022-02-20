@@ -53,28 +53,30 @@ function showQuizzes(response){
                     `;
         }
     } else { 
-        for(let i = 0; i < serverQuizzes.length; i++){
-            
-            for (let j=0; j < deserializedKey.length; j++){
-    
-                if ((serverQuizzes[i].id !== deserializedKey[j].id) && (filterQuizz.some((e) => {e === deserializedKey[j]}) === false)){
-                   filterQuizz.push(serverQuizzes[i]);
+        filterQuizz = serverQuizzes.filter((e) => {
+            let control = true;
+            for(let i =0; i < deserializedKey.length; i++){
+                if(e.id === deserializedKey[i].id){
+                    control = control && false;
+                } else if(e.id !== deserializedKey[i].id) {
+                    control = control && true;
                 }
-            }
+            } 
+            return control;
         }
+        );
+       
         for(let i = 0; i < filterQuizz.length; i++){
             quizzesList.innerHTML += `
-            <article class="individual-quizz element${serverQuizzes[i].id}" onclick="createPost_T2(${serverQuizzes[i].id})" data-identifier="quizz-card">
-                <img src="${serverQuizzes[i].image}" alt="${serverQuizzes[i].title}">
+            <article class="individual-quizz element${filterQuizz[i].id}" onclick="createPost_T2(${filterQuizz[i].id})" data-identifier="quizz-card">
+                <img src="${filterQuizz[i].image}" alt="${filterQuizz[i].title}">
                 <div class="shadow"></div> 
-                <h1>${serverQuizzes[i].title}</h1>
+                <h1>${filterQuizz[i].title}</h1>
             </article>
             `;
         }
     }
-    
 }
-
 
 function startFirstScreenWithoutUserQuizzes(){
     document.querySelector(".quizzUser").innerHTML = `
