@@ -2,7 +2,7 @@ header{
     z-index: 2;
 }
 
-main{
+.main__T2 {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -55,17 +55,20 @@ main{
 
 .containerQuizz {
     display: flex;
-    max-width: 92%;
     align-items: center;
-    justify-content: space-around;
+    flex-direction: column;
+}
+
+.blockQuizzT2{
+    width: 100%;
+    display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .blockQuizzT2 img{
-    height: 113px;
-    margin-bottom: 6px;
-    max-width: 163px;
-    /* margin-left: 12px; */
+    width: calc(100vw*0.43); 
 }
 
 .blockQuizzT2 p{
@@ -76,6 +79,7 @@ main{
     font-weight: bold;
     font-size: 13px;
     line-height: 15px;
+    width: calc(100vw*0.43); 
 }
 
 .column1QuizzT2 {
@@ -109,7 +113,7 @@ main{
 /*Quizz Result configurations CSS*/
 .quizzResultTitle_T2 {
     background-color: #EC362D; /*Vai ser dado de entrada para cada pergunta*/
-    width: 90%;
+    width: 100%;
     height: 99px;
     display: flex;
     flex-direction: column;
@@ -128,7 +132,7 @@ main{
 
 .quizzResultInfo_T2 {
     /* height: 255px; */
-    width: 90%;
+   /*  width: 90%; */
     display: flex;
     flex-direction: column;
     margin: 9px auto 0 auto;
@@ -145,7 +149,7 @@ main{
 }
 
 .quizzResultInfo_T2 img{
-    max-width: 100%;
+    width: calc(100vw*0.9);
 }
 
 .restartQuizz_T2 {
@@ -189,15 +193,16 @@ main{
     display: none;
 }
 
-.subBlockAnswer{
+/* .subBlockAnswer{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     max-width: 117px;
-}
+} */
 
 .allInfoQuizz {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -206,47 +211,59 @@ main{
 
 .containAllQuizz {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
+    flex-direction: column;
+    width: calc(100vw*0.9);
 }
 
-.containAllQuizz img{
+/* .containAllQuizz img{
     max-width: 143px;
+} */
+
+.finalOptions_T2{
+    width: calc(100vw*0.9);
 }
+
 
 @media only screen and (min-width: 1100px) {
 
-    .containerQuizz {
+/*     .containerQuizz {
         flex-direction: column;
         width: 64%;
-    }
+    } */
 
     .containAllQuizz {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
         align-items: center;
-        width: 100%;
+        width: calc(100vw/2.08);
     }
     
-    .containAllQuizz img{
-        max-width: 330px;
+/*     .containAllQuizz img{
+        width: calc(100vw/(2.15*2.08));
         height: 100%;
     }
-
+ */
     .subBlockAnswer{
         display: flex;
         flex-direction: column;
-        justify-content: center;
+/*         justify-content: center;
         align-items: center;
-        max-width: 350px;
+        max-width: 350px; */
+    }
+
+    .blockQuizzT2{
+        width:100%;
     }
 
     .blockQuizzT2 img{
         margin-bottom: 6px;
-        margin-right: 24px;
-        width: 330px;
+        /* margin-right: 24px; */
+        width: calc(100vw/(2.15*2.08));
+        height: 100%;
+        max-width: 100%;
     }
     
     .blockQuizzT2 p{
@@ -255,13 +272,43 @@ main{
         font-family: Roboto;
         font-style: normal;
         font-weight: bold;
-        font-size: 13px;
-        line-height: 15px;
+        font-size: 20px;
+        line-height: 23px;
+        width: calc(100vw/(2.15*2.08));
     }
 
     .questionTitleT2{
-        min-width: 700px;
-        width: 100%;
+        width: calc(100vw/2.08);
     }
 
+    .quizzTitleT2 p{
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 23px;
+        line-height: 27px;
+        color: #ffff;
+        word-break: break-all;
+    }
+
+    .quizzResultInfo_T2 img{
+        width: calc(100vw/2.08);
+    }
+
+    .quizzResultInfo_T2 p{
+        font-size: 23px;
+    }
+
+    
+    .finalOptions_T2{
+        width: calc(100vw/2.08);
+    }
+
+    .restartQuizz_T2 {
+        font-size: 21px;
+    }
+    
+    .homeButtom_T2 {
+        font-size: 21px;
+    }
 }
