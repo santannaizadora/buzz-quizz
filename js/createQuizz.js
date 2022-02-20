@@ -535,14 +535,6 @@ const goToLevels = () => {
     }
 }
 
-const goToQuizz = () => {
-
-}
-
-const goToHome = () => {
-
-}
-
 const finishCreateQuizz = () => {
     getLevelInfos()
     validateLevel()
@@ -553,6 +545,7 @@ const finishCreateQuizz = () => {
     if(IsValidLevel() != false && thereIsZeroPercent() == 0){
         postResponse = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizzObj)
         postResponse.then(saveLocalStorage)
+        loadFinishQuizz()
         document.querySelector('.create-quizz-levels').classList.add('hidden')
         document.querySelector('.create-quizz-success').classList.remove('hidden')
         cleanCreateQuizzInfos()
@@ -755,6 +748,14 @@ const loadLevelsInputs = () => {
     createLevelsContainer.innerHTML = levelsInputs
 }
 
+const loadFinishQuizz = () => {
+    document.querySelector('.create-quizz-success').innerHTML = `
+        <h2>Seu quizz está pronto!</h2>
+        <div class="quizz-img"></div>
+        <button class="create-quizz-button" onclick="showSecondScreen()">Acessar Quizz</button>
+        <button class="create-quizz-button back-home" onclick="showFirstScreen()">Voltar para home</button>` 
+}
+
 const loadImageQuizz = () => {
     document.querySelector('.quizz-img')
 }
@@ -790,6 +791,17 @@ const showLevelInputs = (minDiv, maxDiv) => {
     max.classList.add('level-selected')
     max.classList.remove('hidden')
     max.scrollIntoView({ block: "end", behavior: "smooth" })
+}
+
+const showFirstScreen = () => {
+    startFirstScreen()
+    document.querySelector('.create-quizz-success').classList.add('hidden')
+    document.querySelector('.first-screen').classList.remove('hidden')
+}
+
+const showSecondScreen = () => {
+    document.querySelector('.create-quizz-success').classList.add('hidden')
+    createPost_T2(`${postResponse.data.id}`)
 }
 
 //ADICIONA OS INPUTS PARA AS RESPOSTAS NÃO OBRIGATÓRIAS
