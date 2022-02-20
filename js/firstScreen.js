@@ -99,6 +99,11 @@ function showUserQuizzes(arrayUserQuizzes){
 
 
 
+function enviarDadosQuizz(){
+    document.querySelector('.create-quizz-info').classList.remove('hidden')
+    document.querySelector('.first-screen').classList.add('hidden')
+}
+
 
 
 //PARA ARMAZENAR OS QUIZZES DO USUARIO

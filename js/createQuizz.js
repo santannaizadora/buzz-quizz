@@ -551,7 +551,8 @@ const finishCreateQuizz = () => {
     }
 
     if(IsValidLevel() != false && thereIsZeroPercent() == 0){
-        axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizzObj).then(saveLocalStorage)
+        postResponse = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizzObj)
+        postResponse.then(saveLocalStorage)
         document.querySelector('.create-quizz-levels').classList.add('hidden')
         document.querySelector('.create-quizz-success').classList.remove('hidden')
         cleanCreateQuizzInfos()
