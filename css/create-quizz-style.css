@@ -123,6 +123,10 @@
     width: 90%;
 }
 
+.create-quizz{
+    
+}
+
 @media (min-width: 1100px) {
     .inputs{
         width: 400px;
