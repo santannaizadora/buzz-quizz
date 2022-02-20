@@ -203,3 +203,65 @@ main{
     align-items: center;
     justify-content: center;
 }
+
+.containAllQuizz {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.containAllQuizz img{
+    max-width: 143px;
+}
+
+@media only screen and (min-width: 1100px) {
+
+    .containerQuizz {
+        flex-direction: column;
+        width: 64%;
+    }
+
+    .containAllQuizz {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .containAllQuizz img{
+        max-width: 330px;
+        height: 100%;
+    }
+
+    .subBlockAnswer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: 350px;
+    }
+
+    .blockQuizzT2 img{
+        margin-bottom: 6px;
+        margin-right: 24px;
+        width: 330px;
+    }
+    
+    .blockQuizzT2 p{
+        margin-bottom: 12px;
+        word-break: break-all;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 13px;
+        line-height: 15px;
+    }
+
+    .questionTitleT2{
+        min-width: 700px;
+        width: 100%;
+    }
+
+}

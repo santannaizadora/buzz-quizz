@@ -687,33 +687,32 @@ const loadQuestionsInputs = () => {
 
 const loadLevelsInputs = () => {
     let levelsInputs = `
-    <div id="min-level-1" class="min-level-inputs hidden min-level-selected" onclick="showLevelInputs('min-level-1','level-1')">
-                    <div>
-                        <p>Nível 1</p>
-                        <img src="./img/Vector.png" alt="editar">
-                    </div>
-                </div>
-                <div id="level-1" class="inputs level-selected">
-                    <h3>Nível 1</h3>
-                    <div class="group-inputs">
-                        <input id="level-title-1" class="create-quizz-input" type="text" placeholder="Título do nível">
-                        <p id="invalid-level-title-1" class="invalid-error-message hidden">O título do nível deve ter no mínimo 20 caracteres</p>
-                    </div>                   
-                    <div class="group-inputs">
-                        <input id="rating-level-1" class="create-quizz-input" type="text" placeholder="% acerto mínima">
-                        <p id="invalid-level-rating-1" class="invalid-error-message hidden">O valor informado deve ser entre 0 e 100</p>
-                    </div>
-                    <div class="group-inputs">
-                        <input id="level-img-url-1" class="create-quizz-input" type="text" placeholder="URL da imagem do nível">
-                        <p id="invalid-level-image-1" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
-                    </div>
-                    
-                    <div class="group-inputs">
-                        <textarea id="level-description-1" class="create-quizz-textarea" type="text" placeholder="Descrição do nível"></textarea>
-                        <p id="invalid-level-description-1" class="invalid-error-message hidden">A descrição deve ter no mínimo 30 caracteres</p>
-                    </div>
-                </div>
-    `
+        <div id="min-level-1" class="min-level-inputs hidden min-level-selected" onclick="showLevelInputs('min-level-1','level-1')">
+            <div>
+                <p>Nível 1</p>
+                <img src="./img/Vector.png" alt="editar">
+            </div>
+        </div>
+        <div id="level-1" class="inputs level-selected">
+            <h3>Nível 1</h3>
+            <div class="group-inputs">
+                <input id="level-title-1" class="create-quizz-input" type="text" placeholder="Título do nível">
+                <p id="invalid-level-title-1" class="invalid-error-message hidden">O título do nível deve ter no mínimo 20 caracteres</p>
+            </div>                   
+            <div class="group-inputs">
+                <input id="rating-level-1" class="create-quizz-input" type="text" placeholder="% acerto mínima">
+                <p id="invalid-level-rating-1" class="invalid-error-message hidden">O valor informado deve ser entre 0 e 100</p>
+            </div>
+            <div class="group-inputs">
+                <input id="level-img-url-1" class="create-quizz-input" type="text" placeholder="URL da imagem do nível">
+                <p id="invalid-level-image-1" class="invalid-error-message hidden">O valor informado não é uma url válida</p>
+            </div>
+                
+            <div class="group-inputs">
+                <textarea id="level-description-1" class="create-quizz-textarea" type="text" placeholder="Descrição do nível"></textarea>
+                <p id="invalid-level-description-1" class="invalid-error-message hidden">A descrição deve ter no mínimo 30 caracteres</p>
+            </div>
+        </div>`
     let createLevelsContainer = document.getElementById('levels-inputs')
     for (let i = 0; i < (numLevels - 1); i++) {
         const index = i + 2
