@@ -42,21 +42,31 @@ function showQuizzes(response){
     //console.log(response.data); //vendo a array de quizzes que ele retorna
     let quizzesList = document.querySelector(".all-quizzes");
     quizzesList.innerHTML = "";
-
-    for(let i = 0; i < serverQuizzes.length; i++){
-        for (let j=0; j < deserializedKey.length; j++){
-            if (serverQuizzes[i].id !== deserializedKey[j].id){
-                quizzesList.innerHTML += `
-                <article class="individual-quizz element${serverQuizzes[i].id}" onclick="createPost_T2(${serverQuizzes[i].id})" data-identifier="quizz-card">
-                    <img src="${serverQuizzes[i].image}" alt="${serverQuizzes[i].title}">
-                    <div class="shadow"></div> 
-                    <h1>${serverQuizzes[i].title}</h1>
-                </article>
-                `;
-            }
-
+    if(deserializedKey.length === 0){
+        for(let i = 0; i < serverQuizzes.length; i++){
+                    quizzesList.innerHTML += `
+                    <article class="individual-quizz element${serverQuizzes[i].id}" onclick="createPost_T2(${serverQuizzes[i].id})" data-identifier="quizz-card">
+                        <img src="${serverQuizzes[i].image}" alt="${serverQuizzes[i].title}">
+                        <div class="shadow"></div> 
+                        <h1>${serverQuizzes[i].title}</h1>
+                    </article>
+                    `;
         }
-    }   
+    } else {
+        for(let i = 0; i < serverQuizzes.length; i++){
+            for (let j=0; j < deserializedKey.length; j++){
+                if ((serverQuizzes[i].id !== deserializedKey[j].id)){
+                    quizzesList.innerHTML += `
+                    <article class="individual-quizz element${serverQuizzes[i].id}" onclick="createPost_T2(${serverQuizzes[i].id})" data-identifier="quizz-card">
+                        <img src="${serverQuizzes[i].image}" alt="${serverQuizzes[i].title}">
+                        <div class="shadow"></div> 
+                        <h1>${serverQuizzes[i].title}</h1>
+                    </article>
+                    `;
+                }
+            }
+        }
+    }
 }
 
 function startFirstScreenWithoutUserQuizzes(){
