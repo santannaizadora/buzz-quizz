@@ -554,7 +554,8 @@ const finishCreateQuizz = () => {
 
 //ARMAZENA NO LOCAL STORAGE
 const saveLocalStorage = (response) => {
-    let data = []
+    let storage = localStorage.getItem("userQuizzes")
+    let data = JSON.parse(storage)
     data.push(response.data)
     let serializedData = JSON.stringify(data)
     localStorage.setItem("userQuizzes", serializedData)
@@ -794,9 +795,7 @@ const showLevelInputs = (minDiv, maxDiv) => {
 }
 
 const showFirstScreen = () => {
-    startFirstScreen()
-    document.querySelector('.create-quizz-success').classList.add('hidden')
-    document.querySelector('.first-screen').classList.remove('hidden')
+    window.location.reload()
 }
 
 const showSecondScreen = () => {
