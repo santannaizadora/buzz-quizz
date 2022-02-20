@@ -16,7 +16,7 @@ function startFirstScreen(){
             <section class="quizzUser"></section>
             <section class="all-quizzes-list">
                 <p>Todos os quizzes</p>
-                <div class="all-quizzes">
+                <div class="all-quizzes" data-identifier="general-quizzes">
                 </div>
             </section>
         </main>
@@ -47,7 +47,7 @@ function showQuizzes(response){
         for (let j=0; j < deserializedKey.length; j++){
             if (serverQuizzes[i].id !== deserializedKey[j].id){
                 quizzesList.innerHTML += `
-                <article class="individual-quizz element${serverQuizzes[i].id}" onclick="createPost_T2(${serverQuizzes[i].id})">
+                <article class="individual-quizz element${serverQuizzes[i].id}" onclick="createPost_T2(${serverQuizzes[i].id})" data-identifier="quizz-card">
                     <img src="${serverQuizzes[i].image}" alt="${serverQuizzes[i].title}">
                     <div class="shadow"></div> 
                     <h1>${serverQuizzes[i].title}</h1>
@@ -63,7 +63,7 @@ function startFirstScreenWithoutUserQuizzes(){
     document.querySelector(".quizzUser").innerHTML = `
         <section class="box-without-quizzes">
             <p>Você não criou nenhum quizz ainda :(</p>
-            <button class="button-create-quizz" onclick="enviarDadosQuizz();">Criar Quizz</button>
+            <button class="button-create-quizz" onclick="enviarDadosQuizz()" data-identifier="create-quizz">Criar Quizz</button>
         </section> 
     `;
 }
@@ -81,9 +81,9 @@ function startUserQuizzes(arrayUserQuizzes){
     document.querySelector(".quizzUser").innerHTML = `
         <div class="user-quizzes-T1">
             <p>Seus quizzes</p>
-            <ion-icon class="add-quizz-button" name="add-circle-sharp"  onclick="enviarDadosQuizz()"></ion-icon>
+            <ion-icon class="add-quizz-button" name="add-circle-sharp"  onclick="enviarDadosQuizz()" data-identifier="create-quizz"></ion-icon>
         </div>
-        <div class="all-user-quizzes"></div>
+        <div class="all-user-quizzes" data-identifier="user-quizzes"></div>
     `;
     showUserQuizzes(arrayUserQuizzes);
 }  
@@ -91,7 +91,7 @@ function startUserQuizzes(arrayUserQuizzes){
 function showUserQuizzes(arrayUserQuizzes){
     for (let i = 0; i<arrayUserQuizzes.length; i++){
         document.querySelector(".all-user-quizzes").innerHTML += `
-            <article class="individual-quizz element${arrayUserQuizzes[i].id}" onclick="createPost_T2(${arrayUserQuizzes[i].id})">
+            <article class="individual-quizz element${arrayUserQuizzes[i].id}" onclick="createPost_T2(${arrayUserQuizzes[i].id})" data-identifier="quizz-card">
                 <img src="${arrayUserQuizzes[i].image}" alt="${arrayUserQuizzes[i].title}">
                 <div class="shadow"></div> 
                 <h1>${arrayUserQuizzes[i].title}</h1>
