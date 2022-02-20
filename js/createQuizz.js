@@ -6,7 +6,7 @@ let quizzObj = {
 }
 let numQuestions = 0
 let numLevels = 0
-let postResponse = ''
+let postResponse
 
 //FUNÇÕES DE VALIDAÇÃO DOS INPUTS
 const isQuizzTitleValid = (title) => {
@@ -554,6 +554,7 @@ const finishCreateQuizz = () => {
 
 //ARMAZENA NO LOCAL STORAGE
 const saveLocalStorage = (response) => {
+    postResponse = response.data
     let storage = localStorage.getItem("userQuizzes")
     let data = JSON.parse(storage)
     data.push(response.data)
@@ -800,7 +801,7 @@ const showFirstScreen = () => {
 
 const showSecondScreen = () => {
     document.querySelector('.create-quizz-success').classList.add('hidden')
-    createPost_T2(`${postResponse.data.id}`)
+    createPost_T2(`${postResponse.id}`)
 }
 
 //ADICIONA OS INPUTS PARA AS RESPOSTAS NÃO OBRIGATÓRIAS
