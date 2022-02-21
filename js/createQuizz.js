@@ -106,33 +106,32 @@ const getBasicInfos = () => {
 const getQuestionInfos = () => {
     quizzObj.questions = []
 
-    let correctAnswerObj = {
-        text: '',
-        image: '',
-        isCorrectAnswer: true
-    }
-    let firstWrongAnswerObj = {
-        text: '',
-        image: '',
-        isCorrectAnswer: false
-    }
-    let secondWrongAnswerObj = {
-        text: '',
-        image: '',
-        isCorrectAnswer: false
-    }
-    let thirdWrongAnswerObj = {
-        text: '',
-        image: '',
-        isCorrectAnswer: false
-    }
     for (let i = 0; i < numQuestions; i++) {
         let questionObj = {
             title: '',
             color: '',
             answers: []
         }
-
+        let correctAnswerObj = {
+            text: '',
+            image: '',
+            isCorrectAnswer: true
+        }
+        let firstWrongAnswerObj = {
+            text: '',
+            image: '',
+            isCorrectAnswer: false
+        }
+        let secondWrongAnswerObj = {
+            text: '',
+            image: '',
+            isCorrectAnswer: false
+        }
+        let thirdWrongAnswerObj = {
+            text: '',
+            image: '',
+            isCorrectAnswer: false
+        }
         const index = i + 1;
 
         const secondWrongInputs = document.getElementById(`second-${index}`)
@@ -520,6 +519,7 @@ const goToQuestions = () => {
         document.querySelector('.create-quizz-questions').classList.remove('hidden')
     } else {
         invalidBasicInfos()
+        alert('Verifique todos os campos!')
     }
 }
 
@@ -532,6 +532,8 @@ const goToLevels = () => {
         loadLevelsInputs()
         document.querySelector('.create-quizz-questions').classList.add('hidden')
         document.querySelector('.create-quizz-levels').classList.remove('hidden')
+    } else{
+        alert('Verifique todos os campos!')
     }
 }
 
@@ -546,8 +548,11 @@ const finishCreateQuizz = () => {
         postResponse = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizzObj)
         postResponse.then(saveLocalStorage, loadFinishQuizz)
         loadFinishQuizz()
+        console.log(quizzObj)
         document.querySelector('.create-quizz-levels').classList.add('hidden')
         document.querySelector('.create-quizz-success').classList.remove('hidden')
+    } else{
+        alert('Verifique todos os campos!')
     }
 }
 
