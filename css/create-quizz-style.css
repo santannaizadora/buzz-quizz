@@ -142,5 +142,6 @@
     .create-quizz h2,
     .create-quizz h3{
         font-size: 23px;
+        width: 564px;
     }
 }
