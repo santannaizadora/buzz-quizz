@@ -78,6 +78,9 @@ function showQuizzes(messageAllQuizz) {
 // Função para criar o Quizz na tela
 function createPostQuizz(dataAnswerAxios) {
 
+    arrayCorrectWrong = [];
+    auxarrayCorrectWrong = arrayCorrectWrong;
+
     // Array booleano para controlar o clique na resposta
     for (let i = 0; i < dataAnswerAxios.questions.length; i++) {
         booleanContainerAnswers.push(true);
@@ -215,6 +218,7 @@ function selectAnswer(div,num){
     }, 2000);
 
     pegandoocontador();
+    
     return [contUserAnswer, contClicked];  
 }
 
@@ -227,7 +231,7 @@ function scrollToFinalAnswer(){
 
 // Analisando se todas as questões foram respondidas
 function pegandoocontador(){
-    
+
     if(contClicked == dataAnswerAxios.questions.length){
         finalAnswer();
         setTimeout(scrollToFinalAnswer, 2000);
@@ -252,14 +256,12 @@ function finalAnswer(){
     // Análise para identificar possível inversão de input do usuário
     // Caso o usuário coloque o valor minimo do nível zero como o maior
     levelsComp = dataAnswerAxios.levels[0].minValue > dataAnswerAxios.levels[auxContMinValue].minValue;
-        
     // Lógica para mostrar resultado correto independente de como o usuário informa os níveis
         if(levelsComp){
             
             for(let i = 0; i < dataAnswerAxios.levels.length; i++){
 
                 if(dataAnswerAxios.levels[auxLevelAnswers].minValue <= Math.floor(percRights)){
-                    console.log(auxLevelAnswers)
                     auxLevelHists = auxLevelAnswers;
                 }
                 auxLevelAnswers--;
@@ -272,7 +274,7 @@ function finalAnswer(){
                 }
             }
         }
-        
+
         //Inserção do resultado final na tela
     quizzFinalResult.innerHTML += ` <div data-identifier="quizz-result" class="quizzResult_T2">
                                                 <div class="quizzResultTitle_T2">
@@ -292,6 +294,9 @@ function finalAnswer(){
                                                 <div class="homeButtom_T2" onclick="backHome()">
                                                     <p>Voltar pra home</p>
                                                 </div>`
+
+    let showResults = document.getElementById("resetFinalResult");
+    showResults.classList.remove("resultHidden_T2");
 
     return quizzFinalResult;
 }
@@ -347,6 +352,9 @@ function restartButtom(){
     auxarrayCorrectWrong = arrayCorrectWrong;
     contClicked = 0;
     auxScrollingQuestions = 0;
+
+    let hideResults = document.getElementById("resetFinalResult");
+    hideResults.classList.add("resultHidden_T2");
 
     let infoAllQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     infoAllQuizz.then(showQuizzes);
