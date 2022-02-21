@@ -1,20 +1,22 @@
+/* Topo*/
+
 header{
     z-index: 2;
 }
 
+/*Bloco com todo conteúdo do quizz*/
 .main__T2 {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+/*Configurações Quizz título*/
 .quizzTitleT2{
-    /* background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://http.cat/411.jpg'); */
     background-position: 100% 50%;
     background-size: cover;
     width: 100%;
     height: 142px;
-    margin-top: 69px;
     display: flex;
     text-align: center;
     flex-direction: column;
@@ -33,9 +35,8 @@ header{
     word-break: break-all;
 }
 
+/*Configurações questões Quizz*/
 .questionTitleT2 {
-    background-color: #434CA0; /*Vai ser dado de entrada para cada pergunta*/
-    background-color: var(--color); /*Vai ser dado de entrada para cada pergunta*/
     width: 100%;
     height: 89px;
     display: flex;
@@ -102,17 +103,10 @@ header{
     
 }
 
-.correct{
-    color: #009C22;
-}
 
-.wrong{
-    color: #FF0B0B;
-}
-
-/*Quizz Result configurations CSS*/
+/*Configurações quizz resultados*/
 .quizzResultTitle_T2 {
-    background-color: #EC362D; /*Vai ser dado de entrada para cada pergunta*/
+    background-color: #EC362D; 
     width: 100%;
     height: 99px;
     display: flex;
@@ -131,8 +125,6 @@ header{
 }
 
 .quizzResultInfo_T2 {
-    /* height: 255px; */
-   /*  width: 90%; */
     display: flex;
     flex-direction: column;
     margin: 9px auto 0 auto;
@@ -193,14 +185,6 @@ header{
     display: none;
 }
 
-/* .subBlockAnswer{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 117px;
-} */
-
 .allInfoQuizz {
     width: 100%;
     display: flex;
@@ -217,21 +201,24 @@ header{
     width: calc(100vw*0.9);
 }
 
-/* .containAllQuizz img{
-    max-width: 143px;
-} */
-
 .finalOptions_T2{
     width: calc(100vw*0.9);
 }
 
+/*Adicionando cor para respostas corretas e incorretas*/
+.correct{
+    color: #009C22;
+}
+
+.wrong{
+    color: #FF0B0B;
+}
+
+/*Configurações telas maiores que 1100px*/
 
 @media only screen and (min-width: 1100px) {
 
-/*     .containerQuizz {
-        flex-direction: column;
-        width: 64%;
-    } */
+    /*Configurações quizz*/
 
     .containAllQuizz {
         display: flex;
@@ -241,17 +228,9 @@ header{
         width: calc(100vw/2.08);
     }
     
-/*     .containAllQuizz img{
-        width: calc(100vw/(2.15*2.08));
-        height: 100%;
-    }
- */
     .subBlockAnswer{
         display: flex;
         flex-direction: column;
-/*         justify-content: center;
-        align-items: center;
-        max-width: 350px; */
     }
 
     .blockQuizzT2{
@@ -260,7 +239,6 @@ header{
 
     .blockQuizzT2 img{
         margin-bottom: 6px;
-        /* margin-right: 24px; */
         width: calc(100vw/(2.15*2.08));
         height: 100%;
         max-width: 100%;
@@ -291,6 +269,8 @@ header{
         word-break: break-all;
     }
 
+    /*Configurações resultado quizz*/
+    
     .quizzResultInfo_T2 img{
         width: calc(100vw/2.08);
     }
