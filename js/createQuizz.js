@@ -569,13 +569,13 @@ const saveLocalStorage = (response) => {
 //FUNÇÕES QUE CARREGAM OS CAMPOS NECESSÁRIOS DE ACORDO COM O VALOR INFORMADO PELO USUÁRIO
 const loadQuestionsInputs = () => {
     let questionsInputs = `
-    <div id="min-1" class="min-question-inputs hidden min-selected" onclick="showQuestionInputs('min-1','question-1')">
+    <div id="min-1" class="min-question-inputs hidden min-selected" onclick="showQuestionInputs('min-1','question-1')" data-identifier="expand">
     <div>
         <p>Pergunta 1</p>
         <img src="./img/Vector.png" alt="editar">
     </div>
 </div>
-<div id="question-1" class="inputs question-selected">
+<div id="question-1" class="inputs question-selected" data-identifier="question">
     <h3>Pergunta 1</h3>
     <div class="group-inputs">
         <input id="1-question-text" class="create-quizz-input" type="text" placeholder="Texto da pergunta">
@@ -631,13 +631,13 @@ const loadQuestionsInputs = () => {
     for (let i = 0; i < (numQuestions - 1); i++) {
         let index = i + 2
         questionsInputs += `
-        <div id="min-${index}" class="min-question-inputs" onclick="showQuestionInputs('min-${index}','question-${index}')">
+        <div id="min-${index}" class="min-question-inputs" onclick="showQuestionInputs('min-${index}','question-${index}')" data-identifier="expand">
             <div>
                 <p>Pergunta ${index}</p>
                 <img src="./img/Vector.png" alt="editar">
             </div>        
         </div>
-        <div id="question-${index}" class="inputs hidden">
+        <div id="question-${index}" class="inputs hidden" data-identifier="question">
             <h3>Pergunta ${index}</h3>
             <div class="group-inputs">
                 <input id="${index}-question-text" class="create-quizz-input" type="text" placeholder="Texto da pergunta">
@@ -693,13 +693,13 @@ const loadQuestionsInputs = () => {
 
 const loadLevelsInputs = () => {
     let levelsInputs = `
-        <div id="min-level-1" class="min-level-inputs hidden min-level-selected" onclick="showLevelInputs('min-level-1','level-1')">
+        <div id="min-level-1" class="min-level-inputs hidden min-level-selected" onclick="showLevelInputs('min-level-1','level-1')" data-identifier="expand">
             <div>
                 <p>Nível 1</p>
                 <img src="./img/Vector.png" alt="editar">
             </div>
         </div>
-        <div id="level-1" class="inputs level-selected">
+        <div id="level-1" class="inputs level-selected" data-identifier="level">
             <h3>Nível 1</h3>
             <div class="group-inputs">
                 <input id="level-title-1" class="create-quizz-input" type="text" placeholder="Título do nível">
@@ -723,13 +723,13 @@ const loadLevelsInputs = () => {
     for (let i = 0; i < (numLevels - 1); i++) {
         const index = i + 2
         levelsInputs += `
-        <div id="min-level-${index}" class="min-level-inputs min-level-selected" onclick="showLevelInputs('min-level-${index}','level-${index}')">
+        <div id="min-level-${index}" class="min-level-inputs min-level-selected" onclick="showLevelInputs('min-level-${index}','level-${index}')" data-identifier="expand">
                 <div>
                     <p>Nível ${index}</p>
                     <img src="./img/Vector.png" alt="editar">
                 </div>
             </div>
-            <div id="level-${index}" class="inputs hidden">
+            <div id="level-${index}" class="inputs hidden" data-identifier="level">
                 <h3>Nível ${index}</h3>
                 <div class="group-inputs">
                         <input id="level-title-${index}" class="create-quizz-input" type="text" placeholder="Título do nível">

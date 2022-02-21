@@ -125,13 +125,22 @@
 
 @media (min-width: 1100px) {
     .inputs{
-        width: 400px;
+        width: 600px;
         margin: 0 auto 25px auto;
     }
 
     .min-question-inputs,
     .min-level-inputs {
-        width: 400px;
+        width: 600px;
         margin: 0 auto 25px auto;
+    }
+
+    .create-quizz-input,
+    .create-quizz-textarea {
+        width: 564px;
+    }
+    .create-quizz h2,
+    .create-quizz h3{
+        font-size: 23px;
     }
 }
