@@ -301,9 +301,6 @@ function backHome(){
 
     let back = document.getElementById("mainT2");
     back.classList.add("resultHidden_T2");
-        
-    let home = document.querySelector(".container");
-    home.classList.remove("resultHidden_T2");
 
     arrayId = [];
     booleanContainerAnswers = [];
@@ -332,6 +329,8 @@ function backHome(){
     document.querySelector(".containerQuizz").innerHTML = "";
 
     window.clearTimeout(scrollToFinalAnswer);
+
+    window.location.reload();
 }
 
 // Função para reiniciar o quizz
@@ -364,5 +363,6 @@ function restartButtom(){
     document.querySelector(".containerQuizz").innerHTML = "";
 
     window.clearTimeout(scrollToFinalAnswer);
+
     
 }
